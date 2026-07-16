@@ -1,0 +1,169 @@
+---
+title: Quickstart
+description: Set up your Inrepli account, create your first agent, and handle your initial lead in minutes.
+---
+
+## Prerequisites
+
+<Callout kind="info">
+
+Before starting, ensure you have:
+
+- A live website to integrate the chat widget
+- Admin access to your website's code (HTML/CMS)
+- A business email for sign-up
+
+</Callout>
+
+## Sign up and access your dashboard
+
+Follow these steps to create your Inrepli account and reach the dashboard.
+
+<Steps>
+  <Step title="Create account" icon="user-plus">
+    Visit `https://dashboard.inrepli.com/signup` and enter your business email, company name, and password.
+    
+    Verify your email via the confirmation link sent to your inbox.
+  </Step>
+  <Step title="Access dashboard" icon="monitor">
+    Log in at `https://dashboard.inrepli.com/login`.
+    
+    You'll land on the main dashboard showing zero agents and leads.
+  </Step>
+</Steps>
+
+## Launch Setup Agent
+
+The Setup Agent automatically configures your first agent based on your website content.
+
+<Steps>
+  <Step title="Start Setup Agent" icon="rocket">
+    From the dashboard, click **Launch Setup Agent**.
+    
+    Enter your website URL (e.g., `https://yourcompany.com`).
+    
+    The agent scans your site for FAQs, services, and contact info in under 60 seconds.
+  </Step>
+  <Step title="Review auto-config" icon="settings">
+    Confirm or edit the detected knowledge base items.
+    
+    Click **Create Inbound Agent** to generate your first agent.
+  </Step>
+</Steps>
+
+## Configure and deploy Inbound Agent
+
+Customize your Inbound Agent for lead capture.
+
+<Step title="Embed website chat" icon="code">
+
+Add the chat widget to your site. Use the provided script:
+
+<CodeGroup tabs="HTML,React,Next.js">
+  ```html
+  <script src="https://cdn.inrepli.com/chat-widget.js" 
+          data-agent-id="YOUR_AGENT_ID" 
+          data-theme="#339cac">
+  </script>
+  ```
+  ```jsx
+  import { InrepliChat } from '@inrepli/chat-widget';
+  
+  function App() {
+    return (
+      <InrepliChat 
+        agentId="YOUR_AGENT_ID"
+        theme="#339cac"
+      />
+    );
+  }
+  ```
+  ```jsx
+  // app/layout.tsx
+  import Script from 'next/script';
+  
+  export default function RootLayout({ children }) {
+    return (
+      <html>
+        <body>
+          {children}
+          <Script
+            src="https://cdn.inrepli.com/chat-widget.js"
+            data-agent-id="YOUR_AGENT_ID"
+            data-theme="#339cac"
+          />
+        </body>
+      </html>
+    );
+  }
+  ```
+</CodeGroup>
+
+Replace `YOUR_AGENT_ID` with the ID from your dashboard.
+
+</Step>
+
+## Test your first lead
+
+Verify the full flow works.
+
+<Tabs>
+  <Tab title="Test chat" icon="message-circle">
+    Open your website in an incognito browser.
+    
+    Click the chat widget and ask: "Tell me about pricing."
+    
+    The agent responds using your knowledge base.
+  </Tab>
+  <Tab title="Simulate lead" icon="user-check">
+    Type: "I'd like a demo for sales team."
+    
+    Agent qualifies intent, then prompts for email and booking.
+  </Tab>
+</Tabs>
+
+## Review lead in Unified Inbox
+
+Check captured leads.
+
+<Steps>
+  <Step title="Open inbox" icon="inbox">
+    Navigate to **Unified Inbox** in the dashboard sidebar.
+  </Step>
+  <Step title="Inspect lead" icon="search">
+    View conversation transcript, qualification score, and routing suggestions.
+    
+    Approve or edit before routing.
+  </Step>
+</Steps>
+
+<Callout kind="success">
+
+Congratulations! You've captured and qualified your first lead. Your agent handles conversations 24/7.
+
+</Callout>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Knowledge Base" icon="book-open" href="/knowledge-base">
+    Add more content to improve agent responses.
+  </Card>
+  <Card title="Lead Routing" icon="git-branch" href="/lead-routing">
+    Configure automatic routing to your team.
+  </Card>
+  <Card title="Meeting Booking" icon="calendar" href="/meeting-booking">
+    Enable self-scheduling for qualified leads.
+  </Card>
+  <Card title="Analytics" icon="bar-chart-3" href="/analytics">
+    Track conversion rates and agent performance.
+  </Card>
+</Columns>
+
+<Expandable title="Troubleshooting common issues" default-open="false">
+
+- **Chat not appearing?** Ensure the script loads after DOM ready and no ad blockers interfere.
+- **Agent wrong answers?** Update Knowledge Base with fresh content.
+- **Leads not qualifying?** Review qualification rules in agent settings.
+
+</Expandable>

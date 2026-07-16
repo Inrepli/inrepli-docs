@@ -1,0 +1,175 @@
+---
+title: Integrations
+description: Connect Inrepli seamlessly to your existing tools for websites, CRMs, calendars, and messaging apps.
+---
+
+## Overview
+
+Inrepli integrates with your favorite tools to capture leads from websites, sync data to CRMs, book meetings via calendars, and handle messaging across channels. You can embed chat widgets, connect to HubSpot or Salesforce, link Calendly, set up WhatsApp and email, and use webhooks or the API for custom workflows.
+
+<Callout kind="info">
+  All integrations use secure OAuth or API keys. Start by generating credentials in your Inrepli dashboard at `https://dashboard.example.com/integrations`.
+</Callout>
+
+## Website Chat and Form Embedding
+
+Embed Inrepli's chat widget or forms directly on your site to capture and qualify leads instantly.
+
+<Steps>
+  <Step title="Get Embed Code" icon="code">
+    Navigate to `https://dashboard.example.com/widgets` and select your chat or form.
+    
+    Copy the provided script tag.
+  </Step>
+  <Step title="Add to HTML" icon="upload">
+````html
+<script src="https://js.inrepli.com/latest.js" 
+        data-key="YOUR_API_KEY" 
+        data-chat-id="your-chat-id">
+</script>
+````
+  </Step>
+  <Step title="Customize" icon="settings">
+    Adjust position, colors, and welcome messages via dashboard settings.
+  </Step>
+</Steps>
+
+## CRM Integrations
+
+Sync qualified leads automatically to your CRM.
+
+<Tabs>
+  <Tab title="HubSpot" icon="settings">
+    <Steps>
+      <Step title="Connect Account">
+        In your dashboard, go to Integrations > CRM > HubSpot. Click Connect and authorize.
+      </Step>
+      <Step title="Map Fields">
+        Match Inrepli fields like `lead_email` to HubSpot properties.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Salesforce" icon="database">
+    Use OAuth 2.0 flow.
+    
+````javascript
+const response = await fetch('https://api.example.com/v1/integrations/salesforce/connect', {
+  method: 'POST',
+  headers: { 'Authorization': `Bearer ${YOUR_TOKEN}` },
+  body: JSON.stringify({ instanceUrl: 'https://your-instance.salesforce.com' })
+});
+````
+  </Tab>
+</Tabs>
+
+## Calendar Integrations
+
+Enable one-click meeting booking for qualified leads.
+
+<Columns cols={2}>
+  <Card title="Calendly" icon="calendar" href="https://calendar.com">
+    Link your Calendly event types. Leads book directly from conversations.
+  </Card>
+  <Card title="Configure Routing" icon="settings">
+    Set rules to route high-intent leads to specific calendars.
+  </Card>
+</Columns>
+
+## Messaging Channels
+
+Connect WhatsApp and email for multi-channel follow-ups.
+
+<Tabs>
+  <Tab title="WhatsApp" icon="message-circle">
+    <ParamField header="X-WhatsApp-Token" param-type="string" required="true">
+      Your WhatsApp Business API token.
+    </ParamField>
+    
+    Test the connection via dashboard.
+  </Tab>
+  <Tab title="Email" icon="mail">
+    Verify your domain and add SMTP/IMAP settings.
+  </Tab>
+</Tabs>
+
+## Webhooks and API
+
+For custom integrations, use webhooks or the REST API.
+
+<CodeGroup tabs="Webhook,API">
+  ```javascript
+  // Webhook payload example
+  app.post('/inrepli-webhook', (req, res) => {
+    const { lead_id, email, qualified } = req.body;
+    // Sync to your system
+    console.log(`Qualified lead: ${email}`);
+    res.status(200).send('OK');
+  });
+  ```
+  ````javascript
+  // API call to create lead
+  const response = await fetch('https://api.example.com/v1/leads', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer YOUR_API_KEY`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email: 'lead@example.com',
+      source: 'website_chat'
+    })
+  });
+  ````
+</CodeGroup>
+
+<Request tabs="cURL,JavaScript" show-lines="true">
+  ```bash
+  curl -X POST https://api.example.com/v1/webhooks \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "url": "https://your-webhook-url.com/inrepli",
+      "events": ["lead.qualified", "meeting.booked"]
+    }'
+  ```
+  ```javascript
+  await fetch('https://api.example.com/v1/webhooks', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer YOUR_API_KEY`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      url: 'https://your-webhook-url.com/inrepli',
+      events: ['lead.qualified']
+    })
+  });
+  ```
+</Request>
+
+<Response tabs="200,400">
+```json
+{
+  "success": true,
+  "webhook_id": "wh_123abc"
+}
+```
+
+```json
+{
+  "error": "Invalid URL"
+}
+```
+</Response>
+
+## Next Steps
+
+<Expandable title="Advanced Webhook Security" default-open="false">
+  Use HMAC signatures to verify payloads.
+  
+  Compute signature with `sha256(payload + YOUR_SECRET)`.
+</Expandable>
+
+<Callout kind="tip">
+  Monitor integration health in your dashboard. Test connections regularly.
+</Callout>
