@@ -31,9 +31,14 @@
             ]
           },
           {
-            "group": "Core Features",
+            "group": "Inbound Agent",
             "icon": "star",
             "pages": [
+              {
+                "title": "Inbound Models",
+                "path": "inbound-models",
+                "icon": "git-branch"
+              },
               {
                 "title": "Features",
                 "path": "features",
