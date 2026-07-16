@@ -1,0 +1,100 @@
+---
+title: Qualification Rules
+description: Configure rules that determine how the Inbound Agent qualifies or disqualifies inbound leads during conversations.
+---
+
+## Qualification rules identify whether an inbound lead matches your sales criteria while the conversation is still in progress.
+
+By defining the questions, scoring, and thresholds the Inbound Agent should use, you give the agent a consistent way to separate high-intent leads from leads that are not yet a fit. That consistency improves routing, reduces manual review, and helps your team follow up with the right prospects first.
+
+## How qualification works
+
+The Inbound Agent qualifies leads by asking targeted questions during the conversation and evaluating each response against the rules you configure. As the conversation progresses, the agent applies those responses to your criteria and updates the lead's qualification status in real time.
+
+A lead can end the conversation as **qualified**, **partially qualified**, or **disqualified** depending on how closely the responses match your thresholds. This lets you capture nuance instead of treating every lead as a simple yes or no decision.
+
+<Callout kind="info">
+
+Qualification rules are evaluated in real time during the conversation, so the agent can adapt follow-up questions and outcomes based on what the lead says next.
+
+</Callout>
+
+## Qualification criteria
+
+Use a small set of clear criteria first, then expand only when your team needs more precision. Most teams start with BANT-style categories and add custom criteria for product fit, geography, or compliance requirements.
+
+<Columns cols={2}>
+  <Card title="Budget" icon="bar-chart" iconColor="#339cac">
+    Identify whether the lead has an approved budget, an expected spend range, or a realistic ability to purchase.
+  </Card>
+  <Card title="Authority" icon="users" iconColor="#339cac">
+    Determine whether the contact can make the decision, influence the decision, or connect your team with the decision-maker.
+  </Card>
+  <Card title="Need" icon="check-circle" iconColor="#339cac">
+    Confirm that the lead has a clear problem, use case, or business requirement your offering is intended to solve.
+  </Card>
+  <Card title="Timeline" icon="clock-3" iconColor="#339cac">
+    Measure urgency by asking when the lead wants to evaluate, buy, or implement a solution.
+  </Card>
+  <Card title="Custom Criteria" icon="settings" iconColor="#339cac">
+    Add account-specific checks such as company size, region, industry, compliance needs, or product eligibility.
+  </Card>
+</Columns>
+
+## Creating qualification rules
+
+<Steps>
+  <Step title="Define qualification questions" icon="help-circle">
+
+  Start with the exact questions the agent should ask to gather the information your team needs. Keep each question focused on one criterion so the response is easy to score and interpret.
+
+  </Step>
+  <Step title="Set scoring weights for each criterion" icon="bar-chart">
+
+  Assign more weight to the criteria that matter most to your sales process. For example, one team may treat need and timeline as the strongest signals, while another may prioritize authority and budget.
+
+  </Step>
+  <Step title="Configure pass or fail thresholds" icon="check-circle">
+
+  Define the minimum score or rule combination required for a lead to count as qualified. If you use a partial qualification state, set a lower band that captures leads worth reviewing even if they do not meet the full threshold.
+
+  </Step>
+  <Step title="Set disqualification conditions" icon="x-circle">
+
+  Add explicit conditions that should immediately disqualify a lead, such as unsupported geography, ineligible company size, or a stated lack of interest. Use these rules for hard stops that should override accumulated score.
+
+  </Step>
+  <Step title="Test rules with sample conversations" icon="play-circle">
+
+  Run sample conversations that represent both ideal and poor-fit leads. Check that the agent asks the right follow-up questions and that the final status matches how your team would qualify the same lead manually.
+
+  </Step>
+  <Step title="Activate" icon="rocket">
+
+  Turn the rules on only after the scores and outcomes are stable across multiple test scenarios. After activation, monitor early conversations closely so you can adjust questions, weights, or thresholds before the rules are used at scale.
+
+  </Step>
+</Steps>
+
+## Scoring model
+
+Each qualification response contributes to a lead score based on the weight assigned to that criterion and the value of the answer. Strong-fit responses increase the score, weak-fit responses contribute little, and disqualifying responses can reduce the score or trigger an immediate fail.
+
+Use scoring to reflect relative importance, not to create unnecessary complexity. If your team cannot explain why one answer scores differently from another, simplify the model before you activate it.
+
+## Disqualification handling
+
+When a lead is disqualified, the Inbound Agent should end the conversation gracefully instead of making the interaction feel abrupt or dismissive. A clear, polite exit preserves the relationship and leaves room for the lead to return later if circumstances change.
+
+Disqualified leads can still be useful for future re-engagement. Log the reason for disqualification so your team can identify patterns, refine targeting, and decide whether some leads should enter a nurture flow instead of being dropped completely.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Routing Rules" href="/inbound-agent/routing-rules" icon="arrow-right" cta="Open page">
+    Send qualified, partially qualified, and disqualified leads to the right owners, queues, or workflows.
+  </Card>
+  <Card title="Training" href="/inbound-agent/training" icon="arrow-right" cta="Open page">
+    Improve how the Inbound Agent asks questions, interprets responses, and follows your qualification logic.
+  </Card>
+</Columns>

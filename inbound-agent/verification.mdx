@@ -1,0 +1,113 @@
+---
+title: Verification
+description: Set up verification processes to validate lead identity and contact information before passing conversations to your sales team.
+---
+
+## Verify lead details before handoff
+
+Verification checks confirm that a lead is reachable, legitimate, and routed with the right level of confidence before your team takes over. Use verification to improve data quality, reduce spam and duplicate submissions, and prevent sales reps from spending time on contacts that fail basic identity or contact checks.
+
+## Verification types
+
+<Columns cols={2}>
+
+<Card title="Email Verification" icon="mail" iconColor="#339cac">
+
+Confirm that the email address is formatted correctly, can receive messages, and meets your acceptance rules. Email verification helps filter low-quality submissions and supports cleaner follow-up workflows.
+
+</Card>
+
+<Card title="Phone Verification" icon="smartphone" iconColor="#339cac">
+
+Check that the phone number is valid, reachable, and formatted for the region you support. Phone verification improves callback accuracy and reduces failed outreach attempts.
+
+</Card>
+
+<Card title="Domain Verification" icon="globe" iconColor="#339cac">
+
+Validate the company or sender domain against your business rules, such as blocked domains or free email providers. Domain verification helps route business leads more accurately and detect lower-intent submissions.
+
+</Card>
+
+<Card title="Identity Verification" icon="shield" iconColor="#339cac">
+
+Apply additional checks to confirm the lead matches the identity signals they provide during the conversation. Identity verification is useful when you need stronger trust before scheduling, pricing, or account-related follow-up.
+
+</Card>
+
+</Columns>
+
+## Configuring verification
+
+<Steps>
+
+<Step title="Select which verification checks to enable" icon="check-circle">
+
+Start with the checks that directly affect lead quality for your team, such as email or phone verification. If your routing depends on company fit, add domain or identity verification only where those checks materially improve qualification.
+
+</Step>
+
+<Step title="Configure verification timing" icon="settings">
+
+Choose when each check runs in the conversation flow: before the conversation begins, during qualification, or after the lead meets your handoff criteria. Earlier verification blocks bad data sooner, while later verification reduces friction for legitimate leads who are still exploring.
+
+</Step>
+
+<Step title="Set failure handling" icon="alert-triangle">
+
+Decide how the system should respond when a verification check does not pass. Use block when a failed check makes the lead unusable, flag for review when a human should decide, or allow with warning when the lead may still be worth pursuing.
+
+</Step>
+
+<Step title="Configure retry limits for failed verifications" icon="refresh-cw">
+
+Set how many times a lead can retry a verification step before the system stops prompting. Lower retry limits reduce abuse, while slightly higher limits help legitimate leads recover from typos or formatting errors.
+
+</Step>
+
+<Step title="Test the verification flow" icon="play-circle">
+
+Run sample conversations that include both valid and failing inputs for every enabled check. Confirm that the conversation timing, failure handling, and status updates match the path you expect before you publish the configuration.
+
+</Step>
+
+</Steps>
+
+## Verification status
+
+Track verification outcomes with a small set of statuses that make routing and review easier.
+
+- **Verified** — The lead passed the required check and can move forward in the configured flow.
+- **Unverified** — The check has not run yet, was skipped, or still requires input from the lead.
+- **Failed** — The lead did not pass the check based on your configured rules.
+- **Expired** — A previously valid verification result is no longer current and must be rechecked before handoff or follow-up.
+
+<Callout kind="tip">
+
+Balance verification depth with conversation friction. Start with the minimum checks needed to protect lead quality, then add stricter verification only where failed outreach, spam, or misrouting creates measurable operational cost.
+
+</Callout>
+
+## Handling failed verifications
+
+When a lead fails verification, choose the next action based on risk and sales value. Allow a retry for recoverable issues such as typos, escalate to a human when the conversation still shows strong intent, or mark the lead as low-priority when the failure suggests low confidence or spam.
+
+Keep failure handling consistent with your routing rules. A blocked lead should not enter the same downstream queue as a verified lead, and a flagged lead should include enough context for fast review.
+
+## Next steps
+
+<Columns cols={2}>
+
+<Card title="Qualification Rules" href="/inbound-agent/qualification-rules" icon="filter" cta="Open guide">
+
+Define which lead attributes and conversation signals determine whether a contact is ready for sales follow-up.
+
+</Card>
+
+<Card title="Escalation Rules" href="/inbound-agent/escalation-rules" icon="arrow-right" cta="Open guide">
+
+Control when conversations move from the agent to a human based on urgency, verification results, or qualification outcomes.
+
+</Card>
+
+</Columns>

@@ -1,0 +1,114 @@
+---
+title: Scheduling
+description: Configure how the Inbound Agent schedules meetings with qualified leads, including availability windows, meeting types, and calendar integration.
+---
+
+## Configure automated meeting booking
+
+The Inbound Agent can qualify a lead, offer available meeting times, and book a meeting without handing the conversation off to a human. You control which meeting types the agent can offer, when each type can be booked, how calendars are checked, and whether bookings are confirmed automatically or held for approval.
+
+## Meeting types
+
+<Columns cols={2}>
+  <Card title="Discovery Call" icon="users" iconColor="#339cac">
+    Initial conversations for lead qualification, timeline review, and basic fit assessment.
+  </Card>
+  <Card title="Product Demo" icon="monitor" iconColor="#339cac">
+    Scheduled walkthroughs focused on product capabilities, common workflows, and buyer questions.
+  </Card>
+  <Card title="Technical Consultation" icon="settings" iconColor="#339cac">
+    Deeper sessions for implementation, architecture, integrations, or technical evaluation.
+  </Card>
+  <Card title="Follow-up" icon="check-circle" iconColor="#339cac">
+    Shorter meetings used to continue an active sales conversation after an earlier touchpoint.
+  </Card>
+</Columns>
+
+## Availability configuration
+
+Availability windows determine when the agent can propose meeting times for each meeting type. Configure them separately so longer or more specialized meetings only appear during the hours you want to reserve for them.
+
+Business hours define the baseline schedule the agent works from, while availability windows narrow that schedule by meeting type or team. For example, you might allow discovery calls throughout the day but limit technical consultations to specific afternoon blocks.
+
+Buffer times prevent back-to-back bookings by adding protected time before or after a meeting. Daily meeting limits help you avoid overloading a rep's calendar even when open time remains.
+
+Time zone handling affects how availability is displayed to the lead and how meeting slots are validated. The agent converts proposed times for the lead while still checking the assigned calendar against the rep's actual working schedule.
+
+<Callout kind="info">
+
+The agent respects the assigned rep's time zone when proposing meeting times and checking calendar availability.
+
+</Callout>
+
+## Setting up scheduling
+
+<Steps>
+  <Step title="Connect calendars" icon="calendar">
+
+  Connect the calendars the Inbound Agent should use for availability checks and meeting creation. If calendars are not connected, the agent cannot confirm open slots or place booked meetings on a rep's schedule.
+
+  Review your calendar setup in Integrations and make sure the correct calendars are assigned to the right reps or teams. After the connection is active, availability should reflect existing events from those calendars.
+
+  </Step>
+  <Step title="Define meeting types and durations" icon="settings">
+
+  Create the meeting types the agent is allowed to offer and set a duration for each one. Keep the list focused so the agent presents clear options instead of making the lead choose from too many similar meetings.
+
+  Use duration settings that match the actual purpose of the meeting. Discovery calls often need less time than demos or technical consultations, so configure each type independently.
+
+  </Step>
+  <Step title="Set availability windows for each meeting type" icon="clock">
+
+  Assign bookable windows to every meeting type instead of relying on one shared schedule. This lets you keep specialist meetings limited to specific times while leaving broader availability open for early-stage conversations.
+
+  Check that each window aligns with team coverage, handoff rules, and rep working hours. If a meeting type has no valid window, the agent will not offer it.
+
+  </Step>
+  <Step title="Configure buffer times and daily meeting limits" icon="shield">
+
+  Add buffer time to protect prep time, follow-up time, and schedule flexibility between meetings. Set buffers based on the meeting type when certain conversations need more context switching or post-call work.
+
+  Use daily meeting limits to cap how many bookings a rep can receive in a day. This prevents the agent from filling every available slot during periods of high inbound volume.
+
+  </Step>
+  <Step title="Set booking confirmation rules" icon="check-circle">
+
+  Choose whether the agent should confirm bookings immediately or create requests that stay pending until someone approves them. Auto-confirm works best when routing, rep ownership, and calendars are already reliable.
+
+  Pending approval is useful when certain meeting types require manual review, executive calendars need tighter control, or territory assignment happens outside the booking flow.
+
+  </Step>
+  <Step title="Test the booking flow" icon="play-circle">
+
+  Run a complete test conversation and verify that the agent proposes the expected meeting types and times. Complete the booking to confirm that the event is created on the right calendar and that confirmation messages are sent.
+
+  Test rescheduling and edge cases such as no availability, conflicting events, and approval-required bookings. A successful test ends with a created meeting and matching calendar entry for the assigned rep.
+
+  </Step>
+</Steps>
+
+## Booking flow
+
+Once scheduling is enabled, the conversation follows a simple path. The agent identifies the appropriate meeting type, proposes available times, and waits for the lead to select one.
+
+After the lead chooses a slot, the agent creates the meeting on the connected calendar and applies the configured confirmation rules. Confirmation details then go to the lead and the assigned rep so both sides have the booked time and meeting context.
+
+## Rescheduling and cancellations
+
+Rescheduling starts by checking the same availability rules used for the original booking. The lead or your team can initiate the change, and the agent offers new valid times based on the assigned rep, meeting type, and configured buffers.
+
+Cancellations remove the meeting from the active workflow and update the calendar event based on the connected integration. If your process requires manual review, keep cancellation and reschedule requests in a pending state instead of allowing immediate changes.
+
+## Next steps
+
+<Columns cols={3}>
+  <Card title="Routing Rules" href="/inbound-agent/routing-rules" icon="arrow-right" cta="Open page">
+    Control which rep or team receives qualified leads before the agent offers meeting times.
+  </Card>
+  <Card title="Meetings" href="/inbound-agent/meetings" icon="arrow-right" cta="Open page">
+    Review how booked meetings are tracked, managed, and reported across the Inbound Agent workflow.
+  </Card>
+  <Card title="Calendars" href="/integrations/calendars" icon="arrow-right" cta="Open page">
+    Connect and manage calendar integrations used for availability checks and event creation.
+  </Card>
+</Columns>

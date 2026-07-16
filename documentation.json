@@ -22,11 +22,6 @@
                 "title": "Introduction",
                 "path": "introduction",
                 "icon": "home"
-              },
-              {
-                "title": "Quickstart",
-                "path": "quickstart",
-                "icon": "zap"
               }
             ]
           },
@@ -38,6 +33,11 @@
                 "title": "Inbound Models",
                 "path": "inbound-models",
                 "icon": "git-branch"
+              },
+              {
+                "title": "Agent Overview",
+                "path": "inbound-agent/agent-overview",
+                "icon": "bot"
               },
               {
                 "title": "Features",

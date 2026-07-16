@@ -1,0 +1,110 @@
+---
+title: Routing Rules
+description: Configure how qualified leads are routed to the right sales representatives based on territory, account ownership, and team structure.
+---
+
+## Route qualified leads to the right team
+
+Routing rules control how Inrepli assigns qualified leads after an inbound conversation meets your qualification criteria. Well-configured rules reduce response time, avoid manual triage, and make sure each lead reaches the sales representative or team best positioned to follow up.
+
+## Routing strategies
+
+Choose a routing strategy that matches how your sales team is organized. Many teams start with one primary strategy, then layer fallback rules to handle exceptions and unmatched leads.
+
+<Columns cols={2}>
+<Card title="Round-Robin" icon="users" iconColor="#339cac">
+Distribute leads evenly across a set of representatives or a team. Use round-robin when workload balance matters more than territory or account ownership.
+</Card>
+
+<Card title="Territory-Based" icon="map" iconColor="#339cac">
+Assign leads based on geography, region, or named territories. This strategy works well when your team structure follows sales regions or market segments.
+</Card>
+
+<Card title="Account-Based" icon="building" iconColor="#339cac">
+Route leads to the current account owner or a team responsible for an existing customer or target account. Use account-based routing to preserve context and continuity.
+</Card>
+
+<Card title="Skill-Based" icon="settings" iconColor="#339cac">
+Direct leads to representatives or groups with the right product expertise, language coverage, or industry knowledge. This strategy is useful for specialized sales motions.
+</Card>
+
+<Card title="Weighted" icon="bar-chart" iconColor="#339cac">
+Distribute leads by a defined percentage instead of evenly. Use weighted routing when some representatives should receive higher volume based on capacity or focus.
+</Card>
+</Columns>
+
+## Configuring routing rules
+
+Set your routing rules in the order you want Inrepli to evaluate them. Start with the most specific conditions, then add broader fallback coverage underneath.
+
+<Steps>
+<Step title="Define routing conditions" icon="filter">
+
+Identify the lead attributes that should control assignment, such as geography, company size, industry, or account ownership. Keep conditions specific enough to direct leads accurately, but broad enough to avoid leaving too many leads unmatched.
+
+</Step>
+
+<Step title="Select a routing strategy" icon="arrow-right">
+
+Choose the strategy that fits the condition set you defined. For example, a regional team may use territory-based routing, while a pooled inbound team may use round-robin or weighted distribution.
+
+</Step>
+
+<Step title="Assign team members or groups" icon="users">
+
+Add the representatives or teams that should receive leads when a rule matches. Review membership carefully so active sellers are included and inactive or temporary users are excluded from assignment.
+
+</Step>
+
+<Step title="Set fallback routing" icon="shield">
+
+Decide where leads should go if a rule condition matches but no eligible representative is available, or if no primary rule applies. Common fallback targets include a default team, a queue for manual review, or a broader round-robin pool.
+
+</Step>
+
+<Step title="Set business hours and after-hours behavior" icon="clock-3">
+
+Define whether the rule should assign leads only during working hours or continue routing after hours. If your team does not staff inbound coverage at all times, send after-hours leads to a queue or on-call group instead of assigning them directly.
+
+</Step>
+
+<Step title="Activate and test" icon="check-circle">
+
+Turn the rule on and run test scenarios that match each condition path, including fallback cases. A successful test should assign the lead to the expected representative, team, or queue without manual intervention.
+
+</Step>
+</Steps>
+
+## Fallback rules
+
+Fallback rules determine where leads go when primary routing conditions do not produce a valid assignment. In most setups, that means sending the lead to a default team, placing it in a review queue, or distributing it through a general round-robin rule that covers all available representatives.
+
+<Callout kind="alert">
+
+Configure fallback routing before you activate new rules. Without a fallback, unmatched leads can remain unassigned and delay follow-up from your sales team.
+
+</Callout>
+
+## Priority and order
+
+Inrepli evaluates routing rules in priority order, starting from the highest rule in the list and moving downward until it finds a match. More specific rules should appear above broader rules so narrow cases are handled first.
+
+If a general rule appears too early, it can capture leads that should have gone to a territory owner, account owner, or specialist team. Reorder rules whenever you add new segments or update team structure so the evaluation order still reflects your assignment logic.
+
+## Next steps
+
+Once routing is in place, review the adjacent settings that shape how leads move from qualification to follow-up.
+
+<Columns cols={3}>
+<Card title="Scheduling" href="/inbound-agent/scheduling" icon="calendar" cta="Open page">
+Control when meetings can be booked and how availability is applied after a lead is routed.
+</Card>
+
+<Card title="Qualification Rules" href="/inbound-agent/qualification-rules" icon="check-circle" cta="Open page">
+Define the criteria a conversation must meet before Inrepli sends the lead into your routing flow.
+</Card>
+
+<Card title="Escalation Rules" href="/inbound-agent/escalation-rules" icon="alert-triangle" cta="Open page">
+Set what happens when a lead needs manual review, urgent follow-up, or exception handling.
+</Card>
+</Columns>
