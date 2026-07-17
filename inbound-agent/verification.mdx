@@ -1,113 +1,160 @@
 ---
 title: Verification
-description: Set up verification processes to validate lead identity and contact information before passing conversations to your sales team.
+description: >-
+  Assess whether a contact's identity and details appear accurate so your team
+  can route conversations with clearer confidence.
 ---
+## Verify identity and contact details
 
-## Verify lead details before handoff
+Verification helps you understand whether a Contact's identity and provided information appear accurate. It focuses on whether the Contact appears to be who they claim to be by checking identity, Company affiliation, Contact information, and other provided details.
 
-Verification checks confirm that a lead is reachable, legitimate, and routed with the right level of confidence before your team takes over. Use verification to improve data quality, reduce spam and duplicate submissions, and prevent sales reps from spending time on contacts that fail basic identity or contact checks.
-
-## Verification types
-
-<Columns cols={2}>
-
-<Card title="Email Verification" icon="mail" iconColor="#339cac">
-
-Confirm that the email address is formatted correctly, can receive messages, and meets your acceptance rules. Email verification helps filter low-quality submissions and supports cleaner follow-up workflows.
-
-</Card>
-
-<Card title="Phone Verification" icon="smartphone" iconColor="#339cac">
-
-Check that the phone number is valid, reachable, and formatted for the region you support. Phone verification improves callback accuracy and reduces failed outreach attempts.
-
-</Card>
-
-<Card title="Domain Verification" icon="globe" iconColor="#339cac">
-
-Validate the company or sender domain against your business rules, such as blocked domains or free email providers. Domain verification helps route business leads more accurately and detect lower-intent submissions.
-
-</Card>
-
-<Card title="Identity Verification" icon="shield" iconColor="#339cac">
-
-Apply additional checks to confirm the lead matches the identity signals they provide during the conversation. Identity verification is useful when you need stronger trust before scheduling, pricing, or account-related follow-up.
-
-</Card>
-
-</Columns>
-
-## Configuring verification
-
-<Steps>
-
-<Step title="Select which verification checks to enable" icon="check-circle">
-
-Start with the checks that directly affect lead quality for your team, such as email or phone verification. If your routing depends on company fit, add domain or identity verification only where those checks materially improve qualification.
-
-</Step>
-
-<Step title="Configure verification timing" icon="settings">
-
-Choose when each check runs in the conversation flow: before the conversation begins, during qualification, or after the lead meets your handoff criteria. Earlier verification blocks bad data sooner, while later verification reduces friction for legitimate leads who are still exploring.
-
-</Step>
-
-<Step title="Set failure handling" icon="alert-triangle">
-
-Decide how the system should respond when a verification check does not pass. Use block when a failed check makes the lead unusable, flag for review when a human should decide, or allow with warning when the lead may still be worth pursuing.
-
-</Step>
-
-<Step title="Configure retry limits for failed verifications" icon="refresh-cw">
-
-Set how many times a lead can retry a verification step before the system stops prompting. Lower retry limits reduce abuse, while slightly higher limits help legitimate leads recover from typos or formatting errors.
-
-</Step>
-
-<Step title="Test the verification flow" icon="play-circle">
-
-Run sample conversations that include both valid and failing inputs for every enabled check. Confirm that the conversation timing, failure handling, and status updates match the path you expect before you publish the configuration.
-
-</Step>
-
-</Steps>
-
-## Verification status
-
-Track verification outcomes with a small set of statuses that make routing and review easier.
-
-- **Verified** — The lead passed the required check and can move forward in the configured flow.
-- **Unverified** — The check has not run yet, was skipped, or still requires input from the lead.
-- **Failed** — The lead did not pass the check based on your configured rules.
-- **Expired** — A previously valid verification result is no longer current and must be rechecked before handoff or follow-up.
-
-<Callout kind="tip">
-
-Balance verification depth with conversation friction. Start with the minimum checks needed to protect lead quality, then add stricter verification only where failed outreach, spam, or misrouting creates measurable operational cost.
-
+<Callout kind="info" collapsed="false">
+  Verification is separate from qualification. A Contact can be qualified even when some information cannot be verified, and a Contact can be verified without being qualified for your business.
 </Callout>
 
-## Handling failed verifications
+## How verification works
 
-When a lead fails verification, choose the next action based on risk and sales value. Allow a retry for recoverable issues such as typos, escalate to a human when the conversation still shows strong intent, or mark the lead as low-priority when the failure suggests low confidence or spam.
+The Agent reviews several dimensions when determining a Contact's Verification result. The main verification dimensions are:
 
-Keep failure handling consistent with your routing rules. A blocked lead should not enter the same downstream queue as a verified lead, and a flagged lead should include enough context for fast review.
+- Company affiliation
+- Authenticated Contact information
+- Accuracy of provided information
 
-## Next steps
+The Agent uses available evidence from the Conversation, connected Channels, and reliable public sources. When information cannot be confirmed, the Agent records the uncertainty rather than automatically treating the information as false.
 
-<Columns cols={2}>
+### Company affiliation
 
-<Card title="Qualification Rules" href="/inbound-agent/qualification-rules" icon="filter" cta="Open guide">
+Company affiliation determines whether the Contact appears to represent the Company they provided. The Agent may confirm Company affiliation through:
 
-Define which lead attributes and conversation signals determine whether a contact is ready for sales follow-up.
+- A work email address that matches the Company's domain
+- Public information showing that the Contact works for the Company
+- Information provided during the Conversation
+- Other reliable professional or Company sources
 
-</Card>
+A matching work email address is a strong verification signal. However, a Contact may still have a legitimate Company affiliation even when they use a personal email address or have limited public information.
 
-<Card title="Escalation Rules" href="/inbound-agent/escalation-rules" icon="arrow-right" cta="Open guide">
+### Authenticated Contact information
 
-Control when conversations move from the agent to a human based on urgency, verification results, or qualification outcomes.
+Authenticated Contact information determines whether the Contact has access to the email address or Channel they provided. The Agent may authenticate Contact information when:
 
-</Card>
+- The Contact replies from the provided email address
+- The Contact enters a one-time code sent to their email address
+- The Contact interacts through an authenticated Channel
+- The Contact completes another verification action supported by Inrepli
 
-</Columns>
+Authentication confirms that the Contact can access the provided Channel. Authentication does not confirm that the Contact is qualified or that every detail they provided is accurate.
+
+### Accuracy of provided information
+
+The Agent checks whether the information provided by the Contact is consistent with available evidence. The Agent may review:
+
+- Name
+- Job title
+- Company
+- Work email address
+- Phone number
+- Company website
+- Location
+- Other information collected during the Conversation
+
+The Agent looks for supporting information and inconsistencies. If the Agent finds conflicting information, the conflict is included in the Verification reason.
+
+## Verification levels
+
+Each Contact receives one of three Verification levels: High, Medium, or Low.
+
+### High verification
+
+High Verification means that strong evidence supports the Contact's identity, Company affiliation, and provided information. For example, a Contact may receive High Verification when they use a matching work email address, respond through that email address, and have public information confirming their role at the Company.
+
+### Medium verification
+
+Medium Verification means that some information is supported, but one or more important details remain unconfirmed. For example, the Agent may confirm that the Contact controls their email address but may not find reliable information confirming their Company affiliation.
+
+### Low verification
+
+Low Verification means that the Agent found limited supporting evidence, conflicting information, or signs that some information may be inaccurate. Low Verification does not automatically mean that the Contact is fraudulent or should be rejected.
+
+Some legitimate Contacts may have limited public information or may choose not to complete additional verification steps.
+
+## Verification reason
+
+The Agent provides a summary explaining the assigned Verification level. The summary may include:
+
+- Information that was confirmed
+- Information that could not be confirmed
+- Evidence supporting the assessment
+- Conflicting information
+- Verification actions completed by the Contact
+
+The Verification summary helps your team understand the result without repeating the full verification process.
+
+## Channel verification
+
+Inrepli also verifies individual Contact Channels. A Channel may include:
+
+- Email address
+- Phone number
+- Website chat identity
+- Messaging account
+- Other connected Contact methods
+
+When a Channel is verified, Inrepli records the date and time of verification. The verification timestamp helps your team understand when the Channel was last authenticated and improves Contact data quality for future follow-up campaigns.
+
+A previously verified Channel may become outdated. Your team should consider the verification timestamp when deciding whether additional verification is needed.
+
+## Spam detection
+
+The Agent monitors inbound messages and Conversations for potential spam across connected Channels. Spam may include:
+
+- Automated promotional messages
+- Irrelevant solicitations
+- Fraudulent requests
+- Malicious content
+- Messages that do not represent a legitimate business opportunity
+
+Messages and Conversations identified as spam are placed in the Spam folder. Your team can review the Spam folder when needed. Spam detection does not permanently delete the Conversation.
+
+After a Contact is confirmed to be spam, the Agent will stop responding to that Contact.
+
+## Require email verification before scheduling
+
+Require a Contact to verify their email address before they can book a meeting. This helps prevent meetings from being booked with incorrect, inaccessible, or fraudulent email addresses.
+
+<Steps>
+  <Step title="Contact requests a meeting" icon="calendar" title-type="p">
+    The flow starts when the Contact requests to schedule a meeting.
+  </Step>
+
+  <Step title="Send a one-time code" icon="mail" title-type="p">
+    Inrepli sends a one-time code to the email address the Contact provided.
+  </Step>
+
+  <Step title="Enter the verification code" icon="check-circle" title-type="p">
+    The Contact enters the one-time code to continue.
+  </Step>
+
+  <Step title="Verify the email channel" icon="shield" title-type="p">
+    Inrepli verifies the email Channel after the code is confirmed.
+  </Step>
+
+  <Step title="Show available meeting times" icon="calendar-days" title-type="p">
+    After verification succeeds, the Contact can view available meeting times.
+  </Step>
+</Steps>
+
+If the Contact does not complete verification, they cannot continue to meeting selection. You can enable this setting in the Personal Settings' Calendar section.
+
+## How to use verification results
+
+Review Verification together with the rest of the conversation signal, not as a standalone decision. The most useful inputs to consider alongside Verification are:
+
+- Qualification
+- Conversation context
+- Contact intent
+- Your team's judgment
+
+<Callout kind="tip" collapsed="false">
+  A Low Verification result does not always mean that a Contact should be rejected. A High Verification result does not mean that the Contact is qualified, so use Verification together with context and team judgment.
+</Callout>
+

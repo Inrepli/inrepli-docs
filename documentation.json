@@ -40,9 +40,19 @@
                 "icon": "bot"
               },
               {
-                "title": "Features",
-                "path": "features",
-                "icon": "grid"
+                "title": "Training",
+                "path": "inbound-agent/training",
+                "icon": "book-open"
+              },
+              {
+                "title": "Qualification",
+                "path": "inbound-agent/qualification",
+                "icon": "check-circle"
+              },
+              {
+                "title": "Verification",
+                "path": "inbound-agent/verification",
+                "icon": "shield"
               }
             ]
           },

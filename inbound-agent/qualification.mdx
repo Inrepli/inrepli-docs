@@ -1,0 +1,133 @@
+---
+title: Qualification
+description: Understand how the Inrepli Agent qualifies inbound contacts against your customer profiles and rules, and how to review qualification results.
+---
+
+## How qualification works
+
+Qualification helps your team determine whether an inbound Contact represents a potential business opportunity. The Inrepli Agent evaluates the Contact's Company against your ideal customer profiles and Qualification Rules, then provides a clear result and supporting reasoning.
+
+Traditional qualification processes often rely on rigid forms, preset categories, and manual research. A Contact may need to complete an additional Conversation before an Account Manager can determine whether the opportunity is relevant. This adds friction, requires manual data entry, and increases the time between the initial inquiry and a meaningful sales Conversation.
+
+Inrepli completes qualification as part of the existing inbound Conversation. The Agent can interact with Contacts at any time, communicate in supported languages, research the Contact and Company, and determine qualification in approximately one minute once sufficient information is available. This allows qualified Contacts to reach the appropriate Account Manager without adding a separate qualification step.
+
+### What the Agent evaluates
+
+Qualification primarily measures the fit between the Contact's Company and your defined customer profiles. The Agent reviews the Company against your ideal customer profiles, negative profiles, and other Qualification Rules.
+
+The Agent can begin qualification after it has enough information to identify the Contact's Company. This usually happens when the Contact provides a work email address, shares a Company website, or confirms their Company name during the Conversation.
+
+While communicating with the Contact, the Agent researches the Contact and Company in real time. It organizes the information into the available Contact and Company fields and uses that data to complete the qualification assessment.
+
+The qualification result includes:
+
+- A Qualification status
+- The reason for the result
+- A confidence percentage
+- Relevant Contact and Company information
+- The sources used during research
+
+<Callout kind="info">
+
+Qualification measures whether the Contact's Company appears to fit your business. It does not determine whether the Contact's identity or provided information has been verified. Verification is handled through a separate assessment.
+
+</Callout>
+
+## Customer profiles and Qualification Rules
+
+During setup, the Setup Agent analyzes your business and creates an initial ideal customer profile. This profile describes the types of Companies that appear most likely to benefit from your products or services.
+
+The Setup Agent may recommend profiles based on factors such as industry, Company size, location, business model, customer type, and relevant business needs. These recommendations are based on information available from your website and other public sources.
+
+Your actual target customers may differ from what is publicly available. Review the recommended profiles and update them to reflect the Companies your business wants to serve.
+
+You can create multiple ideal customer profiles when your business serves different types of Companies. For example, you may define separate profiles for different industries, Company sizes, regions, or service requirements.
+
+You can also create negative profiles. A negative profile describes a type of Company that your business does not serve or is restricted from serving. When a Contact matches a negative profile, the Agent marks the Contact as Not qualified and prevents automatic assignment to an Account Manager.
+
+Negative profiles may include Companies in unsupported industries, restricted locations, unsuitable Company sizes, or other categories your business has chosen not to serve.
+
+## Qualification statuses
+
+Each Contact receives one of three Qualification statuses.
+
+### Qualified
+
+Qualified means the Agent determined that the Contact's Company matches an ideal customer profile and does not match an applicable negative profile. A qualified Contact may be assigned to an Account Manager according to your Assignment Rules.
+
+### Not qualified
+
+Not qualified means the Agent determined that the Contact's Company does not meet your Qualification Rules or matches a negative profile. A Contact with this status is not automatically assigned unless your settings allow another action.
+
+### Unknown
+
+Unknown means Inrepli has a method of contacting the person but has not completed qualification. This may happen when the Agent does not yet have enough information to identify the Company or when qualification has not been triggered.
+
+A Qualification status can change when the Agent receives new information. For example, a Contact may initially have an Unknown status and become Qualified after confirming their Company.
+
+## Qualification reason and confidence
+
+Each completed qualification includes a reason that explains why the Agent assigned the result. The reason summarizes the relevant Company information, the profiles or Rules that applied, and any important information that affected the assessment.
+
+The Agent also provides a confidence percentage. The confidence percentage represents how confident the Agent is that the assigned Qualification status is correct based on the available information.
+
+A higher confidence percentage means the Agent found stronger and more consistent evidence. A lower confidence percentage means important information may be missing, unclear, or conflicting.
+
+Confidence does not replace the Qualification status. It provides additional context that helps your team decide whether a result should be reviewed.
+
+## Data enrichment during qualification
+
+While the Agent communicates with a Contact, it also researches the Contact and their Company. This process is called Data Enrichment.
+
+Data Enrichment can add information such as:
+
+- Contact name and job title
+- Company name and website
+- Industry
+- Company size
+- Location
+- Products or services
+- Business model
+- Other information relevant to qualification
+
+The Agent organizes the information into Inrepli's Contact and Company fields. This reduces manual data entry and gives the Account Manager more context when reviewing or responding to the Contact.
+
+Inrepli may use multiple sources to complete Data Enrichment, including grounded web research and third-party data providers. The availability and accuracy of information can vary by Contact, Company, location, and source.
+
+Inrepli records source information and relevant timestamps for enriched data. This helps your team understand where information came from and when it was added or updated.
+
+## Automatic and manual qualification
+
+You can choose whether qualification controls assignment automatically.
+
+With Automatic Qualification, the Agent uses the Qualification result and your Assignment Rules to decide whether a Contact should be assigned to an Account Manager.
+
+With Manual Qualification, the Agent still researches the Contact and Company, completes the Qualification assessment, and provides the same status, reasoning, confidence, and enriched data. However, the result does not automatically control whether the Contact is assigned. Your team can review the assessment and decide what to do next.
+
+Manual Qualification can be useful when you want to review the Agent's assessments before using automatic assignment. It can also be used when your business wants all Contacts to remain eligible for human review regardless of their Qualification status.
+
+You can select the qualification method in the Agent settings.
+
+## Qualification and meeting requests
+
+The Agent uses the Qualification status, the Contact's request, and your Assignment Rules to determine the next action.
+
+When a qualified Contact requests a meeting, the Agent assigns the Contact to an Account Manager and helps arrange the meeting according to your Scheduling Rules.
+
+When a qualified Contact does not request a meeting, Inrepli can still assign the Contact to an Account Manager. This behavior depends on the settings defined in your Assignment Rules.
+
+When a Contact with Not qualified status requests a meeting, the Agent does not immediately provide access to meeting times. The request is escalated for human review so your team can decide whether to allow the meeting.
+
+When a Contact with Not qualified status does not request a meeting, the Agent does not take an additional assignment or scheduling action. The Contact and Conversation remain available for review.
+
+Contacts with an Unknown status remain unqualified until the Agent has enough Company information to complete the assessment. The Agent may continue the Conversation and request the information needed to identify the Company.
+
+## Reviewing qualification results
+
+Qualification helps your team prioritize inbound Contacts, but the result should be reviewed together with the Conversation, Verification result, Contact intent, and available Company information.
+
+A Qualified result means the Company appears to fit your defined customer profiles. It does not guarantee that the Contact will purchase or that the information they provided is accurate.
+
+A Not qualified result means the Company did not meet the current Qualification Rules. Your team can still review, assign, or engage the Contact when appropriate.
+
+Review your customer profiles and Qualification Rules regularly. Updating these settings helps the Agent continue to reflect the Companies your business wants to serve.
