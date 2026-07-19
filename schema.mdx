@@ -1,0 +1,86 @@
+---
+title: Schema
+description: >-
+  Explore Inrepli's core data objects — Contacts, Companies, Conversations,
+  Meetings, Users, Forms, and Knowledge Base — and how they connect to provide a
+  complete view of each inbound relationship.
+---
+## Data Schema
+
+Inrepli organizes platform data into objects. Each object represents a distinct type of information, such as a Contact, Company, Conversation, or Meeting.
+
+These objects are connected to provide a complete view of each inbound relationship and the actions taken by your Agent and team.
+
+## Core Objects
+
+| Object             | Description                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------- |
+| **Contacts**       | Individual people who interact with your business through connected Channels.      |
+| **Companies**      | Business organizations associated with one or more Contacts.                       |
+| **Conversations**  | Interactions between Contacts, Agents, and team members across connected Channels. |
+| **Meetings**       | Scheduled conversations between a Contact and an Account Manager.                  |
+| **Users**          | People who have access to the Inrepli platform, including Account Managers.        |
+| **Forms**          | Structured information collected from Contacts to create or update records.        |
+| **Knowledge Base** | The information your Agent uses to answer Contact questions.                       |
+
+### Contacts
+
+Contacts are individual people who interact with your business. A Contact may be a potential customer, an existing customer, or another person communicating through a connected Channel.
+
+A Contact record can include identity details, Contact information, Qualification and Verification results, Conversations, Meetings, and associated Companies.
+
+### Companies
+
+Companies are business organizations associated with Contacts.
+
+A Company can have one or more related Contacts. The Company record stores shared information such as industry, size, location, website, and enriched business data.
+
+### Conversations
+
+Conversations contain interactions between Contacts, Agents, and team members across your connected Channels.
+
+A Conversation may include messages from web chat, email, WhatsApp, or other supported Channels. Conversations are associated with the relevant Contact and, when known, their Company.
+
+### Meetings
+
+Meetings are scheduled Conversations between a Contact and an Account Manager.
+
+Meeting records can include the participants, scheduled time, meeting status, related Conversation, and assigned Account Manager.
+
+### Users
+
+Users are people who have access to the Inrepli platform.
+
+Users may have different roles and permissions. Account Managers are Users who can receive assigned Contacts, manage Conversations, and participate in Meetings.
+
+### Forms
+
+Forms collect structured information from Contacts.
+
+Form submissions can create or update Contact and Company records. The information collected may also support Qualification, Verification, Assignment, and Scheduling.
+
+### Knowledge Base
+
+The Knowledge Base contains the information your Agent uses to answer Contact questions.
+
+The Knowledge Base may include websites, uploaded documents, public links, and approved FAQs. Together, these sources form the Agent's searchable knowledge.
+
+## How the Objects Work Together
+
+A Contact can be associated with a Company and participate in multiple Conversations and Meetings. Conversations collect the Contact's interactions, while Meetings record scheduled discussions with Account Managers.
+
+Forms, Data Enrichment, and Agent activity can add or update information within these records. The Knowledge Base provides the information the Agent uses when communicating with Contacts.
+
+## Coming Soon
+
+### Agents
+
+Inrepli currently supports one inbound Agent for each Customer account.
+
+Future support for multiple Agents will allow Customers to create Agents for different teams, brands, regions, Channels, or business functions.
+
+### Campaigns
+
+Campaigns will organize a planned series of interactions with Contacts.
+
+A Campaign may include messages, content, target audiences, Channels, and scheduled actions. Campaign activity will connect with existing Contact, Company, and Conversation records.

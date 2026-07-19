@@ -22,6 +22,16 @@
                 "title": "Introduction",
                 "path": "introduction",
                 "icon": "home"
+              },
+              {
+                "title": "Playground",
+                "path": "playground",
+                "icon": "flask-conical"
+              },
+              {
+                "title": "Go Live",
+                "path": "go-live",
+                "icon": "send"
               }
             ]
           },
@@ -31,8 +41,8 @@
             "pages": [
               {
                 "title": "Inbound Models",
-                "path": "inbound-models",
-                "icon": "git-branch"
+                "path": "inbound-agent/inbound-models",
+                "icon": "briefcase-business"
               },
               {
                 "title": "Agent Overview",
@@ -53,17 +63,87 @@
                 "title": "Verification",
                 "path": "inbound-agent/verification",
                 "icon": "shield"
+              },
+              {
+                "title": "Escalation",
+                "path": "inbound-agent/escalation",
+                "icon": "arrow-up"
+              },
+              {
+                "title": "Routing",
+                "path": "routing",
+                "icon": "lucide-route"
+              },
+              {
+                "title": "Scheduling",
+                "path": "inbound-agent/scheduling",
+                "icon": "calendar-check"
               }
             ]
           },
           {
-            "group": "Integrations",
+            "group": "Data",
+            "pages": [
+              {
+                "title": "Schema",
+                "path": "schema",
+                "icon": "blocks"
+              },
+              {
+                "title": "Contacts",
+                "path": "contacts",
+                "icon": "contact"
+              },
+              {
+                "title": "Companies",
+                "path": "companies",
+                "icon": "lucide-network"
+              },
+              {
+                "title": "Conversations",
+                "path": "conversations",
+                "icon": "lucide-messages-square"
+              },
+              {
+                "title": "Meetings",
+                "path": "meetings",
+                "icon": "building2-icon"
+              }
+            ]
+          },
+          {
+            "group": "Connections",
             "icon": "plug",
             "pages": [
               {
-                "title": "Integrations",
-                "path": "integrations",
-                "icon": "share-2"
+                "title": "Website SDK",
+                "path": "website-sdk",
+                "icon": "globe"
+              },
+              {
+                "title": "Email",
+                "path": "email",
+                "icon": "lucide-mail"
+              },
+              {
+                "title": "Whatsapp",
+                "path": "whatsapp",
+                "icon": "lucide-message-circle-more"
+              },
+              {
+                "title": "Meeting Tools",
+                "path": "meeting-tools",
+                "icon": "video-icon"
+              },
+              {
+                "title": "Calendars",
+                "path": "calendars",
+                "icon": "calendar-plus-icon"
+              },
+              {
+                "title": "Webhooks",
+                "path": "webhooks",
+                "icon": "lucide-plug2"
               }
             ]
           }
@@ -126,7 +206,7 @@
         ]
       },
       {
-        "tab": "Changelog",
+        "tab": "Releases",
         "icon": "clock",
         "pages": [
           {

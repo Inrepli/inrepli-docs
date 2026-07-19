@@ -1,114 +1,117 @@
 ---
 title: Scheduling
-description: Configure how the Inbound Agent schedules meetings with qualified leads, including availability windows, meeting types, and calendar integration.
+description: >-
+  Learn how Inrepli schedules meetings between qualified contacts and assigned
+  Account Managers, including calendar integration, booking methods, and
+  scheduling controls.
 ---
 
-## Configure automated meeting booking
 
-The Inbound Agent can qualify a lead, offer available meeting times, and book a meeting without handing the conversation off to a human. You control which meeting types the agent can offer, when each type can be booked, how calendars are checked, and whether bookings are confirmed automatically or held for approval.
+Scheduling allows qualified Contacts to book time with the Account Manager who is best suited to support them.
 
-## Meeting types
+Inrepli completes Qualification, Data Enrichment, and Routing while the Conversation is still in progress. This means the Agent can identify and assign the best-fit Account Manager before the Contact reaches the scheduling step.
 
-<Columns cols={2}>
-  <Card title="Discovery Call" icon="users" iconColor="#339cac">
-    Initial conversations for lead qualification, timeline review, and basic fit assessment.
-  </Card>
-  <Card title="Product Demo" icon="monitor" iconColor="#339cac">
-    Scheduled walkthroughs focused on product capabilities, common workflows, and buyer questions.
-  </Card>
-  <Card title="Technical Consultation" icon="settings" iconColor="#339cac">
-    Deeper sessions for implementation, architecture, integrations, or technical evaluation.
-  </Card>
-  <Card title="Follow-up" icon="check-circle" iconColor="#339cac">
-    Shorter meetings used to continue an active sales conversation after an earlier touchpoint.
-  </Card>
-</Columns>
+Instead of sending every Contact to a fixed calendar or a pooled SDR calendar, Inrepli presents availability for the assigned Account Manager. This helps qualified Contacts speak with the most relevant person as quickly as possible.
 
-## Availability configuration
+## Account Manager Availability
 
-Availability windows determine when the agent can propose meeting times for each meeting type. Configure them separately so longer or more specialized meetings only appear during the hours you want to reserve for them.
+Each Account Manager can connect their existing calendar to Inrepli. After the calendar is connected, Inrepli checks the Account Manager's availability before presenting meeting times to a Contact.
 
-Business hours define the baseline schedule the agent works from, while availability windows narrow that schedule by meeting type or team. For example, you might allow discovery calls throughout the day but limit technical consultations to specific afternoon blocks.
+Availability is based on open times in the connected calendar. Existing meetings and blocked times are not offered to Contacts.
 
-Buffer times prevent back-to-back bookings by adding protected time before or after a meeting. Daily meeting limits help you avoid overloading a rep's calendar even when open time remains.
+Account Managers can also define additional availability rules. These rules restrict booking to selected days and times, even when other times are open in the connected calendar.
 
-Time zone handling affects how availability is displayed to the lead and how meeting slots are validated. The agent converts proposed times for the lead while still checking the assigned calendar against the rep's actual working schedule.
+For example, an Account Manager may be available in their calendar throughout the week but choose to accept Contact meetings only on Tuesday and Thursday afternoons.
 
-<Callout kind="info">
+This gives each Account Manager control over when Contacts can schedule meetings while preventing conflicts with existing calendar events.
 
-The agent respects the assigned rep's time zone when proposing meeting times and checking calendar availability.
+## Calendar Options
 
-</Callout>
+Account Managers can choose how Contacts schedule meetings after they have been assigned.
 
-## Setting up scheduling
+### Inrepli Scheduling
 
-<Steps>
-  <Step title="Connect calendars" icon="calendar">
+The Inrepli scheduling calendar allows Contacts to select an available meeting time directly through Inrepli.
 
-  Connect the calendars the Inbound Agent should use for availability checks and meeting creation. If calendars are not connected, the agent cannot confirm open slots or place booked meetings on a rep's schedule.
+Inrepli checks the assigned Account Manager's connected calendar and availability rules before displaying meeting times. When the Contact selects a time, Inrepli creates the meeting and updates the relevant Contact, Conversation, and Account Manager records.
 
-  Review your calendar setup in Integrations and make sure the correct calendars are assigned to the right reps or teams. After the connection is active, availability should reflect existing events from those calendars.
+### External Scheduling Tools
 
-  </Step>
-  <Step title="Define meeting types and durations" icon="settings">
+Account Managers can continue using an existing scheduling tool, such as Calendly or Cal.com.
 
-  Create the meeting types the agent is allowed to offer and set a duration for each one. Keep the list focused so the agent presents clear options instead of making the lead choose from too many similar meetings.
+When an external scheduling tool is selected, the Agent sends the Account Manager's scheduling link to the Contact. Availability and booking behavior are then managed through the external scheduling tool.
 
-  Use duration settings that match the actual purpose of the meeting. Discovery calls often need less time than demos or technical consultations, so configure each type independently.
+Each Account Manager can use their own scheduling link. This ensures that the Contact receives the calendar for the Account Manager selected through Routing.
 
-  </Step>
-  <Step title="Set availability windows for each meeting type" icon="clock">
+## Conversation Booking
 
-  Assign bookable windows to every meeting type instead of relying on one shared schedule. This lets you keep specialist meetings limited to specific times while leaving broader availability open for early-stage conversations.
+Contacts can schedule meetings directly through a Conversation with the Agent.
 
-  Check that each window aligns with team coverage, handoff rules, and rep working hours. If a meeting type has no valid window, the agent will not offer it.
+The Contact does not need to leave the Conversation and open a separate scheduling page. The Agent can ask about scheduling preferences, check available times, and present suitable options within the current Channel.
 
-  </Step>
-  <Step title="Configure buffer times and daily meeting limits" icon="shield">
+For example, a Contact may ask to meet next Tuesday afternoon. The Agent can check the assigned Account Manager's availability and offer matching times.
 
-  Add buffer time to protect prep time, follow-up time, and schedule flexibility between meetings. Set buffers based on the meeting type when certain conversations need more context switching or post-call work.
+Conversation Booking can be used across supported Channels where interactive scheduling is available. The exact experience may vary by Channel.
 
-  Use daily meeting limits to cap how many bookings a rep can receive in a day. This prevents the agent from filling every available slot during periods of high inbound volume.
+## Booking Controls
 
-  </Step>
-  <Step title="Set booking confirmation rules" icon="check-circle">
+Account Managers can choose how much control they want over the booking process. The available booking methods include automatic booking, approval-required booking, verified-contact booking, and manual booking.
 
-  Choose whether the agent should confirm bookings immediately or create requests that stay pending until someone approves them. Auto-confirm works best when routing, rep ownership, and calendars are already reliable.
+### Automatic Booking
 
-  Pending approval is useful when certain meeting types require manual review, executive calendars need tighter control, or territory assignment happens outside the booking flow.
+With automatic booking, qualified Contacts can select an available time without additional approval from the Account Manager.
 
-  </Step>
-  <Step title="Test the booking flow" icon="play-circle">
+The Agent checks the Account Manager's availability and Scheduling Rules before confirming the meeting. This option provides the fastest path from Qualification to a booked meeting.
 
-  Run a complete test conversation and verify that the agent proposes the expected meeting types and times. Complete the booking to confirm that the event is created on the right calendar and that confirmation messages are sent.
+### Approval Required
 
-  Test rescheduling and edge cases such as no availability, conflicting events, and approval-required bookings. A successful test ends with a created meeting and matching calendar entry for the assigned rep.
+Account Managers can require approval before a requested meeting is confirmed.
 
-  </Step>
-</Steps>
+When approval is required, the Contact submits a meeting request instead of receiving an immediate confirmation. The Account Manager can review the Contact's profile, Company information, Qualification result, Verification result, and Conversation before accepting or declining the meeting.
 
-## Booking flow
+The meeting is confirmed only after the Account Manager approves the request.
 
-Once scheduling is enabled, the conversation follows a simple path. The agent identifies the appropriate meeting type, proposes available times, and waits for the lead to select one.
+### Verified Contact Required
 
-After the lead chooses a slot, the agent creates the meeting on the connected calendar and applies the configured confirmation rules. Confirmation details then go to the lead and the assigned rep so both sides have the booked time and meeting context.
+Account Managers can require Contacts to verify their email addresses before booking a meeting.
 
-## Rescheduling and cancellations
+When this requirement is enabled, Inrepli sends a one-time code to the Contact's email address. The Contact must enter the correct code before they can access available meeting times or complete the booking.
 
-Rescheduling starts by checking the same availability rules used for the original booking. The lead or your team can initiate the change, and the agent offers new valid times based on the assigned rep, meeting type, and configured buffers.
+Email verification confirms that the Contact has access to the provided email address. It helps reduce meetings booked with incorrect, inaccessible, or fraudulent Contact information.
 
-Cancellations remove the meeting from the active workflow and update the calendar event based on the connected integration. If your process requires manual review, keep cancellation and reschedule requests in a pending state instead of allowing immediate changes.
+### Manual Booking
 
-## Next steps
+With manual booking, Contacts cannot schedule meetings automatically.
 
-<Columns cols={3}>
-  <Card title="Routing Rules" href="/inbound-agent/routing-rules" icon="arrow-right" cta="Open page">
-    Control which rep or team receives qualified leads before the agent offers meeting times.
-  </Card>
-  <Card title="Meetings" href="/inbound-agent/meetings" icon="arrow-right" cta="Open page">
-    Review how booked meetings are tracked, managed, and reported across the Inbound Agent workflow.
-  </Card>
-  <Card title="Calendars" href="/integrations/calendars" icon="arrow-right" cta="Open page">
-    Connect and manage calendar integrations used for availability checks and event creation.
-  </Card>
-</Columns>
+The Agent collects the Contact's request and relevant availability information, then sends the request to the assigned Account Manager. The Account Manager reviews the request and creates the meeting manually.
+
+Manual booking provides the greatest level of control but requires the Account Manager to complete the scheduling process.
+
+## Scheduling After Routing
+
+The scheduling process begins after Inrepli has identified the Contact's needs and selected the appropriate Account Manager.
+
+A typical scheduling flow is:
+
+1. The Agent identifies the Contact and their Company.
+2. The Agent completes Qualification and Data Enrichment.
+3. Routing selects the best-fit Account Manager.
+4. The Agent checks the Account Manager's scheduling settings.
+5. The Contact receives available meeting options or submits a meeting request.
+6. The meeting is confirmed automatically or reviewed by the Account Manager.
+
+If the Contact is not qualified, the Agent follows your Qualification and Escalation Rules. Depending on your settings, the Agent may prevent automatic booking and send the meeting request for human review.
+
+If no suitable Account Manager is available, the Agent follows your fallback Routing Rules before offering meeting times.
+
+## Choosing a Booking Method
+
+Use automatic booking when qualified Contacts should be able to schedule meetings as quickly as possible.
+
+Use approval-required booking when Account Managers need to review each opportunity before committing time.
+
+Use verified-contact booking when confirming access to the Contact's email address is important before scheduling.
+
+Use manual booking when the Account Manager needs complete control over every meeting.
+
+Each Account Manager can use the booking method that best fits their responsibilities and availability.
