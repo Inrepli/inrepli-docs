@@ -16,7 +16,6 @@
         "groups": [
           {
             "group": "Getting Started",
-            "icon": "rocket",
             "pages": [
               {
                 "title": "Introduction",
@@ -37,7 +36,6 @@
           },
           {
             "group": "Inbound Agent",
-            "icon": "star",
             "pages": [
               {
                 "title": "Inbound Models",
