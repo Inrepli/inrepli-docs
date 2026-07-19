@@ -1,0 +1,80 @@
+---
+title: Companies
+description: How Inrepli creates, enriches, and verifies Company records — including core fields, AI-generated fields, Company Fit, and Company Verification.
+---
+
+## Companies
+
+A Company record is created after Inrepli confirms the Company associated with a Contact.
+
+Before confirmation, the Company name is stored as a field on the Contact record. After confirmation, Inrepli creates or identifies the related Company record, connects it to the Contact, and enriches the Company with information from available data sources.
+
+Multiple Contacts can be associated with the same Company.
+
+## Company Creation and Enrichment
+
+The Agent may confirm a Company through a work email domain, Company website, information provided during a Conversation, or reliable public sources.
+
+After the Company is confirmed, Inrepli searches grounded web sources and third-party databases for additional information. The Agent organizes the available information into the Company record and stores relevant source details and update dates.
+
+If a matching Company record already exists, Inrepli connects the Contact to the existing record instead of creating a duplicate Company.
+
+## Company Summary
+
+The Company Summary provides a concise overview of the organization.
+
+The Agent creates the summary using information gathered through grounded web research, third-party data sources, and available Conversations. The summary may describe the Company's products or services, target market, business model, size, location, and other relevant background.
+
+The Company Summary helps Account Managers understand the organization before continuing a Conversation or joining a Meeting.
+
+## Core Company Fields
+
+Every Company record includes a standard set of fields.
+
+| Field | Description |
+| --- | --- |
+| Registered name | The Company's official or commonly used business name. |
+| Website | The primary Company website. |
+| Industry | The Company's main industry. |
+| Sub-industry | A more specific description of the Company's business category. |
+| Employee count | The estimated or reported number of employees. |
+| Revenue | The estimated or reported annual revenue in US dollars. |
+| Headquarters country | The country where the Company is headquartered. |
+| Year founded | The year the Company was established. |
+
+Not every field will be available for every Company. Inrepli records information when reliable data can be found and may update the fields as new information becomes available.
+
+## AI-Generated Fields
+
+During Playground setup, the Setup Agent identifies additional Company attributes that may be useful for Qualification.
+
+These fields are based on your business, ideal customer profiles, and Qualification Rules. They allow the Agent to capture information that is important to your qualification process but is not included in the standard Company fields.
+
+AI-generated fields currently store free-text values. The initial field definitions cannot yet be changed after setup. The ability to create and modify these fields is coming soon.
+
+## Company Fit
+
+Company Fit represents how closely a Company matches the types of organizations your business wants to serve.
+
+During Qualification, the Agent compares the Company with your ideal customer profiles, negative profiles, and Qualification Rules. The result can consider factors such as industry, Company size, location, business model, and relevant business needs.
+
+Company Fit supports the Contact's Qualification result and can also be used to identify Companies for future follow-up Campaigns.
+
+Company Fit is separate from Contact intent. A Company may be a strong fit even when the associated Contact has not shown strong purchase intent.
+
+## Company Verification
+
+Company Verification represents the likelihood that the organization is a legitimate and active business.
+
+The Agent may assess signals such as:
+
+- An active Company website
+- Consistent business information across public sources
+- Business registrations or professional listings
+- Current employees or business activity
+- Reliable Company contact information
+- Conflicting or incomplete information
+
+A lower Company Verification result does not automatically mean that the Company is fraudulent. It means the Agent found limited evidence, conflicting information, or signs that the Company may no longer be active.
+
+Company Verification can help your team decide how much effort to place on future follow-up. For example, your team may prioritize Campaign activity toward Companies with stronger Verification results.

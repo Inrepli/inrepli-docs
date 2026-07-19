@@ -1,0 +1,86 @@
+---
+title: Contacts
+description: How Inrepli creates, matches, and enriches Contact records — including core fields, tags, intent, summaries, and custom fields.
+---
+
+## Contacts
+
+A Contact is created when Inrepli collects enough information to identify and communicate with a person. This usually means the Contact has provided an email address or phone number.
+
+Inrepli is designed to preserve every valid inbound opportunity. Contact records combine identity details, communication Channels, Company information, intent, tags, and Conversation history into one profile.
+
+## Contact Creation
+
+Inrepli creates a Contact in the following situations:
+
+- Web chat: A person provides an email address or phone number during a Conversation.
+- WhatsApp: A new person contacts a connected WhatsApp Business account.
+- Form: A submitted form includes an email address, phone number, or another supported Contact field.
+- Email: A new inbound email is received through a connected email Channel.
+
+A Conversation can begin before a Contact record is created. The Contact is created once sufficient Contact information is collected.
+
+## Contact Matching and Deduplication
+
+Inrepli automatically matches Contact records using available Contact information. This helps prevent duplicate records when the same person communicates through multiple Channels.
+
+When matching information is found, Inrepli connects the new Channel and Conversation to the existing Contact profile instead of creating another Contact.
+
+For example, a person may first provide their email address through web chat and then send an inbound email from the same address several days later. Inrepli recognizes the matching email address and stores both Conversations under one Contact profile.
+
+Matching is primarily based on identifiers such as email addresses and phone numbers. A Contact can have multiple connected Channels when more than one identifier has been collected.
+
+## Core Contact Fields
+
+Every Contact record includes a standard set of fields. The Agent can collect, enrich, or update these fields as more information becomes available.
+
+| Field | Description |
+| --- | --- |
+| First name | The Contact's given name. |
+| Last name | The Contact's family name. |
+| Company | The Company provided or identified for the Contact. |
+| Country | The Contact's country. |
+| Region | The Contact's state, province, territory, or business region. |
+| City | The Contact's city. |
+| Language | The Contact's preferred or detected language. |
+| Time zone | The Contact's identified time zone. |
+| Position | The Contact's job title or role. |
+
+The Company field may begin as text when a Company is first provided. After Inrepli confirms the Company and creates or identifies the related Company record, the field becomes a link to that record.
+
+Not every field is required when a Contact is first created. The Agent can add information later through Conversations, Data Enrichment, Forms, and connected Channels.
+
+## Tags
+
+Tags describe the topics, products, services, regions, or other areas connected to a Contact's interests.
+
+The Agent assigns tags based on information collected during the Conversation and Data Enrichment. Tags help your team understand what the Contact wants to discuss and support Routing to the Account Manager with the most relevant expertise.
+
+A tag can include a reason and confidence level so your team can understand why it was assigned.
+
+## Contact Intent
+
+Intent describes why a Contact reached out and how likely they appear to be to take a meaningful next step.
+
+Intent includes two elements:
+
+- Intent Type: The purpose of the Contact's inquiry, such as a sales opportunity, partnership request, support request, or another business purpose.
+- Intent Level: The Agent's assessment of the strength of the Contact's interest.
+
+The Agent can update the Intent Level as new information becomes available. Signals may include the Contact's questions, requested topics, meeting requests, Conversation behavior, and website activity when available.
+
+Intent is separate from Qualification. Intent measures interest and purpose, while Qualification determines whether the Contact's Company fits your Qualification Rules.
+
+## Contact Summary
+
+The Contact Summary gives your team a concise overview of the person and their relationship to the Company.
+
+The Agent creates the summary after the Contact's name and Company have been identified. It may use information collected through Conversations, Data Enrichment, and reliable public sources.
+
+The summary can include the Contact's role, Company affiliation, stated interests, relevant background, and important Conversation context. It is updated as the Agent collects additional information.
+
+## Custom Fields
+
+Custom Contact fields are coming soon.
+
+Custom fields will allow your workspace to store information that is specific to your business and is not covered by the standard Contact fields.

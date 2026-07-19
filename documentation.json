@@ -11,7 +11,7 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Documentation",
+        "tab": "Docs",
         "icon": "book",
         "groups": [
           {
@@ -92,7 +92,7 @@
               {
                 "title": "Contacts",
                 "path": "contacts",
-                "icon": "contact"
+                "icon": "file-user"
               },
               {
                 "title": "Companies",
@@ -107,7 +107,12 @@
               {
                 "title": "Meetings",
                 "path": "meetings",
-                "icon": "building2-icon"
+                "icon": "cctv"
+              },
+              {
+                "title": "Roles",
+                "path": "roles",
+                "icon": "circle-user-round"
               }
             ]
           },
@@ -150,7 +155,7 @@
         ]
       },
       {
-        "tab": "API Reference",
+        "tab": "APIs",
         "icon": "code",
         "groups": [
           {
@@ -162,7 +167,7 @@
         ]
       },
       {
-        "tab": "Help Center",
+        "tab": "Help",
         "icon": "help-circle",
         "pages": [
           {
