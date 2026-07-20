@@ -9,213 +9,174 @@
     }
   },
   "navigation": {
-    "tabs": [
+    "languages": [
       {
-        "tab": "Docs",
-        "icon": "book",
-        "groups": [
+        "language": "English",
+        "icon": "languages",
+        "tabs": [
           {
-            "group": "Getting Started",
-            "pages": [
+            "icon": "book",
+            "groups": [
               {
-                "title": "Introduction",
-                "path": "introduction",
-                "icon": "home"
+                "group": "Getting Started",
+                "pages": [
+                  {
+                    "title": "Introduction",
+                    "path": "introduction",
+                    "icon": "home"
+                  },
+                  {
+                    "title": "Playground",
+                    "path": "playground",
+                    "icon": "flask-conical"
+                  },
+                  {
+                    "title": "Go Live",
+                    "path": "go-live",
+                    "icon": "send"
+                  }
+                ]
               },
               {
-                "title": "Playground",
-                "path": "playground",
-                "icon": "flask-conical"
+                "group": "Inbound Agent",
+                "pages": [
+                  {
+                    "title": "Inbound Models",
+                    "path": "inbound-agent/inbound-models",
+                    "icon": "briefcase-business"
+                  },
+                  {
+                    "title": "Agent Overview",
+                    "path": "inbound-agent/agent-overview",
+                    "icon": "bot"
+                  },
+                  {
+                    "title": "Training",
+                    "path": "inbound-agent/training",
+                    "icon": "book-open"
+                  },
+                  {
+                    "title": "Qualification",
+                    "path": "inbound-agent/qualification",
+                    "icon": "check-circle"
+                  },
+                  {
+                    "title": "Verification",
+                    "path": "inbound-agent/verification",
+                    "icon": "shield"
+                  },
+                  {
+                    "title": "Escalation",
+                    "path": "inbound-agent/escalation",
+                    "icon": "arrow-up"
+                  },
+                  {
+                    "title": "Routing",
+                    "path": "inbound-agent/routing",
+                    "icon": "lucide-route"
+                  },
+                  {
+                    "title": "Scheduling",
+                    "path": "inbound-agent/scheduling",
+                    "icon": "calendar-check"
+                  }
+                ]
               },
               {
-                "title": "Go Live",
-                "path": "go-live",
-                "icon": "send"
+                "group": "Data",
+                "pages": [
+                  {
+                    "title": "Schema",
+                    "path": "data/schema",
+                    "icon": "blocks"
+                  },
+                  {
+                    "title": "Contacts",
+                    "path": "data/contacts",
+                    "icon": "file-user"
+                  },
+                  {
+                    "title": "Companies",
+                    "path": "data/companies",
+                    "icon": "lucide-network"
+                  },
+                  {
+                    "title": "Conversations",
+                    "path": "data/conversations",
+                    "icon": "lucide-messages-square"
+                  },
+                  {
+                    "title": "Meetings",
+                    "path": "data/meetings",
+                    "icon": "cctv"
+                  },
+                  {
+                    "title": "Roles",
+                    "path": "data/roles",
+                    "icon": "circle-user-round"
+                  }
+                ]
+              },
+              {
+                "group": "Connections",
+                "icon": "plug",
+                "pages": [
+                  {
+                    "title": "Website SDK",
+                    "path": "connections/website-sdk",
+                    "icon": "globe"
+                  },
+                  {
+                    "title": "Email",
+                    "path": "email",
+                    "icon": "lucide-mail"
+                  },
+                  {
+                    "title": "Whatsapp",
+                    "path": "connections/whatsapp",
+                    "icon": "lucide-message-circle-more"
+                  },
+                  {
+                    "title": "Meeting Tools",
+                    "path": "connections/meeting-tools",
+                    "icon": "video-icon"
+                  },
+                  {
+                    "title": "Calendars",
+                    "path": "connections/calendars",
+                    "icon": "calendar-plus-icon"
+                  },
+                  {
+                    "title": "Webhooks",
+                    "path": "connections/webhooks",
+                    "icon": "lucide-plug2"
+                  }
+                ]
               }
-            ]
+            ],
+            "tab": "Docs"
           },
           {
-            "group": "Inbound Agent",
-            "pages": [
+            "icon": "code",
+            "groups": [
               {
-                "title": "Inbound Models",
-                "path": "inbound-agent/inbound-models",
-                "icon": "briefcase-business"
-              },
-              {
-                "title": "Agent Overview",
-                "path": "inbound-agent/agent-overview",
-                "icon": "bot"
-              },
-              {
-                "title": "Training",
-                "path": "inbound-agent/training",
-                "icon": "book-open"
-              },
-              {
-                "title": "Qualification",
-                "path": "inbound-agent/qualification",
-                "icon": "check-circle"
-              },
-              {
-                "title": "Verification",
-                "path": "inbound-agent/verification",
-                "icon": "shield"
-              },
-              {
-                "title": "Escalation",
-                "path": "inbound-agent/escalation",
-                "icon": "arrow-up"
-              },
-              {
-                "title": "Routing",
-                "path": "routing",
-                "icon": "lucide-route"
-              },
-              {
-                "title": "Scheduling",
-                "path": "inbound-agent/scheduling",
-                "icon": "calendar-check"
+                "group": "Endpoints",
+                "icon": "terminal",
+                "openapi": "api-reference/openapi.yaml",
+                "pages": []
               }
-            ]
+            ],
+            "tab": "APIs"
           },
           {
-            "group": "Data",
-            "pages": [
-              {
-                "title": "Schema",
-                "path": "schema",
-                "icon": "blocks"
-              },
-              {
-                "title": "Contacts",
-                "path": "contacts",
-                "icon": "file-user"
-              },
-              {
-                "title": "Companies",
-                "path": "companies",
-                "icon": "lucide-network"
-              },
-              {
-                "title": "Conversations",
-                "path": "conversations",
-                "icon": "lucide-messages-square"
-              },
-              {
-                "title": "Meetings",
-                "path": "meetings",
-                "icon": "cctv"
-              },
-              {
-                "title": "Roles",
-                "path": "roles",
-                "icon": "circle-user-round"
-              }
-            ]
-          },
-          {
-            "group": "Connections",
-            "icon": "plug",
-            "pages": [
-              {
-                "title": "Website SDK",
-                "path": "website-sdk",
-                "icon": "globe"
-              },
-              {
-                "title": "Email",
-                "path": "email",
-                "icon": "lucide-mail"
-              },
-              {
-                "title": "Whatsapp",
-                "path": "whatsapp",
-                "icon": "lucide-message-circle-more"
-              },
-              {
-                "title": "Meeting Tools",
-                "path": "meeting-tools",
-                "icon": "video-icon"
-              },
-              {
-                "title": "Calendars",
-                "path": "calendars",
-                "icon": "calendar-plus-icon"
-              },
-              {
-                "title": "Webhooks",
-                "path": "webhooks",
-                "icon": "lucide-plug2"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "APIs",
-        "icon": "code",
-        "groups": [
-          {
-            "group": "Endpoints",
-            "icon": "terminal",
-            "openapi": "api-reference/openapi.yaml",
-            "pages": []
-          }
-        ]
-      },
-      {
-        "tab": "Help",
-        "icon": "help-circle",
-        "pages": [
-          {
-            "title": "Help Center",
-            "path": "help-center",
-            "icon": "home"
-          },
-          {
-            "group": "FAQs",
             "icon": "help-circle",
-            "expandable": false,
-            "pages": [
-              {
-                "title": "How to Add a Team Member",
-                "path": "help-center/faq/how-to-add-team-member"
-              }
-            ]
+            "pages": [],
+            "tab": "Help"
           },
           {
-            "group": "Troubleshooting",
-            "icon": "alert-triangle",
-            "expandable": false,
-            "pages": [
-              {
-                "title": "Cannot Connect CRM",
-                "path": "help-center/troubleshooting/cannot-connect-crm"
-              }
-            ]
-          },
-          {
-            "group": "Guides",
-            "icon": "book-open",
-            "expandable": false,
-            "pages": [
-              {
-                "title": "Auto Reply Setup",
-                "path": "help-center/guides/auto-reply-setup"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Releases",
-        "icon": "clock",
-        "pages": [
-          {
-            "title": "Release History",
-            "path": "changelog",
-            "icon": "history"
+            "icon": "clock",
+            "pages": [],
+            "tab": "Releases"
           }
         ]
       }
