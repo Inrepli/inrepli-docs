@@ -1,5 +1,5 @@
 {
-  "name": "Inrepli Docs",
+  "name": "Inrepli Documentation",
   "colors": {
     "light": {
       "brand": "#339cac"
@@ -124,7 +124,7 @@
                   {
                     "title": "Website SDK",
                     "path": "connections/website-sdk",
-                    "icon": "globe"
+                    "icon": "link"
                   },
                   {
                     "title": "Email",
@@ -145,11 +145,6 @@
                     "title": "Calendars",
                     "path": "connections/calendars",
                     "icon": "calendar-plus-icon"
-                  },
-                  {
-                    "title": "Webhooks",
-                    "path": "connections/webhooks",
-                    "icon": "lucide-plug2"
                   }
                 ]
               }
@@ -170,16 +165,32 @@
           },
           {
             "icon": "help-circle",
-            "pages": [],
+            "pages": [
+              {
+                "title": "Coming Soon",
+                "path": "coming-soon"
+              }
+            ],
             "tab": "Help"
           },
           {
             "icon": "clock",
-            "pages": [],
+            "pages": [
+              {
+                "title": "Change Logs",
+                "path": "change-logs"
+              }
+            ],
             "tab": "Releases"
           }
         ]
       }
     ]
-  }
+  },
+  "logo-dark": "https://blob-cdn.documentation.ai/org-386a037b-ec1c-4ec0-b4e9-272d98dab6ce/doc-c10a6947-3173-4180-9739-3e1b4e8ccbde/1784533769770-byvpnwvoe6u-Logo---White-on-Black-Background.png?fm=auto&auto=compress%2Cformat",
+  "logo-light": "https://blob-cdn.documentation.ai/org-386a037b-ec1c-4ec0-b4e9-272d98dab6ce/doc-c10a6947-3173-4180-9739-3e1b4e8ccbde/1784533942725-4kvw62pocic-Logo---Black-on-White-Background.png?fm=auto&auto=compress%2Cformat",
+  "title": "Inrepli Documentation",
+  "description": "Learn how to set up, integrate, and manage Inrepli with product guides, API documentation, help articles, and the latest release updates.",
+  "template": "classic",
+  "initialRoute": "introduction"
 }
