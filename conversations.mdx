@@ -1,8 +1,9 @@
 ---
 title: Conversations
-description: How Inrepli creates, archives, and summarizes Conversations across channels — including session handling, cross-channel continuity, and usage tracking.
+description: >-
+  How Inrepli creates, archives, and summarizes Conversations across channels —
+  including session handling, cross-channel continuity, and usage tracking.
 ---
-
 ## Conversations
 
 A Conversation is created when Inrepli receives an inbound message through a connected Channel and the Agent responds.
@@ -13,15 +14,15 @@ Conversations store the full exchange between a Contact, the Agent, and any team
 
 Inrepli automatically archives inactive Conversations after a set period. The archive period depends on the Channel and begins after the Contact's most recent message.
 
-| Channel | Conversation archived after |
-| --- | --- |
-| Web chat | 30 minutes |
-| WhatsApp | 24 hours |
-| Email | 7 days |
+| Channel  | Conversation archived after |
+| -------- | --------------------------- |
+| Web chat | 30 minutes                  |
+| WhatsApp | 24 hours                    |
+| Email    | 7 days                      |
 
 Archiving closes the active Conversation but does not delete its messages or remove it from the Contact's history. Archived Conversations remain available for review.
 
-A new inbound message after archiving may begin a new Conversation.
+A new inbound message after archiving will begin a new Conversation. However, the agent will still maintain all context of the prior Conversation.&#x20;
 
 ## Continue on Another Channel
 
@@ -31,17 +32,9 @@ When another verified Contact method is available, the Agent can continue commun
 
 The new messages remain associated with the Contact, allowing your team to follow the interaction across Channels.
 
-## Chat Sessions
-
-Web chat and WhatsApp use active messaging sessions.
-
-A web chat or WhatsApp session closes after 30 minutes without a new message from the Contact. Closing the session marks the end of the active exchange, but it does not delete the Conversation.
-
-The Conversation archive period may differ from the session close period. For WhatsApp, the active session closes after 30 minutes, while the Conversation is archived 24 hours after the Contact's last message.
-
 ## Conversation Summaries
 
-Inrepli creates a Conversation Summary 30 minutes after the active session closes.
+Inrepli creates a Conversation Summary 30 minutes after the last message from the Contact.
 
 The delay allows the Agent to include messages that may arrive shortly after the initial exchange. The summary provides a concise overview of the Contact's request, the information collected, the actions taken, and any next steps.
 
