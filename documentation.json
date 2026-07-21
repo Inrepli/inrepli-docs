@@ -153,14 +153,7 @@
           },
           {
             "icon": "code",
-            "groups": [
-              {
-                "group": "Endpoints",
-                "icon": "terminal",
-                "openapi": "api-reference/openapi.yaml",
-                "pages": []
-              }
-            ],
+            "groups": [],
             "tab": "APIs"
           },
           {
