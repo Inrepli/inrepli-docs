@@ -153,7 +153,13 @@
           },
           {
             "icon": "code",
-            "groups": [],
+            "groups": [
+              {
+                "group": "Endpoints",
+                "pages": [],
+                "icon": "link2"
+              }
+            ],
             "tab": "APIs"
           },
           {
