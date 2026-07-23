@@ -166,6 +166,16 @@
             "icon": "help-circle",
             "pages": [
               {
+                "group": "Guides",
+                "pages": [
+                  {
+                    "title": "Zoom Connection",
+                    "path": "zoom-connection"
+                  }
+                ],
+                "icon": "book-open-icon"
+              },
+              {
                 "title": "Coming Soon",
                 "path": "coming-soon"
               }
