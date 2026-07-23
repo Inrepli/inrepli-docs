@@ -169,15 +169,16 @@
                 "group": "Guides",
                 "pages": [
                   {
-                    "title": "Zoom Connection",
+                    "title": "Connecting Zoom",
                     "path": "zoom-connection"
                   }
                 ],
                 "icon": "book-open-icon"
               },
               {
-                "title": "Coming Soon",
-                "path": "coming-soon"
+                "title": "FAQ (Coming Soon)",
+                "path": "coming-soon",
+                "icon": "circle-question-mark-icon"
               }
             ],
             "tab": "Help"
