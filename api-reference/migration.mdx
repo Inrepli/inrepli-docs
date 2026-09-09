@@ -1,0 +1,16 @@
+---
+title: Migrating to API 1.1
+description: Move integrations to the eight-operation public contract.
+---
+
+API 1.1 keeps the `/v1` prefix but narrows the public surface. Before switching an integration, verify that its target environment has this release deployed.
+
+1. Replace sync-based or legacy listing integrations with the plural resource list routes and supported query filters. Cursor pages are not change-feed checkpoints or consistent snapshots.
+2. Remove calls to public create, conversations, meetings, forms and webhook-management endpoints. This release does not provide replacement operations for them. Existing internal application features and stored records are separate from this public API scope.
+3. Review API key scopes. Use resource read/write permissions; remove reliance on separate insight, consent or contactability permissions. Definition lookup uses explicit `custom-fields:read`.
+4. Read the correct response schema: lists are compact, details are complete public scalar records, and PATCH confirms persisted fields. Do not treat omitted list fields as null.
+5. Send If-Match and Idempotency-Key on every PATCH. Use `websiteUrl` for company updates, public option values for custom selections and strings for custom DECIMAL values.
+6. Stop writing or filtering the legacy contact `score`. Company customerFitScore is a different field and cannot substitute for it.
+7. Update retry and usage handling: failure is 0 RU, successful GET is 1 RU and successful PATCH/replay is 2 RU, subject to the current charging rules.
+
+Use the [quickstart](/api-reference/quickstart) and generated API Reference as the current integration contract. Older broad API examples and internal endpoints are not supported alternatives for removed public operations.

@@ -155,12 +155,49 @@
             "icon": "code",
             "groups": [
               {
-                "group": "Endpoints",
-                "pages": [],
-                "icon": "link2"
+                "group": "Guides",
+                "pages": [
+                  {
+                    "title": "Overview",
+                    "path": "api-reference/overview"
+                  },
+                  {
+                    "title": "Quickstart",
+                    "path": "api-reference/quickstart"
+                  },
+                  {
+                    "title": "Authentication & permissions",
+                    "path": "api-reference/authentication"
+                  },
+                  {
+                    "title": "Filtering, sorting & pagination",
+                    "path": "api-reference/filtering-pagination"
+                  },
+                  {
+                    "title": "Custom fields & responses",
+                    "path": "api-reference/custom-fields"
+                  },
+                  {
+                    "title": "Updates & conflicts",
+                    "path": "api-reference/updates"
+                  },
+                  {
+                    "title": "Errors, usage & limits",
+                    "path": "api-reference/errors-limits"
+                  },
+                  {
+                    "title": "Migrating to API 1.1",
+                    "path": "api-reference/migration"
+                  }
+                ]
+              },
+              {
+                "group": "API Reference",
+                "openapi": "api-reference/openapi.json",
+                "pages": []
               }
             ],
-            "tab": "APIs"
+            "tab": "REST API"
           },
           {
             "icon": "help-circle",

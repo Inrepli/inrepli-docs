@@ -1,0 +1,110 @@
+---
+title: Filtering, sorting and pagination
+description: Encode supported filters and traverse cursor pages.
+---
+
+## Query syntax
+
+Each query parameter must occur once as a string. `filter[field]=value` is shorthand for `filter[field][eq]=value`. Different predicates are combined with AND. `in` and `hasAny` accept a comma-separated string of 1–50 values, not repeated parameters or JSON arrays. Commas delimit values and cannot be escaped as a literal comma inside a value.
+
+Use `curl --get --data-urlencode` to encode names and values. If writing brackets directly in a URL, use `curl --globoff`. Boolean query values are lowercase `true` or `false`. `isNull=true` matches missing/null values; `false` requires a value.
+
+```bash
+curl --get "$API_BASE/companies" \
+  -H "Authorization: Bearer $API_KEY" \
+  --data-urlencode 'filter[domain][in]=example.com,example.org' \
+  --data-urlencode 'filter[employeeCount][gte]=50' \
+  --data-urlencode 'sort=-employeeCount,name' \
+  --data-urlencode 'count=exact'
+```
+
+There are at most 10 filter predicates per request, including at most 3 custom-field predicates. Unsupported fields/operators are rejected rather than ignored.
+
+## Free-text search
+
+`q` is optional, trimmed, and must contain 2–100 characters when supplied. It performs case-insensitive substring matching over:
+
+| Resource | Search fields |
+| --- | --- |
+| Contacts | name, firstName, lastName, email, mobile, position, company text |
+| Companies | name, registeredName, normalized domain, website URL |
+| Team members | firstName, lastName, username, email |
+
+Field definitions do not support `q`. Search does not scan notes, custom values, AI reasons or related objects.
+
+## Value semantics
+
+`intentLevel` accepts `HIGH`, `MED`, `LOW`; `enrichmentStatus` accepts `pending`, `completed`, `failed`; member status accepts `ACTIVE`, `INACTIVE`, `SUSPENDED`, `PENDING`. Country and industry values match stored text; there is no geographic alias expansion.
+
+Domain filtering compares a normalized hostname: `www.example.com` matches `example.com`; `sales.example.com` remains distinct. Paths, ports, credentials and query strings are not accepted in a domain filter. Company `customerFitScore` is compared as stored, without scaling or an inferred high/low threshold.
+
+Dates use `YYYY-MM-DD`; timestamp filters use a valid ISO timestamp with a timezone, such as `2026-09-09T00:00:00Z`. Invalid dates such as February 30 are rejected. Text predicates accept 1–320 characters.
+
+## Cursor pages and sorting
+
+All lists default to `limit=50`, with a maximum of 100. Default sorting is `-createdAt`; `-` means descending. Use at most two distinct supported sort fields. The server appends `id` to break ties and places nullable sort values last.
+
+Pass the returned `nextCursor` unchanged with the original query conditions. Stop when it is null. Cursors bind the tenant, conditions and scopes. Changing these requires restarting pagination. Concurrent changes can move rows between pages; pagination is not a sync snapshot.
+
+`count=exact` returns `total` for the complete matching set, before the cursor boundary. Omit it when unnecessary because it adds counting work. Filters, sorting and page selection run in SQL; the application hydrates only the selected page. Expensive combinations can still require additional database work.
+
+The following tables list the supported native fields and operators. Custom fields are covered in the [custom-field guide](/api-reference/custom-fields).
+
+{/* BEGIN GENERATED QUERY MATRIX */}
+
+### contacts
+
+Sort fields: `createdAt`, `updatedAt`, `name`, `lastInteractionAt`.
+
+| Filter field | Type | Operators |
+| --- | --- | --- |
+| `id` | text | eq, in, isNull |
+| `ownerId` | text | eq, in, isNull |
+| `createdAt` | datetime | eq, gt, gte, lt, lte, isNull |
+| `updatedAt` | datetime | eq, gt, gte, lt, lte, isNull |
+| `lastInteractionAt` | datetime | eq, gt, gte, lt, lte, isNull |
+| `enrichmentStatus` | text | eq, in, isNull |
+| `email` | text | eq, in, isNull |
+| `mobile` | text | eq, in, isNull |
+| `companyId` | text | eq, in, isNull |
+| `qualification` | boolean | eq, isNull |
+| `intentLevel` | text | eq, in, isNull |
+| `country` | text | eq, in, isNull |
+| `industry` | text | eq, in, isNull |
+| `position` | text | eq, contains, isNull |
+
+### companies
+
+Sort fields: `createdAt`, `updatedAt`, `name`, `lastInteractionAt`, `employeeCount`, `customerFitScore`.
+
+| Filter field | Type | Operators |
+| --- | --- | --- |
+| `id` | text | eq, in, isNull |
+| `ownerId` | text | eq, in, isNull |
+| `createdAt` | datetime | eq, gt, gte, lt, lte, isNull |
+| `updatedAt` | datetime | eq, gt, gte, lt, lte, isNull |
+| `lastInteractionAt` | datetime | eq, gt, gte, lt, lte, isNull |
+| `enrichmentStatus` | text | eq, in, isNull |
+| `domain` | domain | eq, in |
+| `industry` | text | eq, in, isNull |
+| `subIndustry` | text | eq, in, isNull |
+| `hqCountry` | text | eq, in, isNull |
+| `employeeCount` | integer | eq, gt, gte, lt, lte, isNull |
+| `yearFounded` | integer | eq, gt, gte, lt, lte, isNull |
+| `customerFitScore` | number | eq, gt, gte, lt, lte, isNull |
+
+### team-members
+
+Sort fields: `createdAt`.
+
+| Filter field | Type | Operators |
+| --- | --- | --- |
+| `status` | text | eq, in, isNull |
+
+### custom-field-definitions
+
+Sort fields: `createdAt`.
+
+Use required `objectType=contact` or `objectType=company` and optional `status=ACTIVE` or `status=ARCHIVED`. No field predicates are supported.
+
+{/* END GENERATED QUERY MATRIX */}
