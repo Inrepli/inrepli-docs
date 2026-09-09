@@ -1187,7 +1187,7 @@
             }
           },
           "422": {
-            "description": "Invalid field value or related resource.",
+            "description": "Invalid field value or related resource. CONTACT_IDENTITY_READ_ONLY: email or mobile was supplied; omit these read-only fields.",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -1260,7 +1260,7 @@
         "x-required-scopes": [
           "contacts:write"
         ],
-        "description": "Requires contacts:write. Requires If-Match and Idempotency-Key. Omitted fields remain unchanged. Returns persisted confirmation, not the full detail."
+        "description": "Requires contacts:write. Requires If-Match and Idempotency-Key. Omitted fields remain unchanged. Returns persisted confirmation, not the full detail. Primary email and mobile are read-only. Omit both from PATCH bodies, including unchanged values and nulls. Supplying either returns 422 CONTACT_IDENTITY_READ_ONLY without applying any changes. Reading and filtering remain supported."
       }
     },
     "/companies": {
@@ -3012,20 +3012,6 @@
               "null"
             ]
           },
-          "email": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "email"
-          },
-          "mobile": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "pattern": "^\\+[1-9]\\d{1,14}$"
-          },
           "company": {
             "type": [
               "string",
@@ -3126,7 +3112,8 @@
             "maxProperties": 100
           }
         },
-        "minProperties": 1
+        "minProperties": 1,
+        "description": "Primary email and mobile are read-only. Omit both from PATCH bodies, including unchanged values and nulls. Supplying either returns 422 CONTACT_IDENTITY_READ_ONLY without applying any changes. Reading and filtering remain supported."
       },
       "Contact": {
         "allOf": [
@@ -3164,13 +3151,17 @@
             "type": [
               "string",
               "null"
-            ]
+            ],
+            "readOnly": true,
+            "description": " Primary contact identity; readable and filterable, not writable through contact PATCH."
           },
           "mobile": {
             "type": [
               "string",
               "null"
-            ]
+            ],
+            "readOnly": true,
+            "description": " Primary contact identity; readable and filterable, not writable through contact PATCH."
           },
           "company": {
             "type": [
@@ -4204,13 +4195,17 @@
             "type": [
               "string",
               "null"
-            ]
+            ],
+            "readOnly": true,
+            "description": " Primary contact identity; readable and filterable, not writable through contact PATCH."
           },
           "mobile": {
             "type": [
               "string",
               "null"
-            ]
+            ],
+            "readOnly": true,
+            "description": " Primary contact identity; readable and filterable, not writable through contact PATCH."
           },
           "company": {
             "type": [
@@ -4561,13 +4556,17 @@
             "type": [
               "string",
               "null"
-            ]
+            ],
+            "readOnly": true,
+            "description": " Primary contact identity; readable and filterable, not writable through contact PATCH."
           },
           "mobile": {
             "type": [
               "string",
               "null"
-            ]
+            ],
+            "readOnly": true,
+            "description": " Primary contact identity; readable and filterable, not writable through contact PATCH."
           },
           "company": {
             "type": [

@@ -5,7 +5,9 @@ description: Safely update existing records using ETags and idempotency keys.
 
 PATCH updates an existing contact or company. See each operation's request schema for the complete writable field list. Unknown fields return HTTP 400 `UNKNOWN_FIELD`. Omitting a field leaves it unchanged; explicit null clears nullable fields. Company name and websiteUrl cannot be cleared. Contact `location` must be an object; use null on individual country/region/city properties to clear them.
 
-Emails are trimmed and lowercased, mobile numbers require E.164, and company websites use the public `websiteUrl` field. Owner and company references must belong to the same workspace. Custom fields are validated and saved with the native changes in one transaction.
+Contact primary `email` and `mobile` are read-only in this release. Omit both from PATCH bodies: adding, replacing, clearing, or echoing either field returns HTTP 422 `CONTACT_IDENTITY_READ_ONLY` and none of the requested changes are saved. They remain available for reading and filtering. Primary contact details participate in channel identity matching; this API does not expose the dedicated contact-point management workflow.
+
+Company websites use the public `websiteUrl` field. Owner and company references must belong to the same workspace. Custom fields are validated and saved with the native changes in one transaction.
 
 ## Optimistic concurrency
 

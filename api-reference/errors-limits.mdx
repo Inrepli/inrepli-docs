@@ -24,9 +24,9 @@ Errors return their HTTP status and an `application/problem+json` body. Inspect 
 | 401 | Missing/invalid/revoked/expired key | Use a valid key |
 | 403 | Missing scope, API access or custom-field plan eligibility | Review access and permissions |
 | 404 | Missing resource or removed endpoint | Check the ID, workspace and route |
-| 409 | Conflicting identity or reused idempotency key | Inspect the error code; resolve the conflict |
+| 409 | Reused idempotency key or conflicting update | Inspect the error code; resolve the conflict |
 | 412 | Stale ETag | Read, reconcile and submit a new logical update |
-| 422 | Invalid native/custom field or related reference | Correct the supplied value |
+| 422 | Invalid field/reference, or read-only contact email/mobile (`CONTACT_IDENTITY_READ_ONLY`) | Correct the value; omit primary email/mobile from PATCH |
 | 428 | Missing If-Match | Supply a current ETag |
 | 429 | Rate, concurrency or RU quota limit | Honor Retry-After when present; quota exhaustion requires available quota |
 | 500 / 503 | Server error or temporary unavailability | Retry cautiously; PATCH retries retain the original idempotency key and request |

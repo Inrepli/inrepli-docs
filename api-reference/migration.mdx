@@ -12,5 +12,6 @@ API 1.1 keeps the `/v1` prefix but narrows the public surface. Before switching 
 5. Send If-Match and Idempotency-Key on every PATCH. Use `websiteUrl` for company updates, public option values for custom selections and strings for custom DECIMAL values.
 6. Stop writing or filtering the legacy contact `score`. Company customerFitScore is a different field and cannot substitute for it.
 7. Update retry and usage handling: failure is 0 RU, successful GET is 1 RU and successful PATCH/replay is 2 RU, subject to the current charging rules.
+8. Remove `email` and `mobile` from contact PATCH bodies, including unchanged values and nulls. Primary identity changes are not exposed in API 1.1; these fields remain readable and filterable. Use a profile field such as `position` to test nullable-field clearing.
 
 Use the [quickstart](/api-reference/quickstart) and generated API Reference as the current integration contract. Older broad API examples and internal endpoints are not supported alternatives for removed public operations.
