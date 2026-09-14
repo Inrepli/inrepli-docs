@@ -200,6 +200,33 @@
             "tab": "REST API"
           },
           {
+            "tab": "MCP",
+            "icon": "bot",
+            "groups": [
+              {
+                "group": "MCP guides",
+                "pages": [
+                  {
+                    "title": "Overview",
+                    "path": "mcp/overview"
+                  },
+                  {
+                    "title": "Connect and authorize",
+                    "path": "mcp/connection"
+                  },
+                  {
+                    "title": "Tools, filters and pagination",
+                    "path": "mcp/tools"
+                  },
+                  {
+                    "title": "Updates, retries and errors",
+                    "path": "mcp/updates"
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "icon": "help-circle",
             "pages": [
               {

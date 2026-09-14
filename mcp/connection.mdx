@@ -1,0 +1,52 @@
+---
+title: Connect and authorize
+description: Personal OAuth connections, current CRM permissions and administrator controls.
+---
+
+## Connect an assistant
+
+1. Obtain your enabled workspace's server URL from an administrator. Administrators can copy it from **Connections → MCP → Quickstart**.
+2. In your client, add a remote **Streamable HTTP** MCP server using that URL. Choose OAuth where the client asks for authentication.
+3. Sign in to Inrepli. Check the requesting client, callback address, account and workspace shown on the authorization page.
+4. Review the account and workspace, then authorize access using your current CRM permissions.
+5. Return to your client to use the eight CRM tools.
+
+The server supports authorization code with S256 PKCE, dynamic registration of public clients, access-token refresh and connection revocation. It does not accept a dashboard login token or REST API key at the MCP endpoint. Tokens are sent in `Authorization: Bearer …`, never in query parameters. The technical OAuth scope is `mcp:access`. It enables the connection; each tool operation is authorized using the user’s current CRM role and record access.
+
+Codex OAuth and ChatGPT developer-mode connections are the target clients. Final compatibility must be verified against the deployed server; availability of client UI features depends on that client.
+
+## What can a connection access?
+
+The connection inherits your current CRM permissions. Users with update permission can update accessible records; users without it cannot. There is no separate read-only or read-and-update permission tier on a connection.
+
+Your existing **all / own** record rules apply to searches, counts, details and updates. “My contacts” means contacts whose `ownerId` is your authorized user ID; it does not mean conversation ownership. Ownership changes follow the existing update rules and same-workspace reference validation. After reassignment, an own-scope user may no longer be able to access that record. Related data is restricted by the relevant CRM permissions as well.
+
+Team-member lookup returns public fields for resolving owners, not administrative user details. Custom-field definitions require CRM read access; reading definitions does not grant permission to edit them. Updating custom values retains the existing custom-field plan eligibility check.
+
+## Connection lifetime
+
+Access tokens last one hour. Refresh tokens rotate when used and last up to 30 days, within the connection's absolute 90-day lifetime. Clients must save the new refresh token after every successful refresh. Reconnect when the connection expires.
+
+Refresh must be serialized by the client. Reusing a consumed refresh token revokes the connection to contain token replay; reconnect if a refresh response is lost instead of repeatedly using the old token.
+
+Normal browser logout or browser-session expiry does not revoke an MCP connection. Revocation, user disablement, leaving the workspace, inactive workspaces and security actions that change your account's authentication version invalidate it. The latter includes the existing logout-all / account-security reset mechanism.
+
+Administrators use **Connections → MCP → Connections** to revoke a connection. Its tokens stop working on the next request. Ordinary users can authorize and use MCP without gaining access to this administrative page or workspace-wide logs.
+
+## Management pages
+
+Connections and Logs load when opened and reload when you return to the application window. Revoking a connection requires confirmation and reloads the list after success. Lists show the newest records first and use numbered pages, with 20 records per page by default. Choose 20, 50 or 100 records per page; changing the page size returns to page one. The total covers the workspace, and each page is fetched from the server. Returning to the window or revoking a connection reloads the current page. API Keys and API Request Logs use the same numbered-page controls. Creating an API key returns its list to page one; revoking a key reloads the current page. This console pagination does not change MCP tool cursors or public REST resource pagination.
+
+User names and email addresses are shown when the user still belongs to the workspace; IDs remain available for copying and troubleshooting. Times use your browser's local time zone. These management pages remain administrator-only.
+
+## Deployment addresses
+
+The Server URL is the backend origin followed by `/mcp`. MCP reuses `INREPLI_BASE_URL` for the backend and `FRONTEND_BASE_URL` when the frontend uses a separate origin. No MCP-specific address variables are required. Correct the shared addresses and restart the backend if the URL is unavailable. Installing dependencies alone does not configure addresses.
+
+Use HTTPS in deployed environments. Loopback HTTP is supported only outside production. A cloud-hosted AI client cannot reach a service on your computer using `localhost`.
+
+The browser consent page is `/integrations/mcp/authorize` on the frontend origin. It requires sign-in but is not an administrator-only management page. Login returns the user to this consent request.
+
+For a shared frontend/backend domain, route `/mcp` with prefix matching to the backend, including `/mcp/oauth/*`. Also route `/.well-known/oauth-protected-resource` (prefix) and `/.well-known/oauth-authorization-server` (exact) to the backend. Discovery metadata is generated as JSON by the backend, not served as a static frontend file. Keep `/integrations/mcp/authorize` on the frontend. Existing `/api/v1` and `/v1` backend routes remain in place. Preserve the original path, query and authorization headers without rewriting paths.
+
+Deploy the frontend route and backend consent redirect together. Restart authorization from the client if an old browser tab still points to `/mcp/authorize`.
