@@ -19,7 +19,7 @@ description: Structured MCP parameters and the CRM API 1.1 query rules.
 }
 ```
 
-Filters are combined with AND. Use `q` for free text, and typed predicates for exact values, ranges and null checks. `in` and `hasAny` require arrays; other operators require a scalar. Commas inside array values are not supported. Use `isNull: true` as a predicate value to search for missing values, rather than the string `"null"`.
+Filters are combined with AND. Use `q` for free text, and typed predicates for exact values, ranges and null checks. `in` and `hasAny` require arrays; other operators require a scalar. Commas inside array values are not supported. To search for missing values, use an `isNull` predicate with a boolean value, for example `{ "field": "country", "op": "isNull", "value": true }`. Do not use the string `"null"`.
 
 Native enum filters use case-sensitive values with `eq` or `in`:
 
@@ -45,9 +45,9 @@ The assistant can call the tool again with `nextCursor`, keeping `limit` and all
 
 ## Resolve owners and custom fields
 
-`list_team_members` supports `q`, a `status` filter, paging and sorting by `createdAt`. Use its IDs when a person is selected as an owner.
+`list_team_members` supports `q`, a `status` filter, paging and sorting by `createdAt`. It requires list permission for contacts or companies. Use its IDs when a person is selected as an owner.
 
-`list_custom_field_definitions` requires `objectType: "contact"` or `"company"`. It supports `status: "ACTIVE"` or `"ARCHIVED"`, paging and `createdAt` sorting. Results include keys, types, select options and allowed operators. Archived definitions cannot be filtered or updated as active fields.
+`list_custom_field_definitions` requires `objectType: "contact"` or `"company"`. It supports `status: "ACTIVE"` or `"ARCHIVED"`, paging and `createdAt` sorting. It requires list permission for the requested contact or company object; detail-read permission alone is insufficient. Results include keys, types, select options and allowed operators. Archived definitions cannot be filtered or updated as active fields.
 
 Call the definition tool when a field's meaning, key, type or options are unknown. It is not necessary before every ordinary read. For example:
 

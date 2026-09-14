@@ -184,10 +184,6 @@
                   {
                     "title": "Errors, usage & limits",
                     "path": "api-reference/errors-limits"
-                  },
-                  {
-                    "title": "Migrating to API 1.1",
-                    "path": "api-reference/migration"
                   }
                 ]
               },
@@ -211,7 +207,7 @@
                     "path": "mcp/overview"
                   },
                   {
-                    "title": "Connect and authorize",
+                    "title": "Quickstart and authorization",
                     "path": "mcp/connection"
                   },
                   {

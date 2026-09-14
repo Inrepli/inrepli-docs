@@ -3,9 +3,28 @@ title: MCP overview
 description: Connect AI assistants to your Inrepli CRM using a personal OAuth connection.
 ---
 
-Inrepli MCP lets an AI assistant search and update CRM records with your current account permissions. MCP is a separate connection from REST API keys. Both use the same CRM query and mutation services.
+Inrepli MCP lets an AI assistant search and update CRM records with your current account permissions. MCP uses a personal OAuth connection rather than a REST API key.
 
-This first version is available only in enabled workspaces. Copy the deployed server URL from **Connections → MCP → Quickstart**. The documentation website is not the MCP server. Client and sandbox acceptance is required before general availability.
+## Server URL
+
+Add this production endpoint to your AI client:
+
+```text
+https://app.inrepli.com/mcp
+```
+
+- **Transport:** Streamable HTTP.
+- **Authentication:** OAuth — sign in with your Inrepli account and authorize the connection. No REST API key is required.
+
+MCP must be enabled for your workspace. Administrators can also copy the server URL from **Connections → MCP → Quick Start**. Use the MCP endpoint above, not the documentation website URL.
+
+Follow the [quickstart and authorization guide](/mcp/connection), then try this read-only prompt:
+
+```text
+Show the 5 most recently updated contacts I can access. Do not change any records.
+```
+
+## Workspace access
 
 An administrator enables MCP using the independent **MCP access** switch in the Admin Console tenant's **API / MCP** page. REST API access and subscription plans do not automatically enable MCP. Users still need OAuth consent and their current CRM permissions. Disabling MCP blocks new authorizations and subsequent calls from existing connections; re-enabling allows still-valid connections to resume. To permanently remove a connection, revoke it.
 
@@ -21,5 +40,3 @@ There are eight tools. Creation, deletion, sync, messages, meetings, enrichment 
 Each connection belongs to one user and workspace. Users can connect an assistant without access to the management menu. Administrators can inspect and revoke workspace connections and see call logs.
 
 All MCP calls cost **0 RU**, including failed calls, retries and updates. They do not reserve or deduct the REST API allowance. Technical rate limits still apply. See [connection and permissions](/mcp/connection), [tools and queries](/mcp/tools), and [updates and errors](/mcp/updates).
-
-FastGPT support-agent delegation is a later integration phase; it is not part of this OAuth connection flow.
