@@ -28,6 +28,4 @@ The existing custom-field editing plan restriction also applies to API value upd
 
 A write-only key can update an existing record if the integration already has its current ETag from another authorized source. It receives the compact update confirmation. For a normal read-modify-write integration, grant both scopes for that resource.
 
-Legacy wildcard keys remain compatible with resource access, but the custom-field definition endpoint requires explicit `custom-fields:read`.
-
 Missing, invalid, revoked or expired keys return HTTP 401. Missing scopes and unavailable API/plan access return HTTP 403. Revoking a key prevents subsequent use; keep keys out of frontend code, URLs and shared examples.

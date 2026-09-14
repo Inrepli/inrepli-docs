@@ -44,7 +44,9 @@ The assistant is instructed to clarify ambiguous targets and confirm multi-recor
 
 SDK input-validation errors can use the MCP protocol validation format rather than the business error object below. No update is executed when input validation fails.
 
-Business tool errors contain a safe message, HTTP-equivalent `status` and stable `code`; unexpected errors are masked as `INTERNAL_ERROR`. Authentication failures return an HTTP 401 Bearer challenge so the client can reconnect. Operations not permitted by the current user’s CRM role return 403-equivalent tool errors; inaccessible records return 404. Query or field validation fails without partially applying an update.
+Business tool errors contain a safe message, HTTP-equivalent `status` and stable `code`; unexpected errors are masked as `INTERNAL_ERROR`. Missing, invalid or expired MCP access credentials return an HTTP 401 Bearer challenge so the client can refresh or reconnect as appropriate. Operations not permitted by the current user’s CRM role return 403-equivalent tool errors; inaccessible records return 404. Query or field validation fails without partially applying an update.
+
+Disabling MCP for a workspace blocks new authorizations and calls from existing connections with `403 MCP_NOT_ENABLED`. It does not prevent normal Inrepli sign-in. Reconnecting or signing in again does not enable MCP; an administrator must enable it for the workspace. Closing this switch does not itself revoke existing connections, so still-valid, unrevoked connections can resume after re-enabling.
 
 Current technical limits are 60 HTTP requests per minute per connection, 300 per workspace, and 8 concurrent requests per connection / 32 per workspace. An additional source-IP limit protects the public endpoint. Limits use shared Redis, apply across workers and fail closed if Redis is unavailable. Rate limits do not charge RU.
 
