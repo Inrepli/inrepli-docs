@@ -1,0 +1,51 @@
+---
+title: Updates, retries and errors
+description: Atomic single-record updates, note appends and zero-RU call logs.
+---
+
+`update_contact` and `update_company` accept `id`, `changes` and `operationId`. The server reads the latest record inside the transaction. The assistant does not need to fetch an ETag first. REST API updates continue to require `If-Match`.
+
+```json
+{
+  "id": "CONTACT_ID",
+  "operationId": "UNIQUE_OPERATION_ID",
+  "changes": { "position": "Manager" }
+}
+```
+
+Only submitted fields change. Omitted fields remain unchanged; supported nullable fields can be cleared with JSON `null`. Writable fields follow the API 1.1 public contract. Primary contact email/mobile and system-generated snapshots are read-only. Omit `email` and `mobile` from `changes`, including when clearing them or resubmitting their current values. Identity fields are rejected before the update callback; the MCP input-validation message includes `CONTACT_IDENTITY_READ_ONLY` and explains that these fields must be omitted.
+
+## Append or replace notes
+
+Use `changes.notes` to replace notes. To append to the latest notes atomically:
+
+```json
+{
+  "id": "CONTACT_ID",
+  "operationId": "UNIQUE_APPEND_OPERATION_ID",
+  "changes": {},
+  "appendNotes": "Customer asked for a follow-up next week."
+}
+```
+
+`appendNotes` adds a newline when existing notes are present. It cannot be combined with `changes.notes`; an append is limited to 10,000 characters and the resulting value must pass the existing field validation.
+
+Concurrent MCP updates serialize on the record. Distinct field changes are preserved; for explicit assignments to the same field, the later executing successful update wins. This does not promise a new concurrency contract for unrelated internal application writers. Multiple-record actions are separate tool calls, without an overall batch transaction.
+
+## Retries and confirmations
+
+Generate a new `operationId` for each intended update. If a response is lost, retry with the **same ID and identical arguments**, within 24 hours. A matching committed operation returns its existing receipt without repeating the mutation or note append. Reusing the ID with different arguments produces a conflict. After the retention window, inspect the record and resolve the outcome before issuing another update.
+
+An update returns a receipt containing `id`, `operationId`, `updated`, `changedFields` and `ru: 0`. It does not expose unrelated record fields to update-only users. A user with read access can retrieve details separately.
+
+The assistant is instructed to clarify ambiguous targets and confirm multi-record changes. Client confirmation interfaces are controlled by the client; there is no server-side approval token or batch approval workflow in this release.
+
+## Errors and limits
+
+SDK input-validation errors can use the MCP protocol validation format rather than the business error object below. No update is executed when input validation fails.
+
+Business tool errors contain a safe message, HTTP-equivalent `status` and stable `code`; unexpected errors are masked as `INTERNAL_ERROR`. Authentication failures return an HTTP 401 Bearer challenge so the client can reconnect. Operations not permitted by the current user’s CRM role return 403-equivalent tool errors; inaccessible records return 404. Query or field validation fails without partially applying an update.
+
+Current technical limits are 60 HTTP requests per minute per connection, 300 per workspace, and 8 concurrent requests per connection / 32 per workspace. An additional source-IP limit protects the public endpoint. Limits use shared Redis, apply across workers and fail closed if Redis is unavailable. Rate limits do not charge RU.
+
+Administrators can inspect tool, user, connection, status, duration, request ID and **0 RU** in **Connections → MCP → Logs**. Tool logs are retained for 30 days. They omit tokens and full CRM request/response bodies. Authentication/protocol failures without a trusted identity are recorded separately in application diagnostics.

@@ -1,0 +1,64 @@
+---
+title: REST API quickstart
+description: Make a filtered request and safely update an existing contact.
+---
+
+## 1. Create an API key
+
+Open **Connections → APIs → API Keys** in your Inrepli workspace with API access enabled. Create a key with `contacts:read` and `contacts:write`, and copy it when shown. Store keys in your server-side secret configuration.
+
+The examples use Bash-compatible shell syntax. Replace the placeholders with your API key and an existing contact ID. They are not credentials or seeded records.
+
+```bash
+export API_BASE='https://app.inrepli.com/v1'
+export API_KEY='inr_v1_YOUR_KEY'
+export CONTACT_ID='YOUR_CONTACT_ID'
+```
+
+## 2. Find contacts
+
+```bash
+curl --get "$API_BASE/contacts" \
+  -H "Authorization: Bearer $API_KEY" \
+  --data-urlencode 'filter[qualification]=true' \
+  --data-urlencode 'sort=-updatedAt' \
+  --data-urlencode 'limit=50'
+```
+
+An empty matching page is a successful response:
+
+```json
+{"data":[],"nextCursor":null}
+```
+
+If `nextCursor` is non-null, pass it as `cursor` on the next request with the same conditions. A non-empty item includes `id` and `etag`; copy these to prepare an update. Structured filters do not require `q`.
+
+## 3. Read the contact and its version
+
+```bash
+curl -i "$API_BASE/contacts/$CONTACT_ID" \
+  -H "Authorization: Bearer $API_KEY"
+```
+
+Copy the `ETag` response header, including its double quotes. The same value is available in `data.etag`. You may also use a current list item's `etag`; a separate detail request is not mandatory.
+
+## 4. Update the contact
+
+```bash
+# Replace the timestamp with the actual ETag you just received.
+export CONTACT_ETAG='"2026-09-09T00:00:00.000Z"'
+curl -i -X PATCH "$API_BASE/contacts/$CONTACT_ID" \
+  -H "Authorization: Bearer $API_KEY" \
+  -H "If-Match: $CONTACT_ETAG" \
+  -H 'Idempotency-Key: contact-position-example-001' \
+  -H 'Content-Type: application/json' \
+  --data '{"position":"Manager","notes":"Requested a follow-up."}'
+```
+
+A successful update returns HTTP 200, the persisted confirmation in `data`, a new `ETag` and `Idempotent-Replayed: false`. Other fields omitted from the request remain unchanged. Use a new idempotency key for each new logical update.
+
+On a network retry, keep the same body, ID, ETag and idempotency key. On HTTP 412, read the latest record and reconsider the update before submitting a new request with a new key. See [updates and conflicts](/api-reference/updates).
+
+## 5. Review usage
+
+Use the API console's Request Logs and Usage pages to inspect status codes and RU. A successful GET costs 1 RU; a successful PATCH costs 2 RU. See [usage and limits](/api-reference/errors-limits) for quota charging and replay behavior.

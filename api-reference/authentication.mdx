@@ -1,0 +1,33 @@
+---
+title: Authentication and permissions
+description: Tenant-scoped API keys and the six resource scopes.
+---
+
+Send `Authorization: Bearer YOUR_API_KEY` with every request. API keys belong to a workspace (tenant); the creator is recorded for audit. A key does not represent a currently logged-in user's personal record visibility. IDs and related records must belong to the key's workspace.
+
+| Scope | Authorizes |
+| --- | --- |
+| `contacts:read` | Contact list, detail, supported filtering and sorting |
+| `contacts:write` | Contact updates |
+| `companies:read` | Company list, detail, supported filtering and sorting |
+| `companies:write` | Company updates |
+| `team-members:read` | Team member list and requested owner summaries |
+| `custom-fields:read` | Custom field definitions, types, options and object associations |
+
+Read covers single and multiple records. Insights, consent, contactability and company fit are fields, not additional scopes. Related company expansion requires `companies:read`; company contact counts require `contacts:read`.
+
+## Custom field permissions
+
+Reading or filtering a contact's custom values requires `contacts:read`; updating them requires `contacts:write`. Companies follow the same rule. Neither operation additionally requires `custom-fields:read`.
+
+`custom-fields:read` only permits looking up metadata. It does not grant access to contact/company records and does not allow creating or editing definitions. Definition `writable` combines the key's resource write permission, the definition's active status and the workspace's current plan eligibility.
+
+The existing custom-field editing plan restriction also applies to API value updates. Manual API enablement does not itself enable custom-field editing. A denied update returns HTTP 403 with `CUSTOM_FIELD_EDITING_NOT_AVAILABLE`.
+
+## Read and write are independent
+
+A write-only key can update an existing record if the integration already has its current ETag from another authorized source. It receives the compact update confirmation. For a normal read-modify-write integration, grant both scopes for that resource.
+
+Legacy wildcard keys remain compatible with resource access, but the custom-field definition endpoint requires explicit `custom-fields:read`.
+
+Missing, invalid, revoked or expired keys return HTTP 401. Missing scopes and unavailable API/plan access return HTTP 403. Revoking a key prevents subsequent use; keep keys out of frontend code, URLs and shared examples.
