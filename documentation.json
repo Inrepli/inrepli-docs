@@ -217,6 +217,10 @@
                   {
                     "title": "Updates, retries and errors",
                     "path": "mcp/updates"
+                  },
+                  {
+                    "title": "MCP in Inrepli Support",
+                    "path": "mcp/support"
                   }
                 ]
               }
