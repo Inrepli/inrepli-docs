@@ -3,7 +3,7 @@ title: MCP overview
 description: Connect AI assistants to your Inrepli CRM using a personal OAuth connection.
 ---
 
-Inrepli MCP lets an AI assistant search and update CRM records with your current account permissions. MCP uses a personal OAuth connection rather than a REST API key.
+Inrepli MCP lets an AI assistant search and update CRM records with your current account permissions. External AI clients use a personal OAuth connection rather than a REST API key. Enabled Inrepli Support workflows use the signed-in user through a separate internal authorization flow; see [MCP in Inrepli Support](/mcp/support).
 
 ## Server URL
 
@@ -26,7 +26,7 @@ Show the 5 most recently updated contacts I can access. Do not change any record
 
 ## Workspace access
 
-An administrator enables MCP using the independent **MCP access** switch in the Admin Console tenant's **API / MCP** page. REST API access and subscription plans do not automatically enable MCP. Users still need OAuth consent and their current CRM permissions. Disabling MCP blocks new authorizations and subsequent calls from existing connections; re-enabling allows still-valid connections to resume. To permanently remove a connection, revoke it.
+An administrator enables MCP using the independent **MCP access** switch in the Admin Console tenant's **API / MCP** page. REST API access and subscription plans do not automatically enable MCP. External clients still need OAuth consent, and all calls require current CRM permissions. Disabling MCP blocks new authorizations and subsequent calls from existing connections; re-enabling allows still-valid connections to resume. To permanently remove a connection, revoke it.
 
 | Capability | Tools |
 | --- | --- |

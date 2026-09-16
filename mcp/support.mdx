@@ -1,0 +1,30 @@
+---
+title: "MCP in Inrepli Support"
+description: "How enabled Support workflows use your current CRM permissions."
+---
+
+Where your deployment has enabled the Support MCP integration, you can ask the Support assistant to search and update CRM records using your signed-in Inrepli account. No additional OAuth authorization is required inside Support.
+
+For example:
+
+```text
+Show the 5 most recently updated contacts I can access. Do not change any records.
+```
+
+Support uses the same eight CRM tools and current record permissions described in [Tools, filters and pagination](/mcp/tools). The workspace MCP switch must be enabled. You can continue only your own Support conversations; access to view a shared conversation does not grant permission to continue it.
+
+## Permissions and results
+
+Tool availability does not grant permission to use every operation. Each call checks your current CRM permissions. A rejected operation does not complete; if a request includes several operations, some may have completed before another was rejected. The assistant should distinguish those outcomes and should not retry a denied operation through another tool.
+
+## Logs and connections
+
+Administrators can review calls in **Connections → MCP → Logs** and filter by **Support / FastGPT**. Each tool call has its own result and request ID. Support entries have no OAuth Connection ID; their details include the conversation and chat request identifiers.
+
+Support authorization is temporary and specific to the current user request. It does not create a new item in **MCP → Connections** for every message. Connections continues to manage long-lived OAuth authorizations for clients such as Codex.
+
+MCP calls cost **0 RU** in this version. Support model or application usage follows its existing rules. Updates retain the same retry and idempotency rules described in [Updates, retries and errors](/mcp/updates).
+
+## External AI clients
+
+Connecting an external client still uses the [OAuth quickstart](/mcp/connection). Support's internal authorization does not replace your external client's OAuth connection or provide a reusable API key.
