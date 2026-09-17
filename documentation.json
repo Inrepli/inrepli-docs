@@ -34,6 +34,11 @@
                     "title": "Go Live",
                     "path": "go-live",
                     "icon": "send"
+                  },
+                  {
+                    "title": "Support Assistant",
+                    "path": "support-assistant",
+                    "icon": "sparkles"
                   }
                 ]
               },
