@@ -1,13 +1,13 @@
 ---
 title: Website SDK
-description: Connect your website to Inrepli for web chat, form submissions, and future cookie management and behavior tracking.
+description: Connect your website to Inrepli for web chat, form submissions, consent-aware tracking, and website activity.
 ---
 
 ## Overview
 
 The Inrepli Website SDK connects your website to the Inrepli platform.
 
-Adding the SDK allows Inrepli to support website chat, collect form submissions, and prepare for future cookie management and website behavior tracking.
+Adding the SDK allows Inrepli to support website chat, collect form submissions, respect configured consent requirements, and record supported website activity.
 
 The SDK can be used with or without the Inrepli web chat widget.
 
@@ -66,22 +66,18 @@ For a more controlled and seamless long-term setup, a direct backend Integration
 
 You can begin with the Website SDK and move to a backend Integration later if your requirements become more complex.
 
-## Cookie Management
+## Consent Management
 
-<Callout kind="info">
+You can connect a consent management tool to a website so the Website SDK follows the consent scopes required for tracking. Inrepli supports connections for OneTrust, Cookiebot, Usercentrics, and custom consent implementations.
 
-**Coming Soon**
+For a custom implementation, your website can pass analytics, preferences, and marketing consent states to the SDK. Inrepli displays the connection status in the Website workspace so your team can confirm whether the integration has connected successfully.
 
-Cookie management through the Website SDK is coming soon. This feature will help Inrepli manage consent and supported website tracking behavior based on your configured requirements.
-
-</Callout>
+When a website requires consent for tracking, the SDK waits for the required authorization before recording website activity. When no tracking consent scope is required, tracking can begin without waiting for a consent event.
 
 ## Website Behavior Tracking
 
-<Callout kind="info">
+Website Behavior Tracking records supported activity such as page views, form submissions, and website interactions. Open a website in Inrepli and select **Webtracking** to enable or disable collection and review recorded events.
 
-**Coming Soon**
+You can filter activity by event category and date, open an event to review its details, and follow a resolved visitor to the related Contact when one is available. Form-submission activity is sent before page navigation completes so supported submissions are retained when the destination page changes.
 
-Website behavior tracking is coming soon. This feature will allow the Agent to use relevant website activity, such as pages viewed or topics explored, to better understand Contact interests and intent.
-
-</Callout>
+Website activity can provide additional context for Contact intent and qualification. Availability depends on your subscription, website configuration, consent requirements, and whether the visitor can be associated with a Contact.
