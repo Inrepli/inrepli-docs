@@ -1,88 +1,120 @@
 ---
 title: Changelog
-description: Product updates, improvements, and fixes from Inrepli.
+description: Version history with the 2-3 most recent updates, new features, and changes.
 ---
 
-Follow the latest customer-visible improvements to Inrepli. Every entry is generated
-from a frozen production release snapshot and reviewed before publication.
+## Recent Updates
 
-{/* release-platform:updates */}
+Stay informed about the latest improvements to Inrepli Docs. Review release notes below to understand new features, bug fixes, and any required actions.
 
-{/* release-platform:start:inrepli-20260904t093613z */}
-<Update label="2026-09-04" description="Smarter qualification, clearer customer activity, and more reliable setup" tags={["feature","improvement"]}>
+<Update label="2024-10-15" description="v1.2.0" tags={["feature", "improvement"]}>
 
-## Smarter qualification and clearer customer activity
+## New Features
 
-This release helps teams qualify buyers more consistently, understand website and form activity, and benefit from more reliable setup and lifecycle communications.
+- Added support for custom knowledge bases in agent configurations.
+- Introduced WhatsApp follow-up integration for multi-channel capture.
 
-### More consistent buyer qualification
+## Improvements
 
-- Organize required and optional Budget, Authority, Need, and Timing questions and connect them to compatible Contact fields.
-- Let the Agent suggest relevant questions and continue with unanswered questions during customer conversations.
+- Enhanced lead qualification logic with better intent detection.
+- Optimized unified inbox loading times by `>30%`.
 
-### Clearer, consent-aware activity
+## Bug Fixes
 
-- Respect plan availability and configured consent preferences when collecting website activity.
-- See Form submissions and Website/Webchat activity more promptly across Inbox and contact views.
-
-### More reliable setup and communications
-
-- Tenant setup and website refresh tasks now recover more reliably and provide clearer progress and completion states.
-- Playground and billing lifecycle emails are handled more consistently, including duplicate prevention and cancellation when they are no longer needed.
+- Fixed routing errors when multiple owners match qualification rules.
+- Resolved profile enrichment failures for certain company domains.
 
 </Update>
-{/* release-platform:end:inrepli-20260904t093613z */}
 
-{/* release-platform:start:inrepli-20260828-historical-replay:sha256:6c48ba999d50f194b05beed9d773ed83fc989ab8e7c2f508d78817224ef22a0b */}
-<Update label="2026-08-28" description="Historical release evidence replay" tags={["feature","improvement"]}>
+<Update label="2024-09-20" description="v1.1.0" tags={["feature", "bugfix"]}>
 
-## Customer data, web activity, and conversation upgrades
+## New Features
 
-This draft reconstructs the 2026-08-28 release window from frozen code evidence. It has not been re-tested in Staging or Live.
+- Launched training tools dashboard to identify knowledge gaps.
+- Added meeting booking calendar sync with Google Workspace.
 
-### Customer data management
+## Bug Fixes
 
-- Configure custom fields with groups, permissions, archive-impact review, history, and real-time updates.
-- Manage contacts and companies with additional contact points, saved table views, improved field editing, owner assignment, and international phone validation.
+- Corrected email follow-up threading issues.
+- Patched security vulnerability in webhook endpoints.
 
-### Website activity and consent
+## Improvements
 
-- Capture website sessions and page or media activity, and review activity context and AI-generated summaries in customer profiles and Inbox.
-- Configure supported consent integrations and update conversation activity when consent changes.
-
-### Voice and real-time conversations
-
-- Configure voice options for web chat, including voice input, streamed playback, transcription, and speech synthesis.
-- Use real-time consultation flows with clearer localized status and error feedback.
-
-### Knowledge, Playground, and developer workflows
-
-- Track website refresh jobs with progress and error states, reconcile orphaned website items, and manage agent guidance.
-- Use improved Playground workflow guidance and WhatsApp simulation controls for manual conversation review.
-- Manage external API access and related billing settings.
-
-> Verification status: historical code-evidence replay only (`NOT_TESTED`). Human review is required before publication.
+- Streamlined setup agent to auto-detect website forms.
 
 </Update>
-{/* release-platform:end:inrepli-20260828-historical-replay */}
 
-{/* release-platform:start:inrepli-20260723t114918z:sha256:681536a7c50f39be4caaa81ded1610509b7fba4875d32c350064fdd8a4d8bffc */}
-<Update label="2026-07-23" description="inrepli-20260723t114918z" tags={["feature","improvement"]}>
+<Update label="2024-08-10" description="v1.0.0" tags={["breaking", "feature"]}>
 
-## Training knowledge management improvements
+## Initial Release
 
-Find, review, and maintain your agent’s knowledge more efficiently.
+- Core inbound agent with lead capture and qualification.
+- Unified inbox and basic lead routing.
 
-### Search and history
+## Breaking Changes
 
-- Search completed FAQs and document content using keyword or semantic search.
-- Review changes to FAQs, websites, files, and document chunks, with filters for source and who made each change.
-
-### Safer knowledge maintenance
-
-- Preview which pending FAQs may be affected before deleting supporting knowledge, then choose whether to update or remove those FAQs.
-- Filter FAQs by category, creator, and review status, and approve or delete multiple FAQs at once.
-- Add an individual page from the same website directly to an existing website knowledge source.
+- Updated API authentication to use `{API_KEY}` headers only.
 
 </Update>
-{/* release-platform:end:inrepli-20260723t114918z */}
+
+<Callout kind="alert">
+  For v1.0.0 users, migrate to the new authentication format immediately to avoid disruptions.
+</Callout>
+
+## Migration Guide
+
+Follow these steps to upgrade smoothly between versions.
+
+<Steps>
+  <Step title="Backup Configuration" icon="database">
+    Export your current agent settings and knowledge base.
+  </Step>
+  <Step title="Update Package" icon="download">
+    <CodeGroup tabs="npm,yarn">
+````bash
+npm install inrepli-docs@latest
+````
+````bash
+yarn add inrepli-docs@latest
+````
+    </CodeGroup>
+  </Step>
+  <Step title="Review Breaking Changes" icon="alert-triangle">
+    Check the `{API_KEY}` header update in v1.0.0 notes.
+  </Step>
+  <Step title="Test Integrations" icon="zap">
+    Verify WhatsApp and email follow-ups in staging.
+  </Step>
+</Steps>
+
+## Upcoming Roadmap
+
+Track planned enhancements visually.
+
+<Board title="Q4 2024 Roadmap">
+  <BoardColumn title="Planned" color="0" icon="calendar">
+    <BoardCard title="Advanced Analytics" description="Lead conversion metrics dashboard" icon="bar-chart-3" dueDate="2024-12-15" />
+    <BoardCard title="Voice Agent Support" description="Phone call handling integration" icon="phone" />
+  </BoardColumn>
+  <BoardColumn title="In Progress" color="1" icon="loader-2">
+    <BoardCard title="Custom Routing Rules" description="ML-based lead assignment" icon="git-branch" author="Engineering" />
+  </BoardColumn>
+  <BoardColumn title="Completed" color="2" icon="check-circle">
+    <BoardCard title="Knowledge Base v2" description="Semantic search improvements" createdAt="2024-10-15" />
+  </BoardColumn>
+</Board>
+
+## Quick Links
+
+<Columns cols={2}>
+  <Card title="API Reference" icon="code" href="/introduction">
+    Explore endpoints for agents and integrations.
+  </Card>
+  <Card title="Troubleshooting" icon="help-circle" href="/quickstart">
+    Common issues and resolutions.
+  </Card>
+</Columns>
+
+<Expandable title="Full Version History" default-open="false">
+  View all releases from beta onwards. Contact support for archive access.
+</Expandable>

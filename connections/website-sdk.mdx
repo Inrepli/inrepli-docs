@@ -1,13 +1,13 @@
 ---
 title: Website SDK
-description: Connect your website to Inrepli for web chat, form submissions, consent-aware website activity, and behavior tracking.
+description: Connect your website to Inrepli for web chat, form submissions, and future cookie management and behavior tracking.
 ---
 
 ## Overview
 
 The Inrepli Website SDK connects your website to the Inrepli platform.
 
-Adding the SDK allows Inrepli to support website chat, collect form submissions, and capture website activity according to your plan and configured consent requirements.
+Adding the SDK allows Inrepli to support website chat, collect form submissions, and prepare for future cookie management and website behavior tracking.
 
 The SDK can be used with or without the Inrepli web chat widget.
 
@@ -33,8 +33,6 @@ The web chat widget is optional. You can remove or disable it and continue using
 The Website SDK can collect data from many existing website forms without requiring you to replace your current form tool.
 
 When a Contact submits a supported form, Inrepli collects the submitted information and creates or updates the related Contact and Company records. The Agent can then respond by email so the Conversation can begin immediately.
-
-The SDK sends the related website activity promptly when the form is submitted. Form-origin Contacts can then show their available Website and Webchat activity in Inrepli alongside the submitted details.
 
 This allows you to continue using tools such as HubSpot, WordPress form plugins, Typeform, and other supported form platforms.
 
@@ -68,14 +66,22 @@ For a more controlled and seamless long-term setup, a direct backend Integration
 
 You can begin with the Website SDK and move to a backend Integration later if your requirements become more complex.
 
-## Consent-aware tracking
+## Cookie Management
 
-Website activity is collected only when the feature is available for your plan and the Website SDK has the consent required by your configuration. If a required consent scope is unavailable or withdrawn, the SDK does not continue collecting the activity covered by that scope.
+<Callout kind="info">
 
-The Playground can run with its supported scope-free test configuration so you can review the experience before applying your live website consent requirements.
+**Coming Soon**
+
+Cookie management through the Website SDK is coming soon. This feature will help Inrepli manage consent and supported website tracking behavior based on your configured requirements.
+
+</Callout>
 
 ## Website Behavior Tracking
 
-When Website Behavior Tracking is enabled, Inrepli can record supported website sessions and activity such as page or media interactions. Available activity can appear in Contact and Inbox views, helping your team review what happened before or during a Conversation.
+<Callout kind="info">
 
-Tracking availability depends on your plan, website configuration, and consent settings. Review those settings before using website activity as part of your inbound workflow.
+**Coming Soon**
+
+Website behavior tracking is coming soon. This feature will allow the Agent to use relevant website activity, such as pages viewed or topics explored, to better understand Contact interests and intent.
+
+</Callout>
