@@ -1,0 +1,112 @@
+---
+title: Quickstart and authorization
+description: Connect your assistant, run your first CRM query and understand your permissions.
+---
+
+## 1. Add the MCP server
+
+Your workspace must have MCP enabled. Use an AI client that supports remote Streamable HTTP MCP with OAuth.
+
+| Setting | Value |
+| --- | --- |
+| Name | Inrepli |
+| Server URL | `https://app.inrepli.com/mcp` |
+| Transport | Streamable HTTP |
+| Authentication | OAuth |
+| Static API key / Bearer token | Leave empty |
+
+```text
+https://app.inrepli.com/mcp
+```
+
+Administrators can also copy the address from **Connections → MCP → Quick Start** in Inrepli. Add the full URL, including `/mcp`, rather than the documentation website address. The names and location of these settings depend on your client.
+
+## 2. Sign in and authorize
+
+Start the connection in your AI client. Sign in with your Inrepli account, then check the requesting client, account and workspace on the authorization page before approving.
+
+Return to your AI client after authorization. If its callback page says authentication is complete, you can close that browser tab. The connection uses your current CRM permissions; it does not grant additional permissions.
+
+## 3. Try a read-only request
+
+Start with a small query. Copy this prompt into your assistant:
+
+```text
+Show the 5 most recently updated contacts I can access. Do not change any records.
+```
+
+The assistant should use `search_contacts` with a small page size and return accessible contacts. An empty result is valid when no contacts are visible to your account. A successful response demonstrates a working tool call; saving a server entry alone does not.
+
+Here are a few more prompts to try:
+
+| Goal | Example prompt |
+| --- | --- |
+| Find your contacts | Show up to 5 contacts assigned to me. Do not change any records. |
+| Search companies | Find up to 5 companies whose name contains "Example". |
+| Inspect custom fields | Show the custom field definitions available for contacts, including their types and selection options. |
+| Continue a list | Show the next page using the same filters, sort order and page size. |
+
+These examples query your workspace's existing data; they do not create sample records. Custom-field lookup requires contact list permission. The assistant can retrieve definitions when it needs to understand a custom field before searching or updating it.
+
+## 4. Optionally update a test contact
+
+Only try this with a record you intend to modify and an account with update permission. First find the test contact and confirm its ID. Replace the placeholder below with that actual ID:
+
+```text
+For contact CONTACT_ID, set the position to "Manager". Leave all other fields unchanged.
+```
+
+The assistant should call `update_contact` and report the update receipt. If you have read permission, ask it to fetch the contact again to verify the saved position. The MCP tool handles the latest record version; you do not need to supply an ETag. See [updates and retries](/mcp/updates) for note appends and retry rules.
+
+## 5. Review the connection and calls
+
+Administrators can open **Connections → MCP → Connections** to review or revoke authorizations, and **Connections → MCP → Logs** to inspect calls. An Active connection means the authorization is valid, not that the client is currently online. MCP calls cost **0 RU** in this release.
+
+If a request fails:
+
+- **MCP not enabled:** ask an administrator to enable it for the workspace. Signing in again will not enable it.
+- **Permission denied:** check your CRM role and record ownership.
+- **Expired or revoked authorization:** reconnect and authorize from your AI client.
+- **No matching records:** check the query and your access; an empty result is not a connection failure.
+
+## OAuth connection details
+
+The server supports authorization code with S256 PKCE, dynamic registration of public clients, access-token refresh and connection revocation. It does not accept a dashboard login token or REST API key at the MCP endpoint. Tokens are sent in `Authorization: Bearer …`, never in query parameters. The technical OAuth scope is `mcp:access`. It enables the connection; each tool operation is authorized using the user’s current CRM role and record access.
+
+Choose a client that supports remote Streamable HTTP MCP with OAuth. The location and availability of connection settings depend on your client.
+
+## What can a connection access?
+
+The connection inherits your current CRM permissions. Users with update permission can update accessible records; users without it cannot. There is no separate read-only or read-and-update permission tier on a connection.
+
+Your existing **all / own** record rules apply to searches, counts, details and updates. “My contacts” means contacts whose `ownerId` is your authorized user ID; it does not mean conversation ownership. Ownership changes follow the existing update rules and same-workspace reference validation. After reassignment, an own-scope user may no longer be able to access that record. Related data is restricted by the relevant CRM permissions as well.
+
+Team-member lookup returns public fields for resolving owners, not administrative user details. It requires list permission for contacts or companies. Custom-field definition lookup requires list permission for the requested object: contacts for `objectType: "contact"`, or companies for `objectType: "company"`. Detail-read permission alone does not satisfy these lookup requirements. Reading definitions does not grant permission to edit them. Updating custom values retains the existing custom-field plan eligibility check.
+
+## Connection lifetime
+
+Access tokens last one hour. Refresh tokens rotate when used and last up to 30 days, within the connection's absolute 90-day lifetime. Clients must save the new refresh token after every successful refresh. Reconnect when the connection expires.
+
+Refresh must be serialized by the client. Reusing a consumed refresh token revokes the connection to contain token replay; reconnect if a refresh response is lost instead of repeatedly using the old token.
+
+Normal browser logout or browser-session expiry does not revoke an MCP connection. Revocation, user disablement, leaving the workspace, inactive workspaces and security actions that change your account's authentication version invalidate it. The latter includes the existing logout-all / account-security reset mechanism.
+
+Administrators use **Connections → MCP → Connections** to revoke a connection. Its tokens stop working on the next request. Ordinary users can authorize and use MCP without gaining access to this administrative page or workspace-wide logs.
+
+## Management pages
+
+Connections and Logs load when opened and reload when you return to the application window. Revoking a connection requires confirmation and reloads the list after success. Lists show the newest records first and use numbered pages, with 20 records per page by default. Choose 20, 50 or 100 records per page; changing the page size returns to page one. The total covers the workspace, and each page is fetched from the server. Returning to the window or revoking a connection reloads the current page. API Keys and API Request Logs use the same numbered-page controls. Creating an API key returns its list to page one; revoking a key reloads the current page. This console pagination does not change MCP tool cursors or public REST resource pagination.
+
+User names and email addresses are shown when the user still belongs to the workspace; IDs remain available for copying and troubleshooting. Times use your browser's local time zone. These management pages remain administrator-only.
+
+## Server address and authentication
+
+```text
+https://app.inrepli.com/mcp
+```
+
+Use this URL in the MCP server settings of your AI client. Leave any static API key or Bearer-token field empty when using OAuth. The client discovers the authorization endpoints automatically and opens the Inrepli sign-in and consent flow.
+
+After authorization, return to your AI client. A client callback page that says authentication is complete can be closed. You can review the connection in Inrepli if you have administrator access.
+
+If your administrator has provided a separate test environment, use the Server URL shown in that environment's MCP Quick Start. Do not use the documentation website as the server address.

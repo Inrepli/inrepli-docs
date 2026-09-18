@@ -1,0 +1,31 @@
+---
+title: REST API overview
+description: Read and update Inrepli contacts and companies.
+---
+
+The Inrepli REST API connects your applications to an existing workspace. This is the first public release, with eight operations under the `/v1` URL prefix.
+
+| Resource | List | Detail | Update |
+| --- | --- | --- | --- |
+| Contacts | `GET /contacts` | `GET /contacts/{id}` | `PATCH /contacts/{id}` |
+| Companies | `GET /companies` | `GET /companies/{id}` | `PATCH /companies/{id}` |
+| Team members | `GET /team-members` | — | — |
+| Custom field definitions | `GET /custom-field-definitions` | — | — |
+
+## API base URL
+
+Use `https://app.inrepli.com/v1` for API requests.
+
+Use an API key issued by your Inrepli workspace with API access enabled. The documentation website is not the API host.
+
+Start with the [quickstart](/api-reference/quickstart), then read [permissions](/api-reference/authentication) and [query rules](/api-reference/filtering-pagination). The API Reference navigation contains the generated request and response definitions.
+
+## Response conventions
+
+Lists return `data` and `nextCursor`, with `total` only when `count=exact` is requested. Detail and update responses return `{ "data": { ... } }`. These responses do not use the internal application's `code/message` envelope. Errors use `application/problem+json`.
+
+Lists return compact records; details return public scalar fields and active custom values. Related resources are explicit expansions. See [response fields](/api-reference/custom-fields).
+
+This release does not expose creation, sync/change feeds, conversations, forms, meetings or webhook management. It does not send messages, run enrichment or initiate qualification. Existing interaction and AI fields are stored snapshots, not values recalculated by these reads or updates.
+
+The contract version is API 1.1; the path remains `/v1`. The current `X-API-Version` response header retains the compatibility value `2026-08-10` and is not the OpenAPI document version.
