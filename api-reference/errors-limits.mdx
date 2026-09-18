@@ -1,0 +1,52 @@
+---
+title: Errors, usage and limits
+description: Interpret API problems and retry without repeating updates.
+---
+
+## Error format
+
+Errors return their HTTP status and an `application/problem+json` body. Inspect `code` for the cause and retain `requestId` for troubleshooting. Unexpected server failures use `INTERNAL_ERROR` and do not expose internals. An optional `errorId` helps correlate server errors.
+
+```json
+{
+  "type":"https://api.inrepli.com/problems/etag_mismatch",
+  "title":"Request failed",
+  "status":412,
+  "detail":"The resource has changed. Fetch it and retry.",
+  "code":"ETAG_MISMATCH",
+  "requestId":"example-request-id"
+}
+```
+
+| Status | Typical cause | Action |
+| --- | --- | --- |
+| 400 | Invalid query, unknown field, missing idempotency key, invalid custom value | Correct the request |
+| 401 | Missing/invalid/revoked/expired key | Use a valid key |
+| 403 | Missing scope, API access or custom-field plan eligibility | Review access and permissions |
+| 404 | Missing resource or removed endpoint | Check the ID, workspace and route |
+| 409 | Reused idempotency key or conflicting update | Inspect the error code; resolve the conflict |
+| 412 | Stale ETag | Read, reconcile and submit a new logical update |
+| 422 | Invalid field/reference, or read-only contact email/mobile (`CONTACT_IDENTITY_READ_ONLY`) | Correct the value; omit primary email/mobile from PATCH |
+| 428 | Missing If-Match | Supply a current ETag |
+| 429 | Rate, concurrency or RU quota limit | Honor Retry-After when present; quota exhaustion requires available quota |
+| 500 / 503 | Server error or temporary unavailability | Retry cautiously; PATCH retries retain the original idempotency key and request |
+
+Errors may include `retryable: true`. Concurrency errors include `limitScope` (`credential_concurrency` or `tenant_concurrency`). Repeated non-retryable errors require correcting the cause, not increasing retries.
+
+## RU and quota
+
+| Request | Recorded RU on success |
+| --- | --- |
+| GET, including each list page | 1 |
+| PATCH, including successful idempotent replay | 2 |
+| Failed request | 0 |
+
+Effective Growth/Scale plan API access consumes available quota. Included monthly API RU is 10,000 for Growth and 50,000 for Scale; purchased quota may add capacity. Console-only manual API access records request usage without plan quota charging. If an effective eligible plan is present, its quota rules take precedence over the manual flag.
+
+The policy does not make custom-field editing free of its existing plan restriction. API access and field-editing eligibility are separate checks.
+
+## Rate and concurrency
+
+The current concurrency ceilings are 10 requests per API key and 25 per tenant. Rate limits can depend on configured access; do not assume a fixed requests-per-minute value across tenants. Concurrency rejection currently supplies `Retry-After: 1`; rate rejection supplies `Retry-After: 60`. Follow the returned header and use bounded exponential backoff with jitter.
+
+Lists allow 1–100 records per page, default 50; at most 10 predicates, 3 custom predicates and 2 explicit sort fields. Review the [query guide](/api-reference/filtering-pagination) before building large exports. Cursor paging does not replace a synchronization feed.

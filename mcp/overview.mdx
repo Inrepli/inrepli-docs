@@ -1,0 +1,42 @@
+---
+title: MCP overview
+description: Connect AI assistants to your Inrepli CRM using a personal OAuth connection.
+---
+
+Inrepli MCP lets an AI assistant search and update CRM records with your current account permissions. External AI clients use a personal OAuth connection rather than a REST API key. Enabled Inrepli Support workflows use the signed-in user through a separate internal authorization flow; see [MCP in Inrepli Support](/mcp/support).
+
+## Server URL
+
+Add this production endpoint to your AI client:
+
+```text
+https://app.inrepli.com/mcp
+```
+
+- **Transport:** Streamable HTTP.
+- **Authentication:** OAuth — sign in with your Inrepli account and authorize the connection. No REST API key is required.
+
+MCP must be enabled for your workspace. Administrators can also copy the server URL from **Connections → MCP → Quick Start**. Use the MCP endpoint above, not the documentation website URL.
+
+Follow the [quickstart and authorization guide](/mcp/connection), then try this read-only prompt:
+
+```text
+Show the 5 most recently updated contacts I can access. Do not change any records.
+```
+
+## Workspace access
+
+An administrator enables MCP using the independent **MCP access** switch in the Admin Console tenant's **API / MCP** page. REST API access and subscription plans do not automatically enable MCP. External clients still need OAuth consent, and all calls require current CRM permissions. Disabling MCP blocks new authorizations and subsequent calls from existing connections; re-enabling allows still-valid connections to resume. To permanently remove a connection, revoke it.
+
+| Capability | Tools |
+| --- | --- |
+| Contacts | `search_contacts`, `get_contact`, `update_contact` |
+| Companies | `search_companies`, `get_company`, `update_company` |
+| Owner lookup | `list_team_members` |
+| Custom field metadata | `list_custom_field_definitions` |
+
+There are eight tools. Creation, deletion, sync, messages, meetings, enrichment and contact identity changes are outside this release. Contact `email` and `mobile` remain readable and filterable, but cannot be updated.
+
+Each connection belongs to one user and workspace. Users can connect an assistant without access to the management menu. Administrators can inspect and revoke workspace connections and see call logs.
+
+All MCP calls cost **0 RU**, including failed calls, retries and updates. They do not reserve or deduct the REST API allowance. Technical rate limits still apply. See [connection and permissions](/mcp/connection), [tools and queries](/mcp/tools), and [updates and errors](/mcp/updates).

@@ -1,0 +1,32 @@
+---
+title: Updates, versions and retries
+description: Safely update existing records using ETags and idempotency keys.
+---
+
+PATCH updates an existing contact or company. See each operation's request schema for the complete writable field list. Unknown fields return HTTP 400 `UNKNOWN_FIELD`. Omitting a field leaves it unchanged; explicit null clears nullable fields. Company name and websiteUrl cannot be cleared. Contact `location` must be an object; use null on individual country/region/city properties to clear them.
+
+Contact primary `email` and `mobile` are read-only in this release. Omit both from PATCH bodies: adding, replacing, clearing, or echoing either field returns HTTP 422 `CONTACT_IDENTITY_READ_ONLY` and none of the requested changes are saved. They remain available for reading and filtering. Primary contact details participate in channel identity matching; this API does not expose the dedicated contact-point management workflow.
+
+Company websites use the public `websiteUrl` field. Owner and company references must belong to the same workspace. Custom fields are validated and saved with the native changes in one transaction.
+
+## Optimistic concurrency
+
+Send `If-Match` with the quoted `etag` returned by a list item, detail or earlier PATCH. It represents the record's `updatedAt` timestamp, not `createdAt`. A separate GET is unnecessary when you already have a current ETag.
+
+Missing If-Match returns 428 `IF_MATCH_REQUIRED`; an outdated version returns 412 `ETAG_MISMATCH`. On 412, read the latest record, review the differences and construct a new logical update. Do not blindly overwrite changes made by another integration or the application.
+
+## Idempotency
+
+`Idempotency-Key` is required and contains 1–255 characters. Use a unique value for each logical update, including across contacts and companies using the same key credential. The stored result is retained for 24 hours. After expiry, the request is evaluated again, including its ETag.
+
+For a transport timeout or a retryable server failure, retry the same method, record, body, If-Match and idempotency key. Preserve the JSON representation and property order: the current implementation hashes the serialized body, not a canonicalized JSON document.
+
+Successful replays return the stored confirmation with `Idempotent-Replayed: true`, without another mutation. Reusing the key for a different request during retention returns 409 `IDEMPOTENCY_KEY_REUSED`. A failed transaction does not store a successful response.
+
+## Confirmation and side effects
+
+HTTP 200 confirms persisted state, not merely the input. PATCH returns a compact confirmation; request detail separately when the full public record is needed. Capture the returned ETag for the next update.
+
+Updates reuse the application's contact/company business services and applicable change recording and notifications. They do not initiate new billable field automation or refresh interaction snapshots. Notification delivery occurs after the transaction and is not an exactly-once delivery guarantee. A successful mutation can remain successful when a notification fails; replay does not re-deliver those notifications.
+
+Successful PATCH replays currently cost 2 RU just like the initial success. See [usage and limits](/api-reference/errors-limits).

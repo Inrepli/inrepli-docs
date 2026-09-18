@@ -1,0 +1,67 @@
+---
+title: Custom fields and response fields
+description: Discover definitions and understand list, detail and update projections.
+---
+
+## Discover field definitions
+
+```bash
+curl --get "$API_BASE/custom-field-definitions" \
+  -H "Authorization: Bearer $API_KEY" \
+  --data-urlencode 'objectType=contact' \
+  --data-urlencode 'status=ACTIVE'
+```
+
+`objectType` is required: `contact` or `company`. `status` defaults to `ACTIVE`; use `ARCHIVED` to inspect historical definitions. This endpoint returns CUSTOM definitions, not the internal standard/system field catalogue. It supports cursor paging and `createdAt` sorting.
+
+Each definition includes `key`, `label`, `dataType`, `objectType`, `status`, `readable`, `writable`, `filterable`, `sortable`, `allowedOperators` and `options`. Each option is `{ "value": "public_value_key", "label": "Display label" }`. Use `options[].value` in requests; do not submit definition IDs or option database IDs as values. Archived definitions are not writable/filterable and are omitted from resource values.
+
+## Read, filter and update values
+
+`customFields` maps immutable definition keys to typed values. Detail responses return all active keys, including null for missing values. Lists omit LONG_TEXT keys completely; omitted keys are not a signal that the stored value is null.
+
+```bash
+# Replace segment with an actual SINGLE_SELECT field key and enterprise
+# with one of its options[].value strings.
+curl --get "$API_BASE/contacts" \
+  -H "Authorization: Bearer $API_KEY" \
+  --data-urlencode 'filter[customFields.segment][eq]=enterprise'
+```
+
+The dynamic syntax is `filter[customFields.KEY][operator]`. Check `filterable` and `allowedOperators` before building a condition. LONG_TEXT can be filtered only by `isNull`, even though its value is omitted from lists. There is no arbitrary full-text custom-field search or custom-field sorting.
+
+| Type | JSON value | Filter operators |
+| --- | --- | --- |
+| SHORT_TEXT | String, up to 255 characters | eq, in, isNull |
+| LONG_TEXT | String, up to 10,000 characters | isNull |
+| INTEGER | Integer | eq, gt, gte, lt, lte, isNull |
+| DECIMAL | Exact decimal string | eq, gt, gte, lt, lte, isNull |
+| BOOLEAN | Boolean | eq, isNull |
+| DATE | `YYYY-MM-DD` string | eq, gt, gte, lt, lte, isNull |
+| DATETIME | ISO timestamp string | eq, gt, gte, lt, lte, isNull |
+| SINGLE_SELECT | One `options[].value` string | eq, in, isNull |
+| MULTI_SELECT | Array of option value strings, up to 100 items | hasAny, isNull |
+
+Send DECIMAL as a string to preserve precision: up to 20 integer and 10 fractional digits. Reads also return a string, but do not guarantee preservation of trailing zeros. `null` clears a value; omitted keys are unchanged. Empty text and an empty multi-select array are normalized as cleared values. At most 100 custom keys can be submitted in one PATCH.
+
+Example PATCH body, assuming these definitions and options exist:
+
+```json
+{"customFields":{"segment":"enterprise","budget":"12500.50","interests":["analytics","automation"],"memo":null}}
+```
+
+## List versus detail versus update
+
+| Response | Projection |
+| --- | --- |
+| Contact list | Core identity/location/qualification, intentType/intentLevel, lastInteractionAt, enrichment status/time and non-LONG_TEXT custom values |
+| Company list | Public company base fields except notes/notesAt; customerFitScore and non-LONG_TEXT custom values; no fit reason |
+| Contact/company detail | All public scalar groups and active custom values, including long text and notes |
+| Contact PATCH | Core fields and all active custom values; additionally persisted notes/language/timezone/industry when submitted |
+| Company PATCH | Company base fields and all active custom values; no fit or related expansion |
+
+Supported filtering does not depend on whether a field is returned. Detail completeness means public business fields, not internal tenant IDs, raw provider payloads or private AI JSON.
+
+Contact lists do not support expansions. Contact details accept `include=company,owner`. Company list/detail accepts `include=owner,contactSummary`; owner requires `team-members:read`, company requires `companies:read`, and contactSummary requires `contacts:read`. Expanded records appear in `related`; counts appear in `contactSummary`. Scalar include aliases remain accepted for compatibility but are unnecessary for full detail. Company list `include=fit` never adds the fit reason.
+
+Contact `score` is deprecated historical data, retained in detail for compatibility. It is not writable, filterable or sortable. Qualification, intent, consent, contactability, enrichment and interaction snapshots are read-only through PATCH. Company `customerFitScore` is a separate read-only field and supports the documented company filters/sort.

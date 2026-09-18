@@ -1,0 +1,65 @@
+---
+title: Tools, filters and pagination
+description: Structured MCP parameters and the CRM API 1.1 query rules.
+---
+
+## Search and detail tools
+
+`search_contacts` and `search_companies` accept structured `filters`, `q`, `sort`, `limit`, `cursor` and `count`. Unlike REST's bracketed query parameters, MCP uses JSON objects:
+
+```json
+{
+  "filters": [
+    { "field": "qualification", "op": "eq", "value": true },
+    { "field": "country", "op": "in", "value": ["Brazil", "Canada"] }
+  ],
+  "sort": ["-updatedAt"],
+  "limit": 50,
+  "count": "exact"
+}
+```
+
+Filters are combined with AND. Use `q` for free text, and typed predicates for exact values, ranges and null checks. `in` and `hasAny` require arrays; other operators require a scalar. Commas inside array values are not supported. To search for missing values, use an `isNull` predicate with a boolean value, for example `{ "field": "country", "op": "isNull", "value": true }`. Do not use the string `"null"`.
+
+Native enum filters use case-sensitive values with `eq` or `in`:
+
+| Field | Tools | Allowed values |
+| --- | --- | --- |
+| `enrichmentStatus` | Contact and company search | `pending`, `completed`, `failed` |
+| `intentLevel` | Contact search | `HIGH`, `MED`, `LOW` |
+| `status` | Team member list | `ACTIVE`, `INACTIVE`, `SUSPENDED`, `PENDING` |
+
+For example, enrichment failure is `{ "field": "enrichmentStatus", "op": "eq", "value": "failed" }`, not `FAILED`. `isNull` still takes a boolean. Custom select options come from field definitions.
+
+For “my contacts”, use `{ "field": "ownerId", "op": "eq", "value": "me" }`. The server resolves `me` to the authenticated connection user, never a caller-supplied identity. This also works for company ownership.
+
+The underlying field/operator matrix, custom-field limitations and sort fields are the same as [REST API query rules](/api-reference/filtering-pagination). Up to 10 filters, including 3 custom filters, and two sort fields are allowed. Unsupported queries are rejected, not approximated or evaluated by downloading all records into memory.
+
+`get_contact` and `get_company` require `id`. Details contain the full public projection, including larger notes and active custom values. Optional relations use `include`. Lists use the compact API 1.1 projection; omitting a field from list output does not remove its supported filter capability. See [response fields](/api-reference/custom-fields).
+
+## Pagination and totals
+
+Each search returns `data`, `nextCursor` and `hasMore`. The default page size is 50 and the maximum is 100. `count: "exact"` additionally returns `total` for the authorized, filtered dataset.
+
+The assistant can call the tool again with `nextCursor`, keeping `limit` and all other arguments unchanged. A cursor obtained with `limit: 1` cannot be continued with `limit: 25`. If you need a different page size or query, explicitly start a new search without a cursor; that starts from the beginning and is not continuation. Cursors bind to the query, workspace, connection and effective access. The server does not automatically fetch every page. For large requests, the assistant should clarify the desired scope and fetch only what is needed; a client may impose additional context or tool-call limits.
+
+## Resolve owners and custom fields
+
+`list_team_members` supports `q`, a `status` filter, paging and sorting by `createdAt`. It requires list permission for contacts or companies. Use its IDs when a person is selected as an owner.
+
+`list_custom_field_definitions` requires `objectType: "contact"` or `"company"`. It supports `status: "ACTIVE"` or `"ARCHIVED"`, paging and `createdAt` sorting. It requires list permission for the requested contact or company object; detail-read permission alone is insufficient. Results include keys, types, select options and allowed operators. Archived definitions cannot be filtered or updated as active fields.
+
+Call the definition tool when a field's meaning, key, type or options are unknown. It is not necessary before every ordinary read. For example:
+
+```json
+{
+  "filters": [
+    { "field": "customFields.contract_value", "op": "gte", "value": "123456789012345.1234567890" }
+  ],
+  "limit": 50
+}
+```
+
+Decimal values use exact strings. Select values use the definition's option values, not internal option IDs. Long-text custom fields support null checks only and are excluded from list values.
+
+The assistant interprets the user's intent. Tool descriptions advise it to clarify ambiguous people, dates, regions or thresholds; the server independently enforces permissions, field rules and limits.
