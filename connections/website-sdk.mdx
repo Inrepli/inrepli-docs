@@ -1,13 +1,13 @@
 ---
 title: Website SDK
-description: Connect your website to Inrepli for web chat, form submissions, and future cookie management and behavior tracking.
+description: Connect your website to Inrepli for web chat, form submissions, consent-aware website activity, and Contact context.
 ---
 
 ## Overview
 
 The Inrepli Website SDK connects your website to the Inrepli platform.
 
-Adding the SDK allows Inrepli to support website chat, collect form submissions, and prepare for future cookie management and website behavior tracking.
+Adding the SDK allows Inrepli to support website chat, collect form submissions, and record consent-aware website activity.
 
 The SDK can be used with or without the Inrepli web chat widget.
 
@@ -68,20 +68,26 @@ You can begin with the Website SDK and move to a backend Integration later if yo
 
 ## Cookie Management
 
-<Callout kind="info">
+The Website SDK can use consent information from a supported Consent Management Platform or from a custom integration. Inrepli normalizes that information into the consent scopes used by website features.
 
-**Coming Soon**
+Website activity tracking requires the Preferences consent scope. When that scope is unavailable or denied, the SDK does not collect or send website activity. If consent changes during a visit, the SDK updates tracking authorization for subsequent activity.
 
-Cookie management through the Website SDK is coming soon. This feature will help Inrepli manage consent and supported website tracking behavior based on your configured requirements.
+You can review consent connections under **Website > Consent Management**. A connection is shown as connected after Inrepli receives a consent event from the website.
 
-</Callout>
+For a custom consent implementation, use the Website SDK consent interface to pass the current consent scopes to Inrepli. Your website remains responsible for presenting its consent experience and collecting the visitor's choice.
 
 ## Website Behavior Tracking
 
-<Callout kind="info">
+When website tracking is enabled for a website and the required consent is available, the SDK records activity such as:
 
-**Coming Soon**
+- Page views and route changes
+- Time spent on pages and sections
+- Links, buttons, and calls to action
+- Form views, starts, submissions, and validation errors
+- Media and file-download interactions
 
-Website behavior tracking is coming soon. This feature will allow the Agent to use relevant website activity, such as pages viewed or topics explored, to better understand Contact interests and intent.
+Inrepli groups the activity into website sessions. After a visitor becomes an identified Contact through web chat or a form, available activity can be associated with that Contact and shown in the Contact profile. The profile can include visit summaries, pages viewed, interaction counts, source and campaign information, and the session timeline.
 
+<Callout kind="info" collapsed="false">
+  Website activity depends on website tracking being enabled, plan availability, and the visitor's consent. When tracking is disabled or consent is unavailable, Inrepli shows that state instead of activity data.
 </Callout>
