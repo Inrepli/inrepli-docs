@@ -34,6 +34,8 @@ Field definitions do not support `q`. Search does not scan notes, custom values,
 
 ## Value semantics
 
+Contacts support `originChannel` with `eq`, `in` and `isNull`. This is the channel that originally created the contact, not later conversation activity, `recordSource` or marketing UTM source. Values match stored text; known examples are `email`, `website`, `whatsapp`, `form`, `api` and `system`, not an exhaustive enum. No channel aliases or historical data backfill are applied. For an exact total of email-origin contacts, send `filter[originChannel]=email` and `count=exact` to `GET /v1/contacts`. `isNull=true` matches NULL, not empty strings or whitespace.
+
 `intentLevel` accepts `HIGH`, `MED`, `LOW`; `enrichmentStatus` accepts `pending`, `completed`, `failed`; member status accepts `ACTIVE`, `INACTIVE`, `SUSPENDED`, `PENDING`. Country and industry values match stored text; there is no geographic alias expansion.
 
 Domain filtering compares a normalized hostname: `www.example.com` matches `example.com`; `sales.example.com` remains distinct. Paths, ports, credentials and query strings are not accepted in a domain filter. Company `customerFitScore` is compared as stored, without scaling or an inferred high/low threshold.
@@ -58,6 +60,7 @@ Sort fields: `createdAt`, `updatedAt`, `name`, `lastInteractionAt`.
 
 | Filter field | Type | Operators |
 | --- | --- | --- |
+| `originChannel` | text | eq, in, isNull |
 | `id` | text | eq, in, isNull |
 | `ownerId` | text | eq, in, isNull |
 | `createdAt` | datetime | eq, gt, gte, lt, lte, isNull |
