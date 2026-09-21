@@ -524,6 +524,33 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "filter[originChannel]",
+            "in": "query",
+            "required": false,
+            "description": "Original contact creation channel, not subsequent conversation activity, recordSource or UTM source. Use stored text such as email, website, whatsapp, form, api or system. Shorthand for filter[originChannel][eq].",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter[originChannel][in]",
+            "in": "query",
+            "required": false,
+            "description": "Original contact creation channel, not subsequent conversation activity, recordSource or UTM source. Use stored text such as email, website, whatsapp, form, api or system. Comma-separated values (1–50).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter[originChannel][isNull]",
+            "in": "query",
+            "required": false,
+            "description": "Literal true for NULL original channel, false for non-NULL.",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
