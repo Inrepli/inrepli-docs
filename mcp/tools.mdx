@@ -39,6 +39,8 @@ The underlying field/operator matrix, custom-field limitations and sort fields a
 
 ## Pagination and totals
 
+For contacts originally created through email, use `{"filters":[{"field":"originChannel","op":"eq","value":"email"}],"count":"exact"}` with `search_contacts`. `originChannel` supports `eq`, `in` and `isNull`; it describes the original creation channel, not every channel used in later conversations. It is distinct from `recordSource` and marketing UTM source. Known stored values include `email`, `website`, `whatsapp`, `form`, `api` and `system`; these are examples, not an exhaustive enum. Ambiguous requests for “source” should be clarified. Normal user record permissions still apply.
+
 Each search returns `data`, `nextCursor` and `hasMore`. The default page size is 50 and the maximum is 100. `count: "exact"` additionally returns `total` for the authorized, filtered dataset.
 
 The assistant can call the tool again with `nextCursor`, keeping `limit` and all other arguments unchanged. A cursor obtained with `limit: 1` cannot be continued with `limit: 25`. If you need a different page size or query, explicitly start a new search without a cursor; that starts from the beginning and is not continuation. Cursors bind to the query, workspace, connection and effective access. The server does not automatically fetch every page. For large requests, the assistant should clarify the desired scope and fetch only what is needed; a client may impose additional context or tool-call limits.
