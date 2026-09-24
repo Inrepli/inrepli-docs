@@ -1,13 +1,13 @@
 ---
 title: Website SDK
-description: Connect your website to Inrepli for web chat, form submissions, and future cookie management and behavior tracking.
+description: Connect your website to Inrepli for web chat, form submissions, and supported website activity tracking.
 ---
 
 ## Overview
 
 The Inrepli Website SDK connects your website to the Inrepli platform.
 
-Adding the SDK allows Inrepli to support website chat, collect form submissions, and prepare for future cookie management and website behavior tracking.
+Adding the SDK allows Inrepli to support website chat, collect form submissions, and record supported website activity when tracking is available and enabled for the site.
 
 The SDK can be used with or without the Inrepli web chat widget.
 
@@ -66,22 +66,14 @@ For a more controlled and seamless long-term setup, a direct backend Integration
 
 You can begin with the Website SDK and move to a backend Integration later if your requirements become more complex.
 
-## Cookie Management
+## Consent Management
 
-<Callout kind="info">
-
-**Coming Soon**
-
-Cookie management through the Website SDK is coming soon. This feature will help Inrepli manage consent and supported website tracking behavior based on your configured requirements.
-
-</Callout>
+Open the website's **Consent Management** section to connect its consent provider or configure a custom consent integration. Review the connection status and the setup instructions for your selected provider before enabling tracking. This connection passes consent choices to supported SDK behavior; it is not a replacement for your website's consent notice or consent-management tool.
 
 ## Website Behavior Tracking
 
-<Callout kind="info">
+Where your workspace has access to website tracking, use the site's **Web Tracking** settings to configure it. Tracking remains subject to the site's enabled state and applicable consent settings; installing the SDK alone does not enable every event.
 
-**Coming Soon**
+Supported website events can be associated with a Contact after identification. In the Contact profile, activity is grouped by page, with an option to inspect all recorded events. Page summaries can include time spent and scroll depth; forms and other tracked elements remain distinguishable even when their visible labels match.
 
-Website behavior tracking is coming soon. This feature will allow the Agent to use relevant website activity, such as pages viewed or topics explored, to better understand Contact interests and intent.
-
-</Callout>
+Visit attribution preserves original and latest source information and available UTM campaign values, including content, term, and campaign ID. Playground simulations do not populate real website attribution. See [Contacts](/data/contacts#website-activity-and-attribution) for how to interpret these fields.

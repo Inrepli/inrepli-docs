@@ -10,7 +10,9 @@ Training gives your Agent the information it needs to answer questions from Cont
 
 ## Initial training and knowledge score
 
-During setup, the Setup Agent scans your website for relevant sales and marketing information, categorizes the content, and adds it to your Agent Training automatically. The initial scan can include up to 100 of the most relevant pages from your website, including product and service pages, pricing information, case studies, FAQs, company information, and other public sales content.
+During setup, the Setup Agent scans your website for relevant sales and marketing information, categorizes the content, and adds it to your Agent Training automatically. The default initial scan can include up to 100 of the most relevant pages from your website, including product and service pages, pricing information, case studies, FAQs, company information, and other public sales content.
+
+Workspaces with expanded website crawling enabled use their configured page limit instead. A larger limit does not guarantee that every discovered URL will be included: irrelevant, duplicate, unsupported, or inaccessible pages may be excluded.
 
 That initial scan gives your Agent a strong starting point without requiring your team to add every source manually. After the scan, Inrepli reviews the quality and breadth of the information collected and produces a Knowledge Score.
 
@@ -91,6 +93,12 @@ Rescan your website after meaningful changes, such as:
 - Making major changes to your website content
 
 Training search also allows you to find references to a specific product, topic, statement, or term. After locating the relevant content, you can update or remove outdated information.
+
+### Follow website update progress
+
+When expanded website crawling is enabled for your workspace, the website source shows discovery and processing progress, the page limit, and the results for individual pages. Review failed, excluded, or limit-reached pages to understand what was not added.
+
+You can stop an active crawl and resume saved work after resolving a failure. Existing usable page knowledge remains available while replacement content is prepared. Review the final result and any failed pages before relying on the updated source; a partially completed crawl does not mean every page was refreshed.
 
 ### Review FAQs after source changes
 
