@@ -233,6 +233,10 @@
                 "group": "Guides",
                 "pages": [
                   {
+                    "title": "Support and feedback",
+                    "path": "support-feedback"
+                  },
+                  {
                     "title": "Connecting Zoom",
                     "path": "zoom-connection"
                   }

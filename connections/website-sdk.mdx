@@ -1,13 +1,13 @@
 ---
 title: Website SDK
-description: Connect your website to Inrepli for web chat, form submissions, and future cookie management and behavior tracking.
+description: Connect your website to Inrepli for web chat, form submissions, consent management, and website behavior tracking.
 ---
 
 ## Overview
 
 The Inrepli Website SDK connects your website to the Inrepli platform.
 
-Adding the SDK allows Inrepli to support website chat, collect form submissions, and prepare for future cookie management and website behavior tracking.
+Adding the SDK allows Inrepli to support website chat, collect form submissions, and use consent-aware website behavior tracking.
 
 The SDK can be used with or without the Inrepli web chat widget.
 
@@ -66,22 +66,14 @@ For a more controlled and seamless long-term setup, a direct backend Integration
 
 You can begin with the Website SDK and move to a backend Integration later if your requirements become more complex.
 
-## Cookie Management
+## Consent Management
 
-<Callout kind="info">
+Website behavior tracking follows the consent settings connected to each website. When a supported consent connection is already complete, an eligible live workspace can enable tracking as part of go-live.
 
-**Coming Soon**
-
-Cookie management through the Website SDK is coming soon. This feature will help Inrepli manage consent and supported website tracking behavior based on your configured requirements.
-
-</Callout>
+If consent setup is still required, Inrepli keeps tracking disabled and creates a setup task that links to the website's consent settings. Complete that task to connect consent management and enable tracking.
 
 ## Website Behavior Tracking
 
-<Callout kind="info">
+Website behavior tracking records supported page and content activity so your team and Agent can understand a Contact's interests and intent. Activity appears in customer and conversation views with page context and clearer descriptions.
 
-**Coming Soon**
-
-Website behavior tracking is coming soon. This feature will allow the Agent to use relevant website activity, such as pages viewed or topics explored, to better understand Contact interests and intent.
-
-</Callout>
+Automatic enablement at go-live applies to eligible paid Growth workspaces. Tracking stays disabled until any required consent connection is complete.
