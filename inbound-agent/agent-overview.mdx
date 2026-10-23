@@ -44,8 +44,20 @@ Qualified contacts can then be assigned to the appropriate Account Manager. This
   The Agent can offer available meeting times and schedule a meeting with the appropriate Account Manager. It can also collect the information required for the meeting and provide the Account Manager with a summary of the conversation. This allows the Account Manager to begin the meeting with clear context about the contact's company, needs, and questions.
 </Card>
 
+## Automated website visitors
+
+Administrators can configure **Agent → Bot** separately from Spam filtering.
+
+- **Continue conversation** keeps the normal reply flow for automated visitors; existing Spam filtering still applies.
+- **Leave a message and stop** sends your configured notice when an identified or suspected website bot next writes, once per visit, then stops AI replies and proactive messages for that visit. Activity tracking and summaries continue where enabled.
+
+Visitors with unknown or conflicting identities keep their normal reply flow. Returning to Continue allows replies on the next incoming message.
+
+The same page has a separate **Allow AI visitors to book meetings** setting. Allowing a conversation does not bypass the source and email checks required for an AI-agent booking. See [Scheduling](/inbound-agent/scheduling#meetings-requested-by-ai-visitors).
+
 ## Supporting Account Managers
 
 The Inrepli Agent does not replace the Account Manager. It manages the initial response, information collection, qualification, verification, assignment, and scheduling process.
 
 The Account Manager can then focus on understanding complex requirements, building the relationship, and completing the sale. This creates a faster experience for contacts and allows your sales team to spend more time on conversations that require human expertise.
+

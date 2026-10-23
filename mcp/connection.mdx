@@ -25,7 +25,7 @@ Administrators can also copy the address from **Connections → MCP → Quick St
 
 Start the connection in your AI client. Sign in with your Inrepli account, then check the requesting client, account and workspace on the authorization page before approving.
 
-Return to your AI client after authorization. If its callback page says authentication is complete, you can close that browser tab. The connection uses your current CRM permissions; it does not grant additional permissions.
+Return to your AI client after authorization. If its callback page says authentication is complete, you can close that browser tab. The connection uses your current Inrepli permissions; it does not grant additional permissions. CRM record access follows your CRM role, while Web Chat tools require website administration permission.
 
 ## 3. Try a read-only request
 
@@ -65,19 +65,19 @@ Administrators can open **Connections → MCP → Connections** to review or rev
 If a request fails:
 
 - **MCP not enabled:** ask an administrator to enable it for the workspace. Signing in again will not enable it.
-- **Permission denied:** check your CRM role and record ownership.
+- **Permission denied:** check the permission required by the tool: CRM role and record ownership for CRM operations, or website administration permission for Web Chat settings.
 - **Expired or revoked authorization:** reconnect and authorize from your AI client.
 - **No matching records:** check the query and your access; an empty result is not a connection failure.
 
 ## OAuth connection details
 
-The server supports authorization code with S256 PKCE, dynamic registration of public clients, access-token refresh and connection revocation. It does not accept a dashboard login token or REST API key at the MCP endpoint. Tokens are sent in `Authorization: Bearer …`, never in query parameters. The technical OAuth scope is `mcp:access`. It enables the connection; each tool operation is authorized using the user’s current CRM role and record access.
+The server supports authorization code with S256 PKCE, dynamic registration of public clients, access-token refresh and connection revocation. It does not accept a dashboard login token or REST API key at the MCP endpoint. Tokens are sent in `Authorization: Bearer …`, never in query parameters. The technical OAuth scope is `mcp:access`. It enables the connection; each tool operation checks the user's current permissions. CRM tools apply record access rules, and Web Chat tools require website administration permission.
 
 Choose a client that supports remote Streamable HTTP MCP with OAuth. The location and availability of connection settings depend on your client.
 
 ## What can a connection access?
 
-The connection inherits your current CRM permissions. Users with update permission can update accessible records; users without it cannot. There is no separate read-only or read-and-update permission tier on a connection.
+The connection inherits your current Inrepli permissions. Users with CRM update permission can update accessible records; users without it cannot. Web Chat tools additionally require website administration permission. There is no separate read-only or read-and-update permission tier on a connection.
 
 Your existing **all / own** record rules apply to searches, counts, details and updates. “My contacts” means contacts whose `ownerId` is your authorized user ID; it does not mean conversation ownership. Ownership changes follow the existing update rules and same-workspace reference validation. After reassignment, an own-scope user may no longer be able to access that record. Related data is restricted by the relevant CRM permissions as well.
 

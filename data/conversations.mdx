@@ -10,6 +10,12 @@ A Conversation is created when Inrepli receives an inbound message through a con
 
 Conversations store the full exchange between a Contact, the Agent, and any team members who join the interaction. A Contact can have multiple Conversations across different Channels, and each Conversation remains connected to the same Contact record when matching Contact information is available.
 
+## Spam indicators
+
+When a conversation is marked as Spam, its Spam indicator can show the recorded reason and confidence when available. Open the indicator in the conversation header to review those details.
+
+Users with permission to update the conversation can choose **Not Spam** and confirm to remove its Spam status. A bot or automated-traffic identity is separate from the Spam decision; review the Spam indicator rather than assuming that every automated visitor is Spam.
+
 ## Conversation Archiving
 
 Inrepli automatically archives inactive Conversations after a set period. The archive period depends on the Channel and begins after the Contact's most recent message.
@@ -22,7 +28,7 @@ Inrepli automatically archives inactive Conversations after a set period. The ar
 
 Archiving closes the active Conversation but does not delete its messages or remove it from the Contact's history. Archived Conversations remain available for review.
 
-A new inbound message after archiving will begin a new Conversation. However, the agent will still maintain all context of the prior Conversation.&#x20;
+A new inbound message after archiving will begin a new Conversation. Earlier messages remain in the Contact's history for your team to review.
 
 ## Continue on Another Channel
 
@@ -39,6 +45,16 @@ Inrepli creates a Conversation Summary 30 minutes after the last message from th
 The delay allows the Agent to include messages that may arrive shortly after the initial exchange. The summary provides a concise overview of the Contact's request, the information collected, the actions taken, and any next steps.
 
 Conversation Summaries help Account Managers and other Users understand the interaction without reviewing every message.
+
+## Website visit context
+
+Website Conversations can show the current visitor's traffic classification and available source-verification details. A suspected AI-agent or crawler identity is distinguished from a verified source; bot identity and Spam are separate assessments.
+
+The Contact profile beside a Conversation can also show recorded website activity and visit summaries when Webtracking and the required consent are available. See [Contact website activity](/data/contacts#website-activity).
+
+## Resources shared in replies
+
+Website Conversation history keeps resources shared with an Agent reply alongside the message, including relevant Training files, media and links. If an optional resource cannot be verified, the text answer can still be delivered without it.
 
 ## Conversation Usage
 

@@ -1,13 +1,13 @@
 ---
 title: Website SDK
-description: Connect your website to Inrepli for web chat, form submissions, and future cookie management and behavior tracking.
+description: Connect your website to Inrepli for web chat, form submissions, consent integration, and website behavior tracking.
 ---
 
 ## Overview
 
 The Inrepli Website SDK connects your website to the Inrepli platform.
 
-Adding the SDK allows Inrepli to support website chat, collect form submissions, and prepare for future cookie management and website behavior tracking.
+Adding the SDK allows Inrepli to support website chat, collect form submissions, connect to your consent platform, and record supported website activity.
 
 The SDK can be used with or without the Inrepli web chat widget.
 
@@ -15,18 +15,76 @@ The SDK can be used with or without the Inrepli web chat widget.
 
 The Website SDK allows you to add the Inrepli web chat widget to your website.
 
-During setup, the Setup Agent reviews your website and creates an initial widget design that closely matches your branding. You can adjust the widget's appearance, content, and position before publishing your Live Agent.
+During setup, the Setup Agent reviews your website and creates an initial widget design that closely matches your branding. Open **Website**, select your website, and open **Web Chat Settings** to adjust the widget.
 
-The widget can be customized to match requirements such as:
+Editing and publishing Web Chat settings requires website administration permission.
 
-- Brand colors
-- Logo and Agent image
-- Welcome message
-- Widget position
-- Opening behavior
-- Supported languages
+### Customize and Publish
 
-The web chat widget is optional. You can remove or disable it and continue using Inrepli for inbound email, form submissions, WhatsApp, and other connected Channels.
+Customize the experience using:
+
+- **Brand & appearance:** theme and background colors, font family and text size.
+- **Chat launcher:** a preset icon or custom image, shape, size, position, and a default prompt inside or beside the launcher.
+- **Chat window:** Agent image, header, subheader, footer, desktop dimensions and corner radius.
+- **Reply appearance:** show replies all at once or with a typing animation, and choose a waiting indicator.
+
+Message previews and chat shortcuts can be shown or hidden separately on Desktop and Mobile. The default prompt can have a delay; unread messages take priority.
+
+Changes are saved to your personal draft without changing the website. Use the Desktop and Mobile preview to review the design, or select **Save draft**. Select **Publish** to review the changes and confirm that they should apply to your website.
+
+To abandon unpublished edits, choose **Restore published version**. Publishing applies the changes to the website and clears all users' drafts for that Web Chat widget.
+
+For AI-assisted configuration, users with this permission can request supported changes through the Support Agent or a [connected MCP client](/mcp/connection). These changes use the same personal draft. Publishing still requires confirmation in Inrepli.
+
+The web chat widget is optional. You can turn off **Enable Web Chat** and publish the change while continuing to use inbound email, form submissions, WhatsApp, and other connected Channels. The editor preview remains available.
+
+### Chat Shortcuts and Follow-up Suggestions
+
+**Chat shortcuts** provide meeting booking, language selection and up to three custom topics. Each custom topic has a button title and a question to send when selected; you can edit, reorder or remove topics.
+
+**Follow-up suggestions** are separate, AI-generated questions shown after the latest AI reply. Choose a maximum of one to five suggestions, their button color, and a delay of zero to 60 seconds. The Agent may return fewer suggestions or none. Selecting a suggestion sends that question; a new visitor message replaces the previous turn's suggestions.
+
+### Content Viewer
+
+Enable **Content viewer** to open supported images, videos, PDFs, PPTX presentations, plain-text files and embeddable web pages from replies without leaving Web Chat.
+
+Text and attachments from the same reply stay together in one message bubble.
+
+On desktop, the viewer can appear beside the chat. On phones or when space is limited, visitors switch between content and chat using **Back to chat**. Visitors can open the original resource in a new tab; document readers provide page or slide navigation and zoom.
+
+**Automatically open content** applies to new replies while chat is expanded, not historical messages. **Play automatically on open** controls video playback; browser autoplay restrictions may still require the visitor to press Play.
+
+With the viewer disabled, videos play inline, images remain in the message, and file or link cards use their original links. Embedded pages and files remain subject to the source website's embedding and cross-origin access permissions. If a resource cannot load, visitors can retry or use the original link.
+
+### WhatsApp Entry
+
+Under **Social channels**, select a connected WhatsApp business account and set its entry text and optional prefilled message. Visitors can scan a QR code on desktop or open WhatsApp directly. The visitor reviews and sends the prefilled message in WhatsApp; it is not sent as a website chat message.
+
+### Proactive Reception
+
+Where Webtracking is available, open **Website → Webtracking** to enable **Proactive reception**. Webtracking and Web Chat must both be enabled, and the required visitor consent must be granted.
+
+Proactive reception can offer a contextual invitation based on recorded website activity; it does not send a message on every visit. It allows at most one invitation per tracked Session and stops after the visitor opens chat or dismisses the invitation. It applies to website visits, not Playground simulations.
+
+### Open Chat from Your Website
+
+After initializing the Website SDK, use these controls from your own website buttons:
+
+```js
+// Open or close chat.
+INREPLI_WIDGET_SDK.show();
+INREPLI_WIDGET_SDK.hide();
+INREPLI_WIDGET_SDK.toggle();
+
+// Open chat with a resource, without sending a chat message.
+INREPLI_WIDGET_SDK.show({
+  url: 'https://example.com/product-guide.pdf',
+  title: 'Product guide',
+  type: 'pdf'
+});
+```
+
+For resource opening, `url` is an HTTP or HTTPS URL. Optional `type` values are `url`, `image`, `video`, `pdf`, `presentation` and `text`; omit it to use content recognition. When the content viewer is disabled, `show()` opens chat without opening the resource.
 
 ## Form Submissions
 
@@ -66,22 +124,21 @@ For a more controlled and seamless long-term setup, a direct backend Integration
 
 You can begin with the Website SDK and move to a backend Integration later if your requirements become more complex.
 
-## Cookie Management
+## Consent Management
 
-<Callout kind="info">
+Open **Website → Consent Management** to connect OneTrust, Cookiebot, Usercentrics, or a custom consent integration.
 
-**Coming Soon**
+With a consent platform configured, optional analytics, preferences and marketing features wait for the corresponding consent. Essential functionality remains available. The SDK follows changes to the visitor's consent choices.
 
-Cookie management through the Website SDK is coming soon. This feature will help Inrepli manage consent and supported website tracking behavior based on your configured requirements.
-
-</Callout>
+For a custom integration, follow the page's `INREPLI_WIDGET_SDK.setConsent()` instructions whenever consent changes. Open the published website and make a consent choice to verify the connection; its status changes to **Connected** after Inrepli receives the first consent event.
 
 ## Website Behavior Tracking
 
-<Callout kind="info">
+Enable Webtracking for a connected website to record browsing activity collected after visitor consent. Depending on the website, this can include page views, active time, clicks, scrolling, form interactions, downloads and media activity. Tracking availability depends on your plan and website settings.
 
-**Coming Soon**
+In **Website → Webtracking**, review the activity list and filter by behavior, date, traffic type or source-verification result. Traffic details distinguish identified or suspected AI agents, crawlers and automation. An Unknown identity is not proof of a human visitor.
 
-Website behavior tracking is coming soon. This feature will allow the Agent to use relevant website activity, such as pages viewed or topics explored, to better understand Contact interests and intent.
+For a known Contact, **Website activity** in the profile shows visit history, an activity timeline and available visit summaries. Summaries update as browsing activity is collected, separately from Conversation summaries. See [Contact website activity](/data/contacts#website-activity) for details.
 
-</Callout>
+Webtracking is separate from whether the Agent sends proactive messages. Review the website's reception settings before enabling automatic outreach.
+

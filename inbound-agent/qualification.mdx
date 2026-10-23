@@ -10,7 +10,7 @@ Qualification helps your team determine whether an inbound Contact represents a 
 
 Traditional qualification processes often rely on rigid forms, preset categories, and manual research. A Contact may need to complete an additional Conversation before an Account Manager can determine whether the opportunity is relevant. This adds friction, requires manual data entry, and increases the time between the initial inquiry and a meaningful sales Conversation.
 
-Inrepli completes qualification as part of the existing inbound Conversation. The Agent can interact with Contacts at any time, communicate in supported languages, research the Contact and Company, and determine qualification in approximately one minute once sufficient information is available. This allows qualified Contacts to reach the appropriate Account Manager without adding a separate qualification step.
+Inrepli completes qualification as part of the existing inbound Conversation. The Agent gathers Contact and Company information and uses the available research and customer profiles to assess fit. This allows qualified Contacts to reach the appropriate Account Manager without adding a separate qualification step. The time required depends on the information and research available.
 
 ### What the Agent evaluates
 
@@ -45,6 +45,14 @@ You can create multiple ideal customer profiles when your business serves differ
 You can also create negative profiles. A negative profile describes a type of Company that your business does not serve or is restricted from serving. When a Contact matches a negative profile, the Agent marks the Contact as Not qualified and prevents automatic assignment to an Account Manager.
 
 Negative profiles may include Companies in unsupported industries, restricted locations, unsuitable Company sizes, or other categories your business has chosen not to serve.
+
+## Questions and company research
+
+Buyer Readiness Questions collect the additional information your business needs during a Conversation. Questions can be Required or Optional. A Required question needs an answer; skipping it does not count as completing it.
+
+Required controls information collection. It does not, by itself, make every answer a pass-or-fail qualification condition. The assessment uses the available answers together with your customer profiles and Company information.
+
+Setup-generated Company research fields can provide additional business-specific context. Their findings are stored on the Company record so the assessment can use the same Company information for related Contacts.
 
 ## Qualification statuses
 
@@ -91,7 +99,7 @@ Data Enrichment can add information such as:
 
 The Agent organizes the information into Inrepli's Contact and Company fields. This reduces manual data entry and gives the Account Manager more context when reviewing or responding to the Contact.
 
-Inrepli may use multiple sources to complete Data Enrichment, including grounded web research and third-party data providers. The availability and accuracy of information can vary by Contact, Company, location, and source.
+Data Enrichment uses AI-assisted research of publicly available Contact and Company information. The Agent maps supported findings into the available fields and can include a profile summary. It leaves information unresolved when reliable evidence is not available; the availability and accuracy of findings can vary by Contact and Company.
 
 Inrepli records source information and relevant timestamps for enriched data. This helps your team understand where information came from and when it was added or updated.
 
@@ -135,3 +143,4 @@ A Qualified result means the Company appears to fit your defined customer profil
 A Not qualified result means the Company did not meet the current Qualification Rules. Your team can still review, assign, or engage the Contact when appropriate.
 
 Review your customer profiles and Qualification Rules regularly. Updating these settings helps the Agent continue to reflect the Companies your business wants to serve.
+
