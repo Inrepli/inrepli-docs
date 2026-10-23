@@ -1,9 +1,9 @@
 ---
 title: MCP overview
-description: Connect AI assistants to your Inrepli CRM using a personal OAuth connection.
+description: Connect AI assistants to CRM records and Web Chat settings using a personal OAuth connection.
 ---
 
-Inrepli MCP lets an AI assistant search and update CRM records with your current account permissions. External AI clients use a personal OAuth connection rather than a REST API key. Enabled Inrepli Support workflows use the signed-in user through a separate internal authorization flow; see [MCP in Inrepli Support](/mcp/support).
+Inrepli MCP lets an AI assistant search and update CRM records, edit personal Web Chat drafts and request publication using your current account permissions. External AI clients use a personal OAuth connection rather than a REST API key. Enabled Inrepli Support workflows use the signed-in user through a separate internal authorization flow; see [MCP in Inrepli Support](/mcp/support).
 
 ## Server URL
 
@@ -26,7 +26,7 @@ Show the 5 most recently updated contacts I can access. Do not change any record
 
 ## Workspace access
 
-An administrator enables MCP using the independent **MCP access** switch in the Admin Console tenant's **API / MCP** page. REST API access and subscription plans do not automatically enable MCP. External clients still need OAuth consent, and all calls require current CRM permissions. Disabling MCP blocks new authorizations and subsequent calls from existing connections; re-enabling allows still-valid connections to resume. To permanently remove a connection, revoke it.
+An administrator enables MCP using the independent **MCP access** switch in the Admin Console tenant's **API / MCP** page. REST API access and subscription plans do not automatically enable MCP. External clients still need OAuth consent. CRM tools require the relevant current record permissions; Web Chat tools require website administration permission. Disabling MCP blocks new authorizations and subsequent calls from existing connections; re-enabling allows still-valid connections to resume. To permanently remove a connection, revoke it.
 
 | Capability | Tools |
 | --- | --- |
@@ -34,8 +34,11 @@ An administrator enables MCP using the independent **MCP access** switch in the 
 | Companies | `search_companies`, `get_company`, `update_company` |
 | Owner lookup | `list_team_members` |
 | Custom field metadata | `list_custom_field_definitions` |
+| Web Chat settings | Find widgets, read settings and connected WhatsApp accounts, save or discard a personal draft, and request publication |
 
-There are eight tools. Creation, deletion, sync, messages, meetings, enrichment and contact identity changes are outside this release. Contact `email` and `mobile` remain readable and filterable, but cannot be updated.
+CRM record creation, deletion, sync, messaging, meetings, enrichment and contact identity changes are not available through these tools. Contact `email` and `mobile` remain readable and filterable, but cannot be updated.
+
+Web Chat changes are saved as a personal draft shared with the Web Chat Settings editor, not applied directly to your live website. Review the draft in Inrepli and confirm **Publish** there; requesting publication through MCP does not publish automatically. See [Web Chat tools](/mcp/tools#web-chat-settings).
 
 Each connection belongs to one user and workspace. Users can connect an assistant without access to the management menu. Administrators can inspect and revoke workspace connections and see call logs.
 

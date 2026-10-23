@@ -1,6 +1,6 @@
 ---
 title: Updates, retries and errors
-description: Atomic single-record updates, note appends and zero-RU call logs.
+description: CRM updates, Web Chat draft publication, retries and zero-RU call logs.
 ---
 
 `update_contact` and `update_company` accept `id`, `changes` and `operationId`. The server reads the latest record inside the transaction. The assistant does not need to fetch an ETag first. REST API updates continue to require `If-Match`.
@@ -38,13 +38,19 @@ Generate a new `operationId` for each intended update. If a response is lost, re
 
 An update returns a receipt containing `id`, `operationId`, `updated`, `changedFields` and `ru: 0`. It does not expose unrelated record fields to update-only users. A user with read access can retrieve details separately.
 
-The assistant is instructed to clarify ambiguous targets and confirm multi-record changes. Client confirmation interfaces are controlled by the client; there is no server-side approval token or batch approval workflow in this release.
+For CRM updates, the assistant is instructed to clarify ambiguous targets and confirm multi-record changes. Client confirmation interfaces are controlled by the client; there is no server-side approval token or batch approval workflow for CRM updates.
+
+## Web Chat drafts and publication
+
+Web Chat tools use the same personal draft as the editor. `update_web_chat_draft` merges supplied settings into that draft; `discard_web_chat_draft` replaces all of your draft edits with the published configuration. Neither changes the live website. These tools do not use the CRM `operationId` or ETag contract.
+
+`publish_web_chat_settings` prepares the current changes for review and returns `requiresConfirmation: true` with `previewUrl`. It does not publish. Open the editor and confirm **Publish** in Inrepli to apply the current draft. Publication clears all users' drafts for that widget, so coordinate changes with other website administrators. When no unpublished changes exist, the tool returns a message without a confirmation request.
 
 ## Errors and limits
 
 SDK input-validation errors can use the MCP protocol validation format rather than the business error object below. No update is executed when input validation fails.
 
-Business tool errors contain a safe message, HTTP-equivalent `status` and stable `code`; unexpected errors are masked as `INTERNAL_ERROR`. Missing, invalid or expired MCP access credentials return an HTTP 401 Bearer challenge so the client can refresh or reconnect as appropriate. Operations not permitted by the current user’s CRM role return 403-equivalent tool errors; inaccessible records return 404. Query or field validation fails without partially applying an update.
+Business tool errors contain a safe message, HTTP-equivalent `status` and stable `code`; unexpected errors are masked as `INTERNAL_ERROR`. Missing, invalid or expired MCP access credentials return an HTTP 401 Bearer challenge so the client can refresh or reconnect as appropriate. Operations not permitted by the current user’s role return 403-equivalent tool errors; inaccessible records return 404. Web Chat tools require website administration permission and return `WEB_CHAT_PERMISSION_REQUIRED` when it is missing. Query or field validation fails without partially applying an update.
 
 Disabling MCP for a workspace blocks new authorizations and calls from existing connections with `403 MCP_NOT_ENABLED`. It does not prevent normal Inrepli sign-in. Reconnecting or signing in again does not enable MCP; an administrator must enable it for the workspace. Closing this switch does not itself revoke existing connections, so still-valid, unrevoked connections can resume after re-enabling.
 

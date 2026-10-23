@@ -1,6 +1,6 @@
 ---
 title: Tools, filters and pagination
-description: Structured MCP parameters and the CRM API 1.1 query rules.
+description: CRM search parameters and Web Chat draft and publication tools.
 ---
 
 ## Search and detail tools
@@ -31,11 +31,13 @@ Native enum filters use case-sensitive values with `eq` or `in`:
 
 For example, enrichment failure is `{ "field": "enrichmentStatus", "op": "eq", "value": "failed" }`, not `FAILED`. `isNull` still takes a boolean. Custom select options come from field definitions.
 
-For “my contacts”, use `{ "field": "ownerId", "op": "eq", "value": "me" }`. The server resolves `me` to the authenticated connection user, never a caller-supplied identity. This also works for company ownership.
+For records assigned to you, use `{ "field": "ownerId", "op": "eq", "value": "me" }`. The server resolves `me` to the authenticated connection user, never a caller-supplied identity. This also works for company ownership.
+
+`ownerId` identifies the current assignee, not the creator. Filtering by creator is not supported, and `createdAt` filters only the creation time. Do not replace a creator condition with ownership or add an assumed owner filter to a request for all accessible records.
 
 The underlying field/operator matrix, custom-field limitations and sort fields are the same as [REST API query rules](/api-reference/filtering-pagination). Up to 10 filters, including 3 custom filters, and two sort fields are allowed. Unsupported queries are rejected, not approximated or evaluated by downloading all records into memory.
 
-`get_contact` and `get_company` require `id`. Details contain the full public projection, including larger notes and active custom values. Optional relations use `include`. Lists use the compact API 1.1 projection; omitting a field from list output does not remove its supported filter capability. See [response fields](/api-reference/custom-fields).
+`get_contact` and `get_company` require `id`. Details contain the full public projection, including larger notes and active custom values. Optional relations use `include`. Lists use the compact API 1.1 projection: an omitted field is unknown, not proof that the record has no value. Read the exact record for details or notes, and report any fields that remain unavailable. Omitting a field from list output does not remove its supported filter capability. See [response fields](/api-reference/custom-fields).
 
 ## Pagination and totals
 
@@ -44,6 +46,8 @@ For contacts originally created through email, use `{"filters":[{"field":"origin
 Each search returns `data`, `nextCursor` and `hasMore`. The default page size is 50 and the maximum is 100. `count: "exact"` additionally returns `total` for the authorized, filtered dataset.
 
 The assistant can call the tool again with `nextCursor`, keeping `limit` and all other arguments unchanged. A cursor obtained with `limit: 1` cannot be continued with `limit: 25`. If you need a different page size or query, explicitly start a new search without a cursor; that starts from the beginning and is not continuation. Cursors bind to the query, workspace, connection and effective access. The server does not automatically fetch every page. For large requests, the assistant should clarify the desired scope and fetch only what is needed; a client may impose additional context or tool-call limits.
+
+For totals by owner, keep the common query filters and request exact counts separately for each owner and unassigned records; do not infer the breakdown from one page. Your records are part of assigned records, not an additional category. Resolve names with the team-member list and follow its pagination as needed; report incomplete coverage or inconsistent totals rather than forcing them to agree.
 
 ## Resolve owners and custom fields
 
@@ -65,3 +69,32 @@ Call the definition tool when a field's meaning, key, type or options are unknow
 Decimal values use exact strings. Select values use the definition's option values, not internal option IDs. Long-text custom fields support null checks only and are excluded from list values.
 
 The assistant interprets the user's intent. Tool descriptions advise it to clarify ambiguous people, dates, regions or thresholds; the server independently enforces permissions, field rules and limits.
+
+## Web Chat settings
+
+Web Chat tools require website administration permission and operate only on widgets in your workspace.
+
+| Tool | Purpose |
+| --- | --- |
+| `list_web_chat_widgets` | Find a widget by website name, URL or widget name; optionally filter by `websiteId`. |
+| `get_web_chat_settings` | Read published settings, your saved draft when present, and the editor's `previewUrl`. |
+| `list_web_chat_channel_accounts` | List connected WhatsApp accounts available for the widget. |
+| `update_web_chat_draft` | Save supported setting changes to your personal draft without changing the live website. |
+| `discard_web_chat_draft` | Discard all your draft edits for the widget and restore its published settings. |
+| `publish_web_chat_settings` | Prepare a publication review; the customer must confirm in Inrepli. |
+
+Use `items[].id` from `list_web_chat_widgets` as `widgetId`. The website ID, including the ID in an Inrepli website-page URL, is not a widget ID. If several widgets match, choose the intended website before editing. This list uses `page` and `limit`, with `hasMore` indicating further pages; it does not use CRM cursors.
+
+Send only changed fields in `config`; supported fields and values are defined by the draft tool's input schema. The editor and MCP use the same personal draft. Keep the returned editing locale; supported locale values are `en-US` and `zh-CN`, and other saved translations are preserved. `draft.dirty` means unpublished changes, not unsaved edits. A saved draft that matches published settings needs no publication.
+
+For example, after resolving the widget:
+
+```json
+{
+  "widgetId": "WIDGET_ID",
+  "locale": "en-US",
+  "config": { "widget": { "themeColor": "#645D9F" } }
+}
+```
+
+Open `previewUrl` to review the result in Web Chat Settings. `publish_web_chat_settings` returns a confirmation request, not a completed publication. External AI clients open the editor for the customer to confirm **Publish**. If there are no unpublished changes, there is nothing to publish. See [drafts and publication](/mcp/updates#web-chat-drafts-and-publication).
