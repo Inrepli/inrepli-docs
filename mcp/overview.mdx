@@ -1,9 +1,9 @@
 ---
 title: MCP overview
-description: Connect AI assistants to your Inrepli CRM using a personal OAuth connection.
+description: Search CRM records and read conversation, meeting and task details through a personal OAuth connection.
 ---
 
-Inrepli MCP lets an AI assistant search and update CRM records with your current account permissions. External AI clients use a personal OAuth connection rather than a REST API key. Enabled Inrepli Support workflows use the signed-in user through a separate internal authorization flow; see [MCP in Inrepli Support](/mcp/support).
+Inrepli MCP lets an AI assistant search and update CRM records and read conversation, meeting and unfinished-task details with your current account permissions. External AI clients use a personal OAuth connection rather than a REST API key. Enabled Inrepli Support workflows use the signed-in user through a separate internal authorization flow; see [MCP in Inrepli Support](/mcp/support).
 
 ## Server URL
 
@@ -34,8 +34,11 @@ An administrator enables MCP using the independent **MCP access** switch in the 
 | Companies | `search_companies`, `get_company`, `update_company` |
 | Owner lookup | `list_team_members` |
 | Custom field metadata | `list_custom_field_definitions` |
+| Conversation history | `search_conversations`, `get_conversation` |
+| Meeting details | `search_meetings`, `get_meeting` |
+| Unfinished tasks | `search_tasks`, `get_task` |
 
-There are eight tools. Creation, deletion, sync, messages, meetings, enrichment and contact identity changes are outside this release. Contact `email` and `mobile` remain readable and filterable, but cannot be updated.
+Conversation, meeting and task tools are read-only. They do not send messages, schedule or cancel meetings, or execute tasks. Contact and Company updates remain separate operations; creation, deletion, sync, enrichment and Contact identity changes are not provided by these CRM tools. Contact `email` and `mobile` remain readable and filterable, but cannot be updated.
 
 Each connection belongs to one user and workspace. Users can connect an assistant without access to the management menu. Administrators can inspect and revoke workspace connections and see call logs.
 

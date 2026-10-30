@@ -11,11 +11,17 @@ For example:
 Show the 5 most recently updated contacts I can access. Do not change any records.
 ```
 
-Support uses the same eight CRM tools and current record permissions described in [Tools, filters and pagination](/mcp/tools). The workspace MCP switch must be enabled. You can continue only your own Support conversations; access to view a shared conversation does not grant permission to continue it.
+Support uses the CRM, conversation, meeting and unfinished-task tools and current record permissions described in [Tools, filters and pagination](/mcp/tools). The workspace MCP switch must be enabled. You can continue only your own Support conversations; access to view a shared conversation does not grant permission to continue it.
 
 ## Permissions and results
 
 Tool availability does not grant permission to use every operation. Each call checks your current CRM permissions. A rejected operation does not complete; if a request includes several operations, some may have completed before another was rejected. The assistant should distinguish those outcomes and should not retry a denied operation through another tool.
+
+## Review a proposed change
+
+When you ask Support to update a Contact or Company, it first shows a server-generated confirmation card with the proposed changes. The proposal has not changed the record. Confirm the card to apply the change, or cancel it to leave the record unchanged. The resulting receipt distinguishes completion from cancellation. An expired confirmation requires a new proposal.
+
+Support rechecks the current user's permissions before executing the confirmation. Conversation, meeting and task detail tools remain read-only. When you ask Support to open a result, it uses the current authorized record destination rather than inventing a link.
 
 ## Logs and connections
 
