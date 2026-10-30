@@ -38,7 +38,7 @@ Generate a new `operationId` for each intended update. If a response is lost, re
 
 An update returns a receipt containing `id`, `operationId`, `updated`, `changedFields` and `ru: 0`. It does not expose unrelated record fields to update-only users. A user with read access can retrieve details separately.
 
-The assistant is instructed to clarify ambiguous targets and confirm multi-record changes. Client confirmation interfaces are controlled by the client; there is no server-side approval token or batch approval workflow in this release.
+External AI clients control their own confirmation interfaces; the assistant is instructed to clarify ambiguous targets and confirm multi-record changes. In Inrepli Support, Contact and Company updates instead require the server-generated confirmation card described in [MCP in Inrepli Support](/mcp/support). A proposal is not a completed update. Multiple records remain separate operations, without a batch approval or all-record transaction.
 
 ## Errors and limits
 

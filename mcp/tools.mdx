@@ -65,3 +65,15 @@ Call the definition tool when a field's meaning, key, type or options are unknow
 Decimal values use exact strings. Select values use the definition's option values, not internal option IDs. Long-text custom fields support null checks only and are excluded from list values.
 
 The assistant interprets the user's intent. Tool descriptions advise it to clarify ambiguous people, dates, regions or thresholds; the server independently enforces permissions, field rules and limits.
+
+## Conversations, meetings and unfinished tasks
+
+Use `search_conversations`, `search_meetings` and `search_tasks` to find accessible records. Each search returns a total for its authorized, filtered scope. Resolve “my” conversations by owner, meetings by host and tasks by assignee; these are different ownership relationships. Tasks include unfinished work only.
+
+Search results are summaries. For a question about a specific record, use `get_conversation`, `get_meeting` or `get_task` with the record ID resolved from a search or the conversation context. You do not need to copy an internal ID into your prompt when the record is already unambiguous.
+
+- **Conversations:** details include the stored summary and a bounded page of messages with sender, direction and time. `messageLimit` defaults to 20 and supports up to 50 messages. Use `messages.nextCursor` as `messageCursor`, keeping the record and limit unchanged, to read older messages. The summary may predate recent messages; a partial page does not establish complete history or resolution metrics.
+- **Meetings:** details include the stored description, topics and latest recorded change when available. A latest change is not a full change history. Meeting join URLs, transcripts and attendance are not returned.
+- **Tasks:** details include the unfinished task's description and recorded decision information when present. Opening its link lets you handle the task in Inrepli; reading the task does not start, complete, approve or reassign it.
+
+Detail results can include `route` for Inrepli navigation and `url` for an external client's clickable record link. A record link opens the Inrepli record, not a meeting join URL. Access to one record does not grant access to its related Contacts, Companies or users.
