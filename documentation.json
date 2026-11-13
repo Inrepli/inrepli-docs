@@ -145,6 +145,11 @@
                     "title": "Calendars",
                     "path": "connections/calendars",
                     "icon": "calendar-plus-icon"
+                  },
+                  {
+                    "title": "HubSpot",
+                    "path": "connections/hubspot",
+                    "icon": "link"
                   }
                 ]
               }
