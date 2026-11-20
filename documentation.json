@@ -127,6 +127,11 @@
                     "icon": "link"
                   },
                   {
+                    "title": "AI Agent Reception",
+                    "path": "connections/ai-agent-reception",
+                    "icon": "bot"
+                  },
+                  {
                     "title": "Email",
                     "path": "email",
                     "icon": "lucide-mail"
@@ -145,6 +150,11 @@
                     "title": "Calendars",
                     "path": "connections/calendars",
                     "icon": "calendar-plus-icon"
+                  },
+                  {
+                    "title": "HubSpot",
+                    "path": "connections/hubspot",
+                    "icon": "link"
                   }
                 ]
               }
