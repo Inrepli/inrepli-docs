@@ -1,0 +1,39 @@
+---
+title: HubSpot
+description: Send eligible Inrepli Contact and Company updates to HubSpot with reviewed mappings and visible synchronization results.
+---
+
+## Connect and review
+
+Open **Connections → HubSpot** and authorize the HubSpot account you want to use. Contact synchronization is included; enable Company synchronization if you also want to send Company records and associations. Additional permissions may be requested when you enable Company synchronization.
+
+This version sends data **from Inrepli to HubSpot**. It does not import historical CRM data in bulk or copy HubSpot edits back into Inrepli.
+
+Before enabling synchronization, review and save the field mappings. If a recommended new HubSpot property is needed, review the property-creation confirmation before saving. A paused connection stays paused when you save mappings; enable synchronization separately in Sync settings.
+
+## Choose when records synchronize
+
+For Contacts and enabled Companies, choose **Create and update**, **Create only**, or **Update only**. For the first Contact sync, choose whether an email or phone is enough or whether the Contact must first be qualified. Eligible new and changed records are processed using these settings.
+
+## Review field and owner mappings
+
+Match each Inrepli source to a writable HubSpot property. Required Inrepli record ID mappings identify linked records. Review option mappings when the two systems use different allowed values.
+
+Each field has an update rule:
+
+- **Inrepli manages** sends permitted Inrepli changes to the mapped property.
+- **Fill missing only** fills an empty destination without replacing an existing value.
+- **HubSpot manages** preserves the HubSpot-managed property during outbound updates.
+- **Do not sync** disables synchronization for that field.
+
+Use **Owner mappings** to match Inrepli Account Managers to HubSpot owners and choose the owner update rules. An unmapped Account Manager leaves an existing HubSpot owner unchanged.
+
+Review Lifecycle Stage and Lead Status mappings separately from general fields. Only configured values and eligible events contribute to these status updates.
+
+## Check results
+
+Contact and Company profiles show HubSpot record links and synchronization status. Open the details to inspect field outcomes, including values that were written, already matched, skipped, or need attention.
+
+Use **Sync Logs** to inspect individual attempts, their operation and result, and any recorded field changes. A successful task does not mean every field was written: some may already match or be intentionally excluded. Resolve a missing permission, mapping, or invalid value before retrying an item that needs attention.
+
+Pausing synchronization stops processing without removing existing records. Disconnecting keeps records already present in both systems.
